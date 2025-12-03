@@ -1,0 +1,4 @@
+project_id = "vrgbqirjichfuxqscjzg"
+
+[functions.anna-chat]
+verify_jwt = false

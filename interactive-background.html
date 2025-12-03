@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Background</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #background-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        #background-canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="background-container">
+        <canvas id="background-canvas"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('background-canvas');
+        const container = document.getElementById('background-container');
+        const ctx = canvas.getContext('2d');
+        
+        let animationFrameId;
+        let particles = [];
+        let isHovering = false;
+
+        function resize() {
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = Math.random() * 3 + 2;
+                this.color = Math.random() > 0.5 ? '#3DC47E' : '#0097FF';
+            }
+
+            update() {
+                const speed = isHovering ? 4 : 0.8;
+                this.x += this.vx * speed;
+                this.y += this.vy * speed;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                if (isHovering) {
+                    ctx.shadowBlur = 20;
+                    ctx.shadowColor = this.color;
+                } else {
+                    ctx.shadowBlur = 0;
+                }
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color + (isHovering ? 'BB' : '20');
+                ctx.fill();
+                
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.floor((canvas.width * canvas.height) / 8000);
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function drawConnections() {
+            const maxDistance = isHovering ? 200 : 140;
+            
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        const opacity = (1 - distance / maxDistance) * (isHovering ? 0.6 : 0.12);
+                        const color = Math.random() > 0.5 ? '0, 151, 255' : '61, 196, 126';
+                        
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(${color}, ${opacity})`;
+                        ctx.lineWidth = isHovering ? 2 : 0.8;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            drawConnections();
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        resize();
+        initParticles();
+        animate();
+
+        window.addEventListener('resize', () => {
+            resize();
+            initParticles();
+        });
+
+        container.addEventListener('mouseenter', () => {
+            isHovering = true;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            isHovering = false;
+        });
+    </script>
+</body>
+</html>
