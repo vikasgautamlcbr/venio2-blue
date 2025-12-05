@@ -471,11 +471,8 @@ const Navbar = () => {
           </div>
 
           <div className="hidden lg:flex items-center flex-shrink-0">
-            <Button 
-              className="bg-accent hover:bg-accent/90 text-white font-semibold px-6 py-2.5 rounded-lg shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 whitespace-nowrap"
-              onClick={() => setIsDemoDialogOpen(true)}
-            >
-              Book a Demo
+            <Button asChild className="bg-accent hover:bg-accent/90 text-white font-semibold px-6 py-2.5 rounded-lg shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 whitespace-nowrap">
+              <Link to="/book-a-demo">Book a Demo</Link>
             </Button>
           </div>
 
@@ -551,14 +548,8 @@ const Navbar = () => {
               </div>
             ))}
             <div className="mt-4">
-              <Button 
-                className="w-full bg-accent hover:bg-accent/90 text-white font-semibold"
-                onClick={() => {
-                  setIsDemoDialogOpen(true);
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                Book a Demo
+              <Button asChild className="w-full bg-accent hover:bg-accent/90 text-white font-semibold">
+                <Link to="/book-a-demo" onClick={() => setIsMobileMenuOpen(false)}>Book a Demo</Link>
               </Button>
             </div>
           </div>
@@ -675,20 +666,21 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="text-center">
             <h3 className="font-bold text-lg mb-4">Newsletter</h3>
             <p className="text-white/70 text-sm mb-4 font-body">
               Subscribe to our SaaS Trends weekly newsletter
             </p>
-            <div className="flex gap-2">
+            <div className="grid gap-3">
               <Input
                 type="email"
                 placeholder="Enter Your Email"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-14 rounded-xl mx-auto"
               />
-              <Button className="bg-accent hover:bg-accent/90 text-white">Submit</Button>
+              <Button className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group rounded-xl mx-auto">Submit</Button>
             </div>
           </div>
+
         </div>
 
         <div className="pt-8 border-t border-white/10">
@@ -1156,7 +1148,10 @@ const CaseStudiesSection = () => {
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto px-12 relative">
+        <div className="max-w-5xl mx-auto relative">
+          <div className="rounded-3xl bg-white/90 backdrop-blur-sm shadow-[0_0_60px_rgba(61,196,126,0.22)] transition-all duration-500">
+            <div className="p-0 relative">
+          <div className="rounded-3xl overflow-hidden min-h-[450px]">
           <Carousel 
             setApi={setApi}
             opts={{
@@ -1165,11 +1160,11 @@ const CaseStudiesSection = () => {
             }}
             className="w-full"
           >
-            <CarouselContent className="shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_70px_rgba(0,0,0,0.25)] transition-shadow duration-500 rounded-3xl">
+            <CarouselContent className="rounded-3xl transition-shadow duration-500">
               {caseStudies.map((study, index) => (
                 <CarouselItem key={index}>
-                  <Card className="group relative overflow-hidden border-0 rounded-3xl transition-all duration-500">
-                    <div className="grid md:grid-cols-2 aspect-[2/1]">
+                  <Card className="group relative overflow-hidden border-0 rounded-3xl transition-all duration-500 shadow-none">
+                    <div className="grid md:grid-cols-2 h-[450px]">
                       <div className="relative overflow-hidden">
                         <img 
                           src={study.bgImage} 
@@ -1221,37 +1216,43 @@ const CaseStudiesSection = () => {
               ))}
             </CarouselContent>
 
-            <button
-              onClick={() => api?.scrollPrev()}
-              className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-primary/20 hover:border-primary/50 hover:bg-primary/5 hover:scale-110 flex items-center justify-center transition-all duration-300 z-10"
-              aria-label="Previous case study"
-            >
-              <ChevronLeft className="h-6 w-6 text-primary" />
-            </button>
-
-            <button
-              onClick={() => api?.scrollNext()}
-              className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-primary/20 hover:border-primary/50 hover:bg-primary/5 hover:scale-110 flex items-center justify-center transition-all duration-300 z-10"
-              aria-label="Next case study"
-            >
-              <ChevronRight className="h-6 w-6 text-primary" />
-            </button>
           </Carousel>
-
-          <div className="flex justify-center gap-2 mt-8">
-            {caseStudies.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => api?.scrollTo(index)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
-                  index === current 
-                    ? "w-10 bg-primary shadow-lg shadow-primary/50" 
-                    : "w-2.5 bg-primary/30 hover:bg-primary/50 hover:w-6"
-                }`}
-                aria-label={`Go to case study ${index + 1}`}
-              />
-            ))}
           </div>
+
+          {/* Navigation Buttons - outside overflow wrapper to avoid clipping */}
+          <button
+            onClick={() => api?.scrollPrev()}
+            className="group absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-0 z-40"
+            aria-label="Previous case study"
+          >
+            <ChevronLeft className="h-6 w-6 text-primary group-hover:text-white" />
+          </button>
+
+          <button
+            onClick={() => api?.scrollNext()}
+            className="group absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-0 z-40"
+            aria-label="Next case study"
+          >
+            <ChevronRight className="h-6 w-6 text-primary group-hover:text-white" />
+          </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Dot indicators outside the placeholder */}
+        <div className="flex justify-center gap-2 mt-4">
+          {caseStudies.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => api?.scrollTo(index)}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                index === current 
+                  ? "w-10 bg-primary shadow-lg shadow-primary/50" 
+                  : "w-2.5 bg-primary/30 hover:bg-primary/50 hover:w-6"
+              }`}
+              aria-label={`Go to case study ${index + 1}`}
+            />
+          ))}
         </div>
 
         <div className="text-center mt-12">
@@ -1346,7 +1347,10 @@ const TestimonialsSection = () => {
             </h2>
           </div>
 
-          <div className="max-w-5xl mx-auto px-12 relative">
+          <div className="max-w-5xl mx-auto relative">
+            <div className="rounded-3xl bg-white/90 backdrop-blur-sm shadow-[0_0_60px_rgba(61,196,126,0.22)] transition-all duration-500">
+              <div className="p-0 relative">
+            <div className="rounded-3xl overflow-hidden min-h-[450px]">
             <Carousel
               setApi={setApi}
               opts={{
@@ -1357,7 +1361,7 @@ const TestimonialsSection = () => {
             >
               <CarouselContent>
                 <CarouselItem>
-                  <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px]">
+                  <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px] transition-all duration-300">
                     <div className="grid md:grid-cols-5 gap-8 items-center h-full">
                       <div className="md:col-span-2 space-y-6">
                         <div className="text-5xl text-accent/20 font-serif">"</div>
@@ -1385,7 +1389,7 @@ const TestimonialsSection = () => {
 
                 {testimonials.map((testimonial, idx) => (
                   <CarouselItem key={idx}>
-                    <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px]">
+                    <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px] transition-all duration-300 shadow-none">
                       <div className="grid md:grid-cols-5 gap-8 items-center">
                         <div className="md:col-span-2 space-y-4">
                           {stats.map((stat, index) => (
@@ -1418,37 +1422,42 @@ const TestimonialsSection = () => {
                 ))}
               </CarouselContent>
 
-              <button
-                onClick={() => api?.scrollPrev()}
-                className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-primary/20 hover:border-primary/50 hover:bg-primary/5 hover:scale-110 flex items-center justify-center transition-all duration-300 z-20"
-                aria-label="Previous slide"
-              >
-                <ChevronLeft className="h-6 w-6 text-primary" />
-              </button>
-
-              <button
-                onClick={() => api?.scrollNext()}
-                className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-primary/20 hover:border-primary/50 hover:bg-primary/5 hover:scale-110 flex items-center justify-center transition-all duration-300 z-20"
-                aria-label="Next slide"
-              >
-                <ChevronRight className="h-6 w-6 text-primary" />
-              </button>
             </Carousel>
-
-            <div className="flex justify-center gap-2 mt-8">
-              {[0, 1, 2, 3].map((index) => (
-                <button
-                  key={index}
-                  onClick={() => api?.scrollTo(index)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    index === current 
-                      ? "w-10 bg-primary shadow-lg shadow-primary/50" 
-                      : "w-2.5 bg-primary/30 hover:bg-primary/50 hover:w-6"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
             </div>
+
+            <button
+              onClick={() => api?.scrollPrev()}
+              className="group absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-0 z-20"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="h-6 w-6 text-primary group-hover:text-white" />
+            </button>
+
+            <button
+              onClick={() => api?.scrollNext()}
+              className="group absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-0 z-20"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="h-6 w-6 text-primary group-hover:text-white" />
+            </button>
+
+            </div>
+            </div>
+          </div>
+          {/* Dot indicators outside the placeholder */}
+          <div className="flex justify-center gap-2 mt-6">
+            {[0, 1, 2, 3].map((index) => (
+              <button
+                key={index}
+                onClick={() => api?.scrollTo(index)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  index === current 
+                    ? "w-10 bg-primary shadow-lg shadow-primary/50" 
+                    : "w-2.5 bg-primary/30 hover:bg-primary/50 hover:w-6"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -1504,7 +1513,7 @@ const TestimonialsSection = () => {
               <CarouselContent>
                 {testimonials.map((testimonial, idx) => (
                   <CarouselItem key={idx}>
-                    <div className="glass rounded-xl p-8 hover:shadow-lg transition-shadow h-full">
+                    <div className="glass rounded-xl p-8 shadow-none transition-shadow h-full">
                       <div className="flex flex-col h-full">
                         <div className="text-5xl text-accent/20 font-serif leading-none mb-4">"</div>
                         <p className="text-base text-muted-foreground font-body leading-relaxed mb-6 flex-grow">
@@ -1881,7 +1890,7 @@ const LawFirmSolutionsStandalone = () => {
           </div>
 
           <div className="relative z-10 w-full mt-16">
-            <p className="text-white/70 text-sm mb-6 font-body text-center">Trusted by leading organizations</p>
+            <p className="text-white/70 text-sm mb-6 font-body text-center"><span className="border-b-2 border-[#3DC47E] pb-1">Trusted by leading organizations</span></p>
             <div className="overflow-hidden py-6">
               <div className="flex gap-24 animate-scroll">
                 {[

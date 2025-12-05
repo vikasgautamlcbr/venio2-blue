@@ -34,19 +34,18 @@ const benefits = [
   },
 ];
 
-export const BenefitsSection = () => {
+export const BenefitsSection = ({
+  title = "Why Teams Choose Venio Legal Hold",
+  subtitle = "Built for modern legal teams who need speed, accuracy, and defensibility",
+}: { title?: string; subtitle?: string }) => {
   const FirstBenefitIcon = benefits[0].icon;
   
   return (
     <section className="py-20 px-6 bg-muted/30">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">
-            Why Teams Choose Venio Legal Hold
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Built for modern legal teams who need speed, accuracy, and defensibility
-          </p>
+          <h2 className="text-4xl font-bold mb-4">{title}</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
         </div>
 
         {/* Bento Grid Layout */}

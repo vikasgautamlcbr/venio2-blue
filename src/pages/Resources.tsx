@@ -83,10 +83,10 @@ const Resources = () => {
       badge: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30"
     },
     "infographic": { 
-      bg: "bg-teal-500/5", 
-      border: "border-teal-500/30 hover:border-teal-500/50", 
-      text: "text-teal-600 dark:text-teal-400",
-      badge: "bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-500/30"
+      bg: "bg-[#3DC47E]/10", 
+      border: "border-[#3DC47E]/30 hover:border-[#3DC47E]/50", 
+      text: "text-[#3DC47E] dark:text-[#3DC47E]",
+      badge: "bg-[#3DC47E]/10 text-[#3DC47E] dark:text-[#3DC47E] border-[#3DC47E]/30"
     },
   };
 
@@ -341,7 +341,7 @@ const Resources = () => {
       <Navbar />
       
       {/* Hero Section with Filters */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden gradient-animated pt-32 pb-16">
+      <section className="relative min-h-[45vh] md:min-h-[50vh] flex items-center overflow-hidden gradient-animated pt-24 xl:pt-28 2xl:pt-40 pb-12">
         {/* Dynamic Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float"></div>

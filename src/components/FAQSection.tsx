@@ -64,8 +64,8 @@ const FAQSection = () => {
                 <Accordion type="single" collapsible className="relative z-10">
                   <AccordionItem value={`item-${index}`} className="border-0">
                     <AccordionTrigger className="text-left text-lg font-bold text-primary hover:text-primary/80 py-6 hover:no-underline">
-                      <div className="flex items-start gap-4">
-                        <div className="bg-gradient-to-br from-secondary to-accent text-white w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-1 text-sm font-bold">
+                      <div className="flex items-center gap-4">
+                        <div className="bg-gradient-to-br from-secondary to-accent text-white w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">
                           {index + 1}
                         </div>
                         <span className="pr-4">{faq.question}</span>

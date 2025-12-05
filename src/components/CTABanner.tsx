@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import BookDemoDialog from "./BookDemoDialog";
+import { Link } from "react-router-dom";
 
 const CTABanner = () => {
-  const [isDemoDialogOpen, setIsDemoDialogOpen] = useState(false);
-
   return (
     <>
       <section className="py-12 bg-gradient-to-r from-primary via-primary/95 to-primary relative overflow-hidden">
@@ -28,13 +25,11 @@ const CTABanner = () => {
           </p>
 
           <div className="flex justify-center">
-            <Button
-              size="lg"
-              className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group"
-              onClick={() => setIsDemoDialogOpen(true)}
-            >
-              Book a Demo Today
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group">
+              <Link to="/book-a-demo">
+                Book a Demo Today
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
           </div>
 
@@ -44,7 +39,6 @@ const CTABanner = () => {
         </div>
       </div>
 
-      <BookDemoDialog open={isDemoDialogOpen} onOpenChange={setIsDemoDialogOpen} />
     </section>
     </>
   );

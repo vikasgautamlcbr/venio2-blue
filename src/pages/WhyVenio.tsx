@@ -1,10 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
-import CaseStudiesSection from "@/components/CaseStudiesSection";
 import SecuritySection from "@/components/SecuritySection";
-import TestimonialsSection from "@/components/TestimonialsSection";
 import { ScrollProgressIndicator } from "@/components/ScrollProgressIndicator";
 import {
   Accordion,
@@ -48,11 +47,10 @@ import epario from "@/assets/clients/epario.webp";
 const sections = [
   { id: "hero", label: "Overview" },
   { id: "problem", label: "Problem" },
-  { id: "comparison", label: "Comparison" },
   { id: "pillars", label: "Pillars" },
+  { id: "comparison", label: "Comparison" },
   { id: "journey", label: "Journey" },
   { id: "security", label: "Security" },
-  { id: "case-studies", label: "Case Studies" },
   { id: "resources", label: "Resources" },
   { id: "faq", label: "FAQ" },
 ];
@@ -81,7 +79,7 @@ const WhyVenio = () => {
       
       <main>
         {/* Hero Section */}
-        <section id="hero" className="relative min-h-[90vh] flex flex-col justify-between overflow-hidden gradient-animated pt-32 pb-36">
+        <section id="hero" className="relative min-h-[75vh] md:min-h-[70vh] flex flex-col justify-between overflow-hidden gradient-animated pt-24 xl:pt-28 2xl:pt-40 pb-20">
           {/* Dynamic Animated Background */}
           <div className="absolute inset-0">
             <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
@@ -105,20 +103,18 @@ const WhyVenio = () => {
                 End-to-end eDiscovery in one platform — AI acceleration, flexible deployment, and enterprise-grade defensibility.
               </p>
 
-              <Button
-                size="lg"
-                className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group"
-                onClick={() => setIsDemoDialogOpen(true)}
-              >
-                Book a Demo
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group">
+                <Link to="/book-a-demo">
+                  Book a Demo
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </Button>
             </div>
           </div>
 
           {/* Client Logo Carousel - Full Width */}
           <div className="relative z-10 w-full mt-16">
-            <p className="text-white/70 text-sm mb-6 font-body text-center">Trusted by leading organizations</p>
+            <p className="text-white/70 text-sm mb-6 font-body text-center"><span className="border-b-2 border-[#3DC47E] pb-1">Trusted by leading organizations</span></p>
             <div className="overflow-hidden py-6">
               <div className="flex gap-24 animate-scroll">
                 {/* First set of logos */}
@@ -216,6 +212,106 @@ const WhyVenio = () => {
           </div>
         </section>
 
+        <section id="pillars" className="py-20 px-6 bg-muted/30">
+          <div className="container mx-auto max-w-7xl">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-4">The pillars of Venio Advantage</h2>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="md:col-span-2 md:row-span-2">
+                <Card className="glass hover:shadow-2xl transition-all duration-300 h-full group overflow-hidden rounded-2xl">
+                  <CardContent className="p-0 h-full flex flex-col">
+                    <div className="relative h-80 bg-gradient-to-br from-primary/20 via-accent/10 to-primary/20 overflow-hidden">
+                      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Shield className="h-32 w-32 text-accent/30 group-hover:scale-110 transition-transform" />
+                      </div>
+                      <div className="absolute bottom-4 right-4 text-xs text-muted-foreground/50 font-mono">unified-workflow.gif</div>
+                    </div>
+                    <div className="p-8 flex-1 flex flex-col">
+                      <h3 className="text-3xl font-bold mb-4">Unified End-to-End</h3>
+                      <p className="text-muted-foreground leading-relaxed flex-1">
+                        One platform handling Legal Hold → Ingestion → ECA → Review → Production — fewer transfers, less risk. Complete workflow integration eliminates data silos and reduces compliance vulnerabilities.
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-gradient-to-br from-accent/15 to-primary/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                    <Brain className="h-16 w-16 text-accent/40 group-hover:scale-110 transition-transform" />
+                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">ai-acceleration.gif</div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-3">AI-Powered Acceleration</h3>
+                    <p className="text-sm text-muted-foreground">CAL/TAR, prioritization, clustering, and auto-tagging reduce reviewer workload.</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-gradient-to-br from-blue-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                    <Cloud className="h-16 w-16 text-blue-500/40 group-hover:scale-110 transition-transform" />
+                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">flexible-deployment.gif</div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-3">Flexible Deployment</h3>
+                    <p className="text-sm text-muted-foreground">Cloud, hybrid, or on-prem—choose what fits your security and governance model.</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-gradient-to-br from-green-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                    <DollarSign className="h-16 w-16 text-green-500/40 group-hover:scale-110 transition-transform" />
+                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">cost-control.gif</div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-3">Radical Cost Control</h3>
+                    <p className="text-sm text-muted-foreground">Early culling and optimized hosting deliver predictable total cost of ownership.</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-gradient-to-br from-purple-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                    <FileCheck className="h-16 w-16 text-purple-500/40 group-hover:scale-110 transition-transform" />
+                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">audit-trails.gif</div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-3">Defensible Process</h3>
+                    <p className="text-sm text-muted-foreground">Full, immutable audit trails, custodial tracking, and production QC built in.</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-gradient-to-br from-orange-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                    <Database className="h-16 w-16 text-orange-500/40 group-hover:scale-110 transition-transform" />
+                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">data-coverage.gif</div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-3">Modern Data Coverage</h3>
+                    <p className="text-sm text-muted-foreground">Native ingestion for email, cloud apps, chats, multimedia, and mobile sources.</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
         {/* Comparison Table Section */}
         <section id="comparison" className="py-20 px-6">
           <div className="container mx-auto max-w-6xl">
@@ -306,109 +402,6 @@ const WhyVenio = () => {
           </div>
         </section>
 
-        {/* The 6 Pillars Section - Bento Grid */}
-        <section id="pillars" className="py-20 px-6 bg-muted/30">
-          <div className="container mx-auto max-w-7xl">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">The pillars of Venio Advantage</h2>
-            </div>
-
-            {/* Bento Grid Layout */}
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* Large Card - Unified End-to-End (2x2) */}
-              <div className="md:col-span-2 md:row-span-2">
-                <Card className="glass hover:shadow-2xl transition-all duration-300 h-full group overflow-hidden rounded-2xl">
-                  <CardContent className="p-0 h-full flex flex-col">
-                    <div className="relative h-80 bg-gradient-to-br from-primary/20 via-accent/10 to-primary/20 overflow-hidden">
-                      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <Shield className="h-32 w-32 text-accent/30 group-hover:scale-110 transition-transform" />
-                      </div>
-                      <div className="absolute bottom-4 right-4 text-xs text-muted-foreground/50 font-mono">unified-workflow.gif</div>
-                    </div>
-                    <div className="p-8 flex-1 flex flex-col">
-                      <h3 className="text-3xl font-bold mb-4">Unified End-to-End</h3>
-                      <p className="text-muted-foreground leading-relaxed flex-1">
-                        One platform handling Legal Hold → Ingestion → ECA → Review → Production — fewer transfers, less risk. Complete workflow integration eliminates data silos and reduces compliance vulnerabilities.
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Small Cards */}
-              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
-                <CardContent className="p-0">
-                  <div className="relative aspect-video bg-gradient-to-br from-accent/15 to-primary/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    <Brain className="h-16 w-16 text-accent/40 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">ai-acceleration.gif</div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3">AI-Powered Acceleration</h3>
-                    <p className="text-sm text-muted-foreground">CAL/TAR, prioritization, clustering, and auto-tagging reduce reviewer workload.</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
-                <CardContent className="p-0">
-                  <div className="relative aspect-video bg-gradient-to-br from-blue-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    <Cloud className="h-16 w-16 text-blue-500/40 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">flexible-deployment.gif</div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3">Flexible Deployment</h3>
-                    <p className="text-sm text-muted-foreground">Cloud, hybrid, or on-prem—choose what fits your security and governance model.</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
-                <CardContent className="p-0">
-                  <div className="relative aspect-video bg-gradient-to-br from-green-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    <DollarSign className="h-16 w-16 text-green-500/40 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">cost-control.gif</div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3">Radical Cost Control</h3>
-                    <p className="text-sm text-muted-foreground">Early culling and optimized hosting deliver predictable total cost of ownership.</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
-                <CardContent className="p-0">
-                  <div className="relative aspect-video bg-gradient-to-br from-purple-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    <FileCheck className="h-16 w-16 text-purple-500/40 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">audit-trails.gif</div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3">Defensible Process</h3>
-                    <p className="text-sm text-muted-foreground">Full, immutable audit trails, custodial tracking, and production QC built in.</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
-                <CardContent className="p-0">
-                  <div className="relative aspect-video bg-gradient-to-br from-orange-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    <Database className="h-16 w-16 text-orange-500/40 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">data-coverage.gif</div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3">Modern Data Coverage</h3>
-                    <p className="text-sm text-muted-foreground">Native ingestion for email, cloud apps, chats, multimedia, and mobile sources.</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
 
         {/* Metrics Section - Using DataPointsSection Style */}
         <section className="py-24 relative overflow-hidden">
@@ -455,78 +448,6 @@ const WhyVenio = () => {
           </div>
         </section>
 
-        {/* Common Gaps Section - Table Format */}
-        <section className="py-20 px-6 bg-gradient-to-b from-background to-muted/30">
-          <div className="container mx-auto max-w-6xl">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Common gaps in competing approaches</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Without native ECA, automation, or integrated audit trails, teams face high costs, slower turnarounds, and compliance risk.
-              </p>
-            </div>
-
-            <div className="overflow-x-auto">
-              <div className="inline-block min-w-full align-middle">
-                <div className="overflow-hidden glass rounded-2xl border border-border/50">
-                  <table className="min-w-full divide-y divide-border/50">
-                    <thead>
-                      <tr className="bg-muted/30">
-                        <th className="text-left p-6 font-semibold text-foreground">Challenge</th>
-                        <th className="text-center p-6 font-semibold text-foreground">Other Tools</th>
-                        <th className="text-center p-6 font-semibold bg-accent/10 text-accent border-x-2 border-accent/30">Venio Advantage</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border/50">
-                      {[
-                        { 
-                          challenge: "Deployment Options", 
-                          others: "Cloud-only lock-in", 
-                          venio: "Cloud, hybrid, or on-premises" 
-                        },
-                        { 
-                          challenge: "ECA Functionality", 
-                          others: "Expensive add-ons required", 
-                          venio: "Built-in, no additional fees" 
-                        },
-                        { 
-                          challenge: "Pricing Model", 
-                          others: "Unpredictable per-GB pricing", 
-                          venio: "Transparent, predictable costs" 
-                        },
-                        { 
-                          challenge: "Automation", 
-                          others: "Limited, manual processes", 
-                          venio: "Scriptable, AI-powered workflows" 
-                        },
-                        { 
-                          challenge: "Workflow Integration", 
-                          others: "Fragmented across tools", 
-                          venio: "Complete end-to-end platform" 
-                        },
-                      ].map((row, index) => (
-                        <tr key={index} className="hover:bg-muted/20 transition-colors">
-                          <td className="p-6 font-medium text-foreground">{row.challenge}</td>
-                          <td className="p-6 text-center">
-                            <div className="flex items-center justify-center gap-2">
-                              <X className="h-5 w-5 text-red-500 flex-shrink-0" />
-                              <span className="text-sm text-muted-foreground">{row.others}</span>
-                            </div>
-                          </td>
-                          <td className="p-6 text-center bg-accent/5 border-x-2 border-accent/20">
-                            <div className="flex items-center justify-center gap-2">
-                              <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
-                              <span className="text-sm font-semibold text-accent">{row.venio}</span>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Platform Capabilities Section - Interactive Workflow Journey */}
         <section id="journey" className="py-20 px-6 bg-muted/30">
@@ -793,13 +714,7 @@ const WhyVenio = () => {
           <SecuritySection />
         </div>
 
-        {/* Case Studies Section */}
-        <div id="case-studies">
-          <CaseStudiesSection />
-        </div>
-
-        {/* Testimonials Section */}
-        <TestimonialsSection />
+        
 
         {/* Resources Section - Bento Card Layout */}
         <section id="resources" className="py-20 px-6 bg-muted/30">

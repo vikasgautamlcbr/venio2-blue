@@ -16,7 +16,11 @@ import haugLogo from "@/assets/clients/haug-partners-new.webp";
 import nixonLogo from "@/assets/clients/nixon-peabody-new.webp";
 import proteusLogo from "@/assets/clients/proteus-new.webp";
 
-const TestimonialsSection = () => {
+interface TestimonialsSectionProps {
+  showLogoTrail?: boolean;
+}
+
+const TestimonialsSection = ({ showLogoTrail = true }: TestimonialsSectionProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [api2, setApi2] = useState<CarouselApi>();
@@ -97,19 +101,22 @@ const TestimonialsSection = () => {
             </h2>
           </div>
 
-          <div className="max-w-5xl mx-auto px-12 relative">
-            <Carousel
-              setApi={setApi}
-              opts={{
-                loop: true,
-                align: "start",
-              }}
-              className="w-full"
-            >
-              <CarouselContent>
+          <div className="max-w-5xl mx-auto relative">
+            <div className="rounded-3xl bg-white/90 backdrop-blur-sm shadow-[0_0_60px_rgba(61,196,126,0.22)] transition-all duration-500">
+              <div className="p-0 relative">
+            <div className="rounded-3xl overflow-hidden min-h-[450px]">
+              <Carousel
+                setApi={setApi}
+                opts={{
+                  loop: true,
+                  align: "start",
+                }}
+                className="w-full"
+              >
+                <CarouselContent>
                 {/* Slide 1: Video Testimonial */}
                 <CarouselItem>
-                  <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px]">
+                  <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px] transition-all duration-300 shadow-none">
                     <div className="grid md:grid-cols-5 gap-8 items-center h-full">
                       {/* Left side - Text testimonial (2 cols) */}
                       <div className="md:col-span-2 space-y-6">
@@ -141,7 +148,7 @@ const TestimonialsSection = () => {
                 {/* Slides 2-4: Written Testimonials */}
                 {testimonials.map((testimonial, idx) => (
                   <CarouselItem key={idx}>
-                    <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px]">
+                    <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px] transition-all duration-300 shadow-none">
                       <div className="grid md:grid-cols-5 gap-8 items-center">
                         {/* Stats - Left side (2 cols) */}
                         <div className="md:col-span-2 space-y-4">
@@ -174,45 +181,49 @@ const TestimonialsSection = () => {
                     </div>
                   </CarouselItem>
                 ))}
-              </CarouselContent>
+                </CarouselContent>
+              </Carousel>
+            </div>
 
-              {/* Enhanced Navigation Buttons - Outside */}
-              <button
-                onClick={() => api?.scrollPrev()}
-                className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-primary/20 hover:border-primary/50 hover:bg-primary/5 hover:scale-110 flex items-center justify-center transition-all duration-300 z-20"
-                aria-label="Previous slide"
-              >
-                <ChevronLeft className="h-6 w-6 text-primary" />
-              </button>
+            {/* Navigation Buttons - middle left/right edges */}
+            <button
+              onClick={() => api?.scrollPrev()}
+              className="group absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-0 z-20"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="h-6 w-6 text-primary group-hover:text-white" />
+            </button>
 
-              <button
-                onClick={() => api?.scrollNext()}
-                className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-primary/20 hover:border-primary/50 hover:bg-primary/5 hover:scale-110 flex items-center justify-center transition-all duration-300 z-20"
-                aria-label="Next slide"
-              >
-                <ChevronRight className="h-6 w-6 text-primary" />
-              </button>
-            </Carousel>
+            <button
+              onClick={() => api?.scrollNext()}
+              className="group absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-0 z-20"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="h-6 w-6 text-primary group-hover:text-white" />
+            </button>
 
-            {/* Enhanced Dot indicators at bottom */}
-            <div className="flex justify-center gap-2 mt-8">
-              {[0, 1, 2, 3].map((index) => (
-                <button
-                  key={index}
-                  onClick={() => api?.scrollTo(index)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    index === current 
-                      ? "w-10 bg-primary shadow-lg shadow-primary/50" 
-                      : "w-2.5 bg-primary/30 hover:bg-primary/50 hover:w-6"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
             </div>
           </div>
+          {/* Dot indicators outside the placeholder */}
+          <div className="flex justify-center gap-2 mt-6">
+            {[0, 1, 2, 3].map((index) => (
+              <button
+                key={index}
+                onClick={() => api?.scrollTo(index)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  index === current 
+                    ? "w-10 bg-primary shadow-lg shadow-primary/50" 
+                    : "w-2.5 bg-primary/30 hover:bg-primary/50 hover:w-6"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
         </div>
 
         {/* Logo Ticker - Below scroll indicator */}
+        {showLogoTrail && (
         <div className="mt-16 relative overflow-hidden py-8">
           <div className="logo-ticker-inner flex gap-16 animate-logo-scroll">
             {[
@@ -248,22 +259,23 @@ const TestimonialsSection = () => {
             ))}
           </div>
         </div>
+        )}
 
-        <style>{`
-          @keyframes logo-scroll {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-50%);
-            }
-          }
-
-          .animate-logo-scroll {
-            animation: logo-scroll 30s linear infinite;
-          }
-        `}</style>
       </section>
+      <style>{`
+        @keyframes logo-scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .animate-logo-scroll {
+          animation: logo-scroll 30s linear infinite;
+        }
+      `}</style>
     </>
   );
 };

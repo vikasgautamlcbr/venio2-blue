@@ -6,6 +6,14 @@ import { Check, TrendingDown, DollarSign, Users, Database, Clock } from "lucide-
 import ROICalculator from "@/components/ROICalculator";
 import { ScrollProgressIndicator } from "@/components/ScrollProgressIndicator";
 import { useEffect } from "react";
+import amentum from "@/assets/clients/amentum.webp";
+import consilio from "@/assets/clients/consilio.webp";
+import array from "@/assets/clients/array.webp";
+import haugPartners from "@/assets/clients/haug-partners.webp";
+import nixonPeabody from "@/assets/clients/nixon-peabody.webp";
+import proteus from "@/assets/clients/proteus.webp";
+import cds from "@/assets/clients/cds.webp";
+import epario from "@/assets/clients/epario.webp";
 
 const sections = [
   { id: "hero", label: "Overview" },
@@ -58,7 +66,7 @@ const Pricing = () => {
       <ScrollProgressIndicator sections={sections} />
       
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-[60vh] flex items-center overflow-hidden gradient-animated pt-32 pb-20">
+      <section id="hero" className="relative min-h-[75vh] md:min-h-[70vh] flex flex-col justify-between overflow-hidden gradient-animated pt-24 xl:pt-28 2xl:pt-40 pb-20">
         {/* Dynamic Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
@@ -73,16 +81,71 @@ const Pricing = () => {
 
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/50 to-primary/80"></div>
         
-        <div className="container mx-auto text-center relative z-10 px-6">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-            Get Quote in Seconds
-          </h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8">
-            Transparent, flexible pricing that scales with your needs. No hidden fees, no surprises.
-          </p>
-          <Button size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-6 text-lg shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105">
-            Request a Quote
-          </Button>
+        <div className="relative z-10 container mx-auto px-6 max-w-5xl flex-1 flex items-center justify-center">
+          <div className="text-center animate-fade-in w-full">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+              Get Quote in Seconds
+            </h1>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8">
+              Transparent, flexible pricing that scales with your needs. No hidden fees, no surprises.
+            </p>
+            <Button size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-6 text-lg shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105">
+              Request a Quote
+            </Button>
+          </div>
+        </div>
+
+        {/* Client Logo Carousel - Full Width */}
+        <div className="relative z-10 w-full mt-16">
+          <p className="text-white/70 text-sm mb-6 font-body text-center"><span className="border-b-2 border-[#3DC47E] pb-1">Trusted by leading organizations</span></p>
+          <div className="overflow-hidden py-6">
+            <div className="flex gap-24 animate-scroll">
+              {/* First set of logos */}
+              {[
+                { src: amentum, name: "Amentum" },
+                { src: array, name: "Array" },
+                { src: cds, name: "CDS" },
+                { src: consilio, name: "Consilio" },
+                { src: epario, name: "Epario" },
+                { src: haugPartners, name: "Haug Partners" },
+                { src: nixonPeabody, name: "Nixon Peabody" },
+                { src: proteus, name: "Proteus" }
+              ].map((logo, index) => (
+                <div 
+                  key={`first-${index}`} 
+                  className="flex-shrink-0"
+                >
+                  <img 
+                    src={logo.src} 
+                    alt={logo.name} 
+                    className="h-8 md:h-10 w-auto object-contain brightness-0 invert"
+                  />
+                </div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {[
+                { src: amentum, name: "Amentum" },
+                { src: array, name: "Array" },
+                { src: cds, name: "CDS" },
+                { src: consilio, name: "Consilio" },
+                { src: epario, name: "Epario" },
+                { src: haugPartners, name: "Haug Partners" },
+                { src: nixonPeabody, name: "Nixon Peabody" },
+                { src: proteus, name: "Proteus" }
+              ].map((logo, index) => (
+                <div 
+                  key={`second-${index}`} 
+                  className="flex-shrink-0"
+                >
+                  <img 
+                    src={logo.src} 
+                    alt={logo.name} 
+                    className="h-8 md:h-10 w-auto object-contain brightness-0 invert"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

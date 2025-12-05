@@ -53,7 +53,7 @@ const LawFirmSolutions = () => {
       
       <main>
         {/* Hero Section */}
-        <section id="hero" className="relative min-h-[90vh] flex flex-col justify-between overflow-hidden gradient-animated pt-32 pb-36">
+        <section id="hero" className="relative min-h-[75vh] md:min-h-[70vh] flex flex-col justify-between overflow-hidden gradient-animated pt-24 xl:pt-28 2xl:pt-40 pb-20">
           {/* Dynamic Animated Background */}
           <div className="absolute inset-0">
             <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
@@ -89,7 +89,7 @@ const LawFirmSolutions = () => {
 
           {/* Client Logo Carousel - Full Width */}
           <div className="relative z-10 w-full mt-16">
-            <p className="text-white/70 text-sm mb-6 font-body text-center">Trusted by leading organizations</p>
+            <p className="text-white/70 text-sm mb-6 font-body text-center"><span className="border-b-2 border-[#3DC47E] pb-1">Trusted by leading organizations</span></p>
             <div className="overflow-hidden py-6">
               <div className="flex gap-24 animate-scroll">
                 {/* First set of logos */}
@@ -183,7 +183,7 @@ const LawFirmSolutions = () => {
         <CaseStudiesSection />
 
         {/* Testimonials Section */}
-        <TestimonialsSection />
+        <TestimonialsSection showLogoTrail={false} />
 
         {/* Resources Section */}
         <ResourcesCarousel />

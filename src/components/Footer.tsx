@@ -1,40 +1,44 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Linkedin, Facebook, Twitter, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const footerLinks = {
     Products: [
-      "Venio Review",
-      "Venio ECA",
-      "AI at the Core",
-      "Venio Production",
-      "Venio AI Review",
-      "Venio Legal Hold",
+      { name: "Venio Review", url: "#" },
+      { name: "Venio ECA", url: "#" },
+      { name: "AI at the Core", url: "#" },
+      { name: "Venio Production", url: "#" },
+      { name: "Venio AI Review", url: "#" },
+      { name: "Venio Legal Hold", url: "#" },
     ],
     Solutions: [
-      "Law Firms",
-      "Legal Service Providers",
-      "Corporations",
-      "Government",
-      "Legal Counsel",
-      "eDiscovery Attorneys",
-      "eDiscovery Managers",
+      { name: "Law Firms", url: "#" },
+      { name: "Legal Service Providers", url: "#" },
+      { name: "Corporations", url: "#" },
+      { name: "Government", url: "#" },
+      { name: "Legal Counsel", url: "#" },
+      { name: "eDiscovery Attorneys", url: "#" },
+      { name: "eDiscovery Managers", url: "#" },
     ],
     Resources: [
-      "Blog",
-      "AmLaw 50 Firm – Case Study",
-      "Federal Agency – Case Study",
-      "Global Bank – Case Study",
-      "Saving Calculator",
-      "Partnership",
-      "Webinars & Events",
+      { name: "Blog", url: "/blog/demo" },
+      { name: "Case Studies", url: "/resources/case-studies/demo" },
+      { name: "White Papers", url: "/resources/white-papers/demo" },
+      { name: "Product Briefs", url: "/resources/product-briefs/demo" },
+      { name: "eBooks", url: "/resources/ebooks/demo" },
+      { name: "Videos", url: "/resources/videos/demo" },
+      { name: "Brochures", url: "/resources/brochures/demo" },
+      { name: "Press Releases", url: "/resources/press-releases/demo" },
+      { name: "How-to Guides", url: "/resources/how-to-guides/demo" },
+      { name: "Infographics", url: "/resources/infographics/demo" },
     ],
     Company: [
-      "Why Venio",
-      "Request a Demo",
-      "Pricing",
-      "Contact Us",
+      { name: "Why Venio", url: "#" },
+      { name: "Request a Demo", url: "/book-a-demo" },
+      { name: "Pricing", url: "#" },
+      { name: "Contact Us", url: "#" },
     ],
   };
 
@@ -43,19 +47,19 @@ const Footer = () => {
       <div className="container mx-auto px-4">
 
         {/* Main Footer Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-10 mb-12">
           {/* Products */}
           <div>
             <h3 className="font-bold text-lg mb-4">Products</h3>
             <ul className="space-y-2">
               {footerLinks.Products.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
+                <li key={link.name}>
+                  <Link
+                    to={link.url}
                     className="text-white/70 hover:text-white transition-colors text-sm font-body"
                   >
-                    {link}
-                  </a>
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -66,13 +70,13 @@ const Footer = () => {
             <h3 className="font-bold text-lg mb-4">Solutions</h3>
             <ul className="space-y-2">
               {footerLinks.Solutions.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
+                <li key={link.name}>
+                  <Link
+                    to={link.url}
                     className="text-white/70 hover:text-white transition-colors text-sm font-body"
                   >
-                    {link}
-                  </a>
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -83,13 +87,13 @@ const Footer = () => {
             <h3 className="font-bold text-lg mb-4">Resources</h3>
             <ul className="space-y-2">
               {footerLinks.Resources.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
+                <li key={link.name}>
+                  <Link
+                    to={link.url}
                     className="text-white/70 hover:text-white transition-colors text-sm font-body"
                   >
-                    {link}
-                  </a>
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -100,13 +104,13 @@ const Footer = () => {
             <h3 className="font-bold text-lg mb-4">Company</h3>
             <ul className="space-y-2">
               {footerLinks.Company.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
+                <li key={link.name}>
+                  <Link
+                    to={link.url}
                     className="text-white/70 hover:text-white transition-colors text-sm font-body"
                   >
-                    {link}
-                  </a>
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -114,17 +118,20 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Newsletter</h3>
-            <p className="text-white/70 text-sm mb-4 font-body">
-              Subscribe to our SaaS Trends weekly newsletter
-            </p>
-            <div className="flex gap-2">
-              <Input
-                type="email"
-                placeholder="Enter Your Email"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-              />
-              <Button className="bg-accent hover:bg-accent/90 text-white">Submit</Button>
+            <div className="bg-white/10 border border-white/20 rounded-2xl p-5 md:p-6 backdrop-blur-sm shadow-lg shadow-black/10 text-center">
+              <h3 className="font-bold text-lg mb-2">Newsletter</h3>
+              <p className="text-white/70 text-sm mb-4 font-body">
+                Subscribe to our SaaS Trends weekly newsletter
+              </p>
+              <div className="grid gap-3">
+                <Input
+                  type="email"
+                  placeholder="Enter Your Email"
+                  className="h-14 rounded-xl bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:ring-2 focus:ring-accent mx-auto"
+                />
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group rounded-xl mx-auto">Submit</Button>
+              </div>
+              <p className="text-white/60 text-xs mt-3 font-body">No spam • Unsubscribe anytime</p>
             </div>
           </div>
         </div>
@@ -144,41 +151,41 @@ const Footer = () => {
 
             {/* Links and Social */}
             <div className="flex items-center gap-6">
-              <a href="#" className="text-white/60 hover:text-white text-sm font-body">
+              <Link to="#" className="text-white/60 hover:text-white text-sm font-body">
                 Privacy Policy
-              </a>
-              <a href="#" className="text-white/60 hover:text-white text-sm font-body">
+              </Link>
+              <Link to="#" className="text-white/60 hover:text-white text-sm font-body">
                 Terms of Use
-              </a>
+              </Link>
               <div className="flex gap-4 ml-4">
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="text-white/60 hover:text-white transition-colors"
                   aria-label="LinkedIn"
                 >
                   <Linkedin size={20} />
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="#"
                   className="text-white/60 hover:text-white transition-colors"
                   aria-label="Facebook"
                 >
                   <Facebook size={20} />
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="#"
                   className="text-white/60 hover:text-white transition-colors"
                   aria-label="Twitter"
                 >
                   <Twitter size={20} />
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="#"
                   className="text-white/60 hover:text-white transition-colors"
                   aria-label="YouTube"
                 >
                   <Youtube size={20} />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

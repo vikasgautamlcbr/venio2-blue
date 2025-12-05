@@ -76,7 +76,7 @@ const HeroSection = () => {
   }, [activeTab]);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden pt-24 pb-0">
+    <section className="relative min-h-[80vh] md:min-h-[75vh] flex flex-col items-center justify-start overflow-hidden pt-24 xl:pt-28 2xl:pt-32 pb-0">
       {/* Animated Gradient Background */}
       <div className="absolute inset-0 gradient-animated"></div>
 
@@ -151,7 +151,7 @@ const HeroSection = () => {
                   <button
                     key={index}
                     onClick={() => handleTabClick(index)}
-                    className={`px-5 py-3 backdrop-blur-md rounded-t-lg text-sm transition-all duration-300 relative overflow-hidden border border-white/20 ${
+                    className={`px-5 py-3 backdrop-blur-md rounded-t-lg text-sm transition-all duration-300 relative overflow-hidden ${
                       isActive
                         ? "bg-white/95 text-primary font-bold shadow-lg"
                         : "bg-white/20 text-white hover:bg-white/30 hover:text-white font-medium"

@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Download, FileText, CheckCircle2, ArrowLeft, Eye, Star, Shield, Globe, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const AssetDownload = () => {
+const CaseStudy = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -25,11 +25,9 @@ const AssetDownload = () => {
     <div className="min-h-screen flex flex-col bg-white text-slate-900 font-sans">
       <Navbar />
       
-      {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-[#EAF8F2] overflow-hidden">
-        {/* Abstract shapes for visual interest */}
         <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-white/20 to-transparent pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-[#3DC47E]/20 blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-[rgba(61,196,126,0.2)] blur-3xl pointer-events-none"></div>
 
         <div className="container max-w-6xl relative z-10">
           <Link to="/resources" className="inline-flex items-center gap-2 text-slate-600 hover:text-primary transition-colors mb-8 group font-medium">
@@ -38,7 +36,6 @@ const AssetDownload = () => {
           </Link>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Content */}
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <Badge className="bg-[rgba(61,196,126,0.12)] text-[#3DC47E] hover:bg-[rgba(61,196,126,0.2)] border-[#3DC47E] px-3 py-1 text-sm font-medium rounded-full">
@@ -96,21 +93,15 @@ const AssetDownload = () => {
               </div>
             </div>
 
-            {/* Right Column - Preview */}
             <div className="relative lg:h-auto flex items-center justify-center">
               <div className="relative w-full max-w-md aspect-[8.5/11] group">
-                {/* Card shadow/glow */}
-                <div className="absolute -inset-2 bg-[#3DC47E]/25 rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                {/* Document Image */}
+                <div className="absolute -inset-2 bg-[rgba(61,196,126,0.3)] rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative w-full h-full rounded-xl overflow-hidden bg-white shadow-2xl border border-slate-200 transform transition-transform duration-500 group-hover:-translate-y-2">
                   <img 
                     src="/placeholder.svg" 
                     alt="Document preview"
                     className="w-full h-full object-cover"
                   />
-                  
-                  {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[1px]">
                     <Button className="bg-white text-slate-900 hover:bg-slate-50 shadow-lg border border-slate-200 rounded-full px-6">
                       <Eye className="w-4 h-4 mr-2" />
@@ -118,8 +109,6 @@ const AssetDownload = () => {
                     </Button>
                   </div>
                 </div>
-
-                {/* Decorative elements behind */}
                 <div className="absolute -z-10 top-10 -right-10 w-32 h-32 bg-yellow-100 rounded-full blur-2xl opacity-60"></div>
               </div>
             </div>
@@ -127,7 +116,6 @@ const AssetDownload = () => {
         </div>
       </section>
 
-      {/* Key Highlights / What You'll Learn */}
       <section className="py-20 px-4 bg-white">
         <div className="container max-w-6xl">
           <div className="text-center mb-16">
@@ -139,32 +127,14 @@ const AssetDownload = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              {
-                title: "Cost Reduction Strategy",
-                description: "How the firm achieved 60% reduction in eDiscovery costs through AI-powered automation."
-              },
-              {
-                title: "Workflow Optimization",
-                description: "Step-by-step breakdown of the new efficient workflow that cut review time in half."
-              },
-              {
-                title: "Technology Implementation",
-                description: "Detailed look at the technology stack and integration process with existing systems."
-              },
-              {
-                title: "Team Training",
-                description: "How the legal team was onboarded and trained on the new platform within 2 weeks."
-              },
-              {
-                title: "Measurable Results",
-                description: "Concrete metrics and ROI analysis from the first 6 months of operation."
-              },
-              {
-                title: "Best Practices",
-                description: "Key learnings and recommendations for firms considering similar transformations."
-              }
+              { title: "Cost Reduction Strategy", description: "How the firm achieved 60% reduction in eDiscovery costs through AI-powered automation." },
+              { title: "Workflow Optimization", description: "Step-by-step breakdown of the new efficient workflow that cut review time in half." },
+              { title: "Technology Implementation", description: "Detailed look at the technology stack and integration process with existing systems." },
+              { title: "Team Training", description: "How the legal team was onboarded and trained on the new platform within 2 weeks." },
+              { title: "Measurable Results", description: "Concrete metrics and ROI analysis from the first 6 months of operation." },
+              { title: "Best Practices", description: "Key learnings and recommendations for firms considering similar transformations." }
             ].map((item, index) => (
-              <div key={index} className="flex gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-[rgba(61,196,126,0.3)] hover:shadow-lg hover:shadow-[rgba(61,196,126,0.25)] transition-all duration-300 group">
+              <div key={index} className="flex gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-[#3DC47E] hover:shadow-[0_0_30px_rgba(61,196,126,0.15)] transition-all duration-300 group">
                 <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[rgba(61,196,126,0.12)] text-[#3DC47E] flex items-center justify-center group-hover:bg-[#3DC47E] group-hover:text-white transition-colors">
                   <CheckCircle2 className="w-5 h-5" />
                 </div>
@@ -178,7 +148,6 @@ const AssetDownload = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="py-20 bg-[#EAF8F2]/50">
         <div className="container max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -190,7 +159,7 @@ const AssetDownload = () => {
                    { val: "95%", label: "Accuracy Rate" },
                    { val: "2M+", label: "Docs Processed" }
                 ].map((stat, i) => (
-                  <Card key={i} className="p-8 border-none shadow-lg shadow-[rgba(61,196,126,0.05)] bg-white text-center hover:-translate-y-1 transition-transform duration-300 rounded-2xl">
+                  <Card key={i} className="p-8 border-none shadow-lg shadow-[0_10px_20px_rgba(61,196,126,0.05)] bg-white text-center hover:-translate-y-1 transition-transform duration-300 rounded-2xl">
                     <div className="text-5xl md:text-6xl font-bold text-[#3DC47E] mb-2">{stat.val}</div>
                     <div className="text-base font-medium text-slate-500 uppercase tracking-wider">{stat.label}</div>
                   </Card>
@@ -201,8 +170,7 @@ const AssetDownload = () => {
               <Badge className="bg-white text-[#3DC47E] border-[#3DC47E] shadow-sm">Proven Results</Badge>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Real Impact on the Bottom Line</h2>
               <p className="text-lg text-slate-600 leading-relaxed">
-                The implementation of VenioOne didn't just improve workflows—it fundamentally changed the firm's profitability model for eDiscovery services. 
-                By automating routine tasks, associates were freed to focus on high-value case strategy.
+                The implementation of VenioOne didn't just improve workflows—it fundamentally changed the firm's profitability model for eDiscovery services.
               </p>
               <div className="pt-4">
                 <Button variant="link" className="text-[#3DC47E] font-bold p-0 h-auto hover:text-[#3DC47E] text-lg group">
@@ -214,48 +182,11 @@ const AssetDownload = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <CTABanner />
-
-      {/* Related Resources */}
-      <section className="py-20 bg-slate-50">
-        <div className="container max-w-6xl">
-          <div className="flex items-center justify-between mb-12">
-            <h2 className="text-2xl font-bold text-slate-900">Related Resources</h2>
-            <Link to="/resources" className="text-[#3DC47E] font-semibold hover:underline flex items-center gap-2">
-              View All <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { type: "Product Brief", title: "Venio Review Platform Overview", icon: Globe },
-              { type: "Case Study", title: "Federal Agency Workflow Success", icon: Shield },
-              { type: "Guide", title: "10 Points Checklist for Doc Review", icon: CheckCircle2 }
-            ].map((item, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-slate-200 hover:border-[rgba(61,196,126,0.3)] bg-white overflow-hidden rounded-2xl">
-                <div className="h-2 bg-[#3DC47E] w-0 group-hover:w-full transition-all duration-500"></div>
-                <div className="p-8">
-                  <div className="w-12 h-12 rounded-lg bg-[rgba(61,196,126,0.12)] text-[#3DC47E] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <item.icon className="w-6 h-6" />
-                  </div>
-                  <div className="text-xs font-bold text-[#3DC47E] uppercase tracking-wider mb-3">{item.type}</div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-[#3DC47E] transition-colors line-clamp-2">
-                    {item.title}
-                  </h3>
-                  <Link to="#" className="inline-flex items-center text-slate-500 font-semibold group-hover:text-[#3DC47E] mt-4">
-                    Read more <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>
   );
 };
 
-export default AssetDownload;
+export default CaseStudy;

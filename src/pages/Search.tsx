@@ -214,7 +214,7 @@ const Search = () => {
       <ScrollProgressIndicator sections={sections} />
       
       {/* Hero Section with Search */}
-      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden gradient-animated">
+      <section id="hero" className="relative min-h-[55vh] md:min-h-[50vh] flex items-center overflow-hidden gradient-animated pt-24 xl:pt-28 2xl:pt-40 pb-12">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
           <div className="absolute bottom-32 right-10 w-[500px] h-[500px] bg-accent/25 rounded-full blur-3xl float-delayed"></div>

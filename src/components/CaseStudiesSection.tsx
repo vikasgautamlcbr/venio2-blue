@@ -74,7 +74,10 @@ const CaseStudiesSection = () => {
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto px-12 relative">
+        <div className="max-w-5xl mx-auto relative">
+          <div className="rounded-3xl bg-white/90 backdrop-blur-sm shadow-[0_0_60px_rgba(61,196,126,0.22)] transition-all duration-500">
+            <div className="p-0 relative">
+          <div className="rounded-3xl overflow-hidden min-h-[450px]">
           <Carousel 
             setApi={setApi}
             opts={{
@@ -83,11 +86,11 @@ const CaseStudiesSection = () => {
             }}
             className="w-full"
           >
-            <CarouselContent className="shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_70px_rgba(0,0,0,0.25)] transition-shadow duration-500 rounded-3xl">
+            <CarouselContent className="rounded-3xl transition-shadow duration-500">
               {caseStudies.map((study, index) => (
                 <CarouselItem key={index}>
-                  <Card className="group relative overflow-hidden border-0 rounded-3xl transition-all duration-500">
-                    <div className="grid md:grid-cols-2 aspect-[2/1]">
+                  <Card className="group relative overflow-hidden border-0 rounded-3xl transition-all duration-500 shadow-none">
+                    <div className="grid md:grid-cols-2 h-[450px]">
                       {/* Left Side - Image with Overlay */}
                       <div className="relative overflow-hidden">
                         <img 
@@ -95,7 +98,7 @@ const CaseStudiesSection = () => {
                           alt={study.title}
                           className="absolute inset-0 w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/90 to-accent/85"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-accent/70"></div>
                         
                         <div className="relative h-full flex flex-col items-center justify-center text-center p-8 md:p-12">
                           <div className={`w-16 h-16 ${study.bgColor} rounded-2xl flex items-center justify-center mb-6`}>
@@ -141,42 +144,45 @@ const CaseStudiesSection = () => {
               ))}
             </CarouselContent>
 
-            {/* Enhanced Navigation Buttons - Outside */}
-            <button
-              onClick={() => api?.scrollPrev()}
-              className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-primary/20 hover:border-primary/50 hover:bg-primary/5 hover:scale-110 flex items-center justify-center transition-all duration-300 z-10"
-              aria-label="Previous case study"
-            >
-              <ChevronLeft className="h-6 w-6 text-primary" />
-            </button>
-
-            <button
-              onClick={() => api?.scrollNext()}
-              className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-primary/20 hover:border-primary/50 hover:bg-primary/5 hover:scale-110 flex items-center justify-center transition-all duration-300 z-10"
-              aria-label="Next case study"
-            >
-              <ChevronRight className="h-6 w-6 text-primary" />
-            </button>
           </Carousel>
+          </div>
 
-          {/* Enhanced Dot Indicators */}
-          <div className="flex justify-center gap-2 mt-8">
-            {caseStudies.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => api?.scrollTo(index)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
-                  index === current 
-                    ? "w-10 bg-primary shadow-lg shadow-primary/50" 
-                    : "w-2.5 bg-primary/30 hover:bg-primary/50 hover:w-6"
-                }`}
-                aria-label={`Go to case study ${index + 1}`}
-              />
-            ))}
+          {/* Navigation Buttons - middle left/right edges overlay (outside overflow to avoid clipping) */}
+          <button
+            onClick={() => api?.scrollPrev()}
+            className="group absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-0 z-40"
+            aria-label="Previous case study"
+          >
+            <ChevronLeft className="h-6 w-6 text-primary group-hover:text-white" />
+          </button>
+
+          <button
+            onClick={() => api?.scrollNext()}
+            className="group absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-0 z-40"
+            aria-label="Next case study"
+          >
+            <ChevronRight className="h-6 w-6 text-primary group-hover:text-white" />
+          </button>
+
+            </div>
           </div>
         </div>
-
-        <div className="text-center mt-12">
+        {/* Dot indicators below, small gap to avoid overlap */}
+        <div className="flex justify-center gap-2 mt-4">
+          {caseStudies.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => api?.scrollTo(index)}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                index === current 
+                  ? "w-10 bg-primary shadow-lg shadow-primary/50" 
+                  : "w-2.5 bg-primary/30 hover:bg-primary/50 hover:w-6"
+              }`}
+              aria-label={`Go to case study ${index + 1}`}
+            />
+          ))}
+        </div>
+        <div className="text-center mt-10">
           <button className="btn btn-secondary text-lg px-10 py-4">
             View All Case Studies
           </button>

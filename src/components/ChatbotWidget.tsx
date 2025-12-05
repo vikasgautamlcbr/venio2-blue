@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { MessageCircle, X } from "lucide-react";
-import BookDemoDialog from "./BookDemoDialog";
+import { Link } from "react-router-dom";
 
 const ChatbotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [isEmailSubmitted, setIsEmailSubmitted] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
-  const [isDemoDialogOpen, setIsDemoDialogOpen] = useState(false);
+  
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,9 +19,7 @@ const ChatbotWidget = () => {
     }
   };
 
-  const handleBookDemo = () => {
-    setIsDemoDialogOpen(true);
-  };
+  
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -95,12 +93,12 @@ const ChatbotWidget = () => {
                   </button>
                 </form>
               ) : (
-                <button
-                  onClick={handleBookDemo}
-                  className="w-full px-4 py-2.5 bg-accent hover:bg-accent/90 text-white rounded-full text-sm transition-colors"
+                <Link
+                  to="/book-a-demo"
+                  className="w-full px-4 py-2.5 bg-accent hover:bg-accent/90 text-white rounded-full text-sm transition-colors text-center"
                 >
                   Book a Demo
-                </button>
+                </Link>
               )}
             </div>
 
@@ -124,7 +122,7 @@ const ChatbotWidget = () => {
         </div>
       )}
 
-      <BookDemoDialog open={isDemoDialogOpen} onOpenChange={setIsDemoDialogOpen} />
+      
     </>
   );
 };
