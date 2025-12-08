@@ -127,7 +127,13 @@ const Footer = () => {
                 <Input
                   type="email"
                   placeholder="Enter Your Email"
-                  className="h-14 rounded-xl bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:ring-2 focus:ring-accent mx-auto"
+                  autoComplete="email"
+                  inputMode="email"
+                  spellCheck={false}
+                  autoCapitalize="none"
+                  enterKeyHint="send"
+                  aria-label="Email address"
+                  className="w-full max-w-xl h-14 rounded-xl bg-white text-slate-900 placeholder:text-slate-500 border-white/80 focus:ring-4 focus:ring-accent/30 focus:border-accent px-5 mx-auto"
                 />
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group rounded-xl mx-auto">Submit</Button>
               </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, ChevronRight, Search, Brain, FileCheck, Server, Workflow, MonitorSmartphone, AudioLines, Scissors, Upload, Shield, FileText, Clock, BookOpen, Video, Newspaper, Users, Building, Briefcase, Landmark } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Search, Brain, FileCheck, Server, Workflow, MonitorSmartphone, AudioLines, Scissors, Upload, Shield, FileText, Clock, BookOpen, Video, Newspaper, Users, Building, Briefcase, Landmark, Cloud, BarChart3 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import venioLogo from "@/assets/venio-logo.svg";
 import BookDemoDialog from "./BookDemoDialog";
@@ -159,6 +159,38 @@ const Navbar = () => {
         { label: "Defensible Logs", icon: Shield },
       ],
     },
+    {
+      id: "competition",
+      name: "Venio vs competition",
+      icon: BarChart3,
+      overviewTitle: "Venio vs Competition Overview",
+      overviewDesc: "Compare Venio to leading platforms across speed, cost, features",
+      overviewLink: "/venio-vs-competition",
+      modules: [],
+      subitems: [
+        { label: "Venio vs Relativity", icon: FileCheck, link: "/compare/relativity" },
+        { label: "Venio vs Buix", icon: FileCheck, link: "/compare/buix" },
+        { label: "Venio vs Everlaw", icon: FileCheck, link: "/compare/everlaw" },
+        { label: "Venio vs Logikcull", icon: FileCheck, link: "/compare/logikcull" },
+        { label: "Venio vs Nextpoint", icon: FileCheck, link: "/compare/nextpoint" },
+      ],
+      features: [],
+    },
+    {
+      id: "deployment",
+      name: "Deployment",
+      icon: Cloud,
+      overviewTitle: "Deployment Options Overview",
+      overviewDesc: "Choose cloud, on-premises, or hybrid with enterprise security",
+      overviewLink: "/deployment-options",
+      modules: [],
+      subitems: [
+        { label: "On Cloud", icon: Cloud, link: "/deployment/cloud" },
+        { label: "On-premises", icon: Server, link: "/deployment/on-premises" },
+        { label: "Hybrid Deployment", icon: Workflow, link: "/deployment/hybrid" },
+      ],
+      features: [],
+    },
   ];
 
   const isActiveRoute = (link?: string) => {
@@ -221,23 +253,60 @@ const Navbar = () => {
                           const el = prodListRef.current?.querySelector(`[data-id="${activeProduct}"]`) as HTMLElement | null;
                           if (el) { setProdHighlightTop(el.offsetTop); setProdHighlightHeight(el.offsetHeight); }
                         }} className="relative pr-6 border-r border-gray-200">
-                          <div className="absolute left-2 right-2 rounded-lg bg-gradient-to-r from-[#3DC47E] to-[#2FA964] shadow-lg ring-1 ring-[rgba(61,196,126,0.25)] transition-all duration-300 pointer-events-none z-0" style={{ top: prodHighlightTop, height: prodHighlightHeight }} />
-                          <div className="space-y-2 relative z-10">
-                            {productMenu.map((p) => (
-                              <button
-                                key={p.id}
-                                data-id={p.id}
-                                className={`w-full text-left px-6 py-4 rounded-lg font-semibold transition-colors ${activeProduct === p.id ? 'text-white' : 'text-[#2E2E2E] hover:text-white'}`}
-                                onClick={() => setActiveProduct(p.id)}
-                                onMouseEnter={(e) => { 
-                                  setActiveProduct(p.id);
-                                  setProdHighlightTop(e.currentTarget.offsetTop); 
-                                  setProdHighlightHeight(e.currentTarget.offsetHeight); 
-                                }}
-                              >
-                                {p.name}
-                              </button>
-                            ))}
+                          <div className={`absolute left-2 right-2 rounded-lg transition-all duration-300 pointer-events-none z-0 ${['competition','deployment'].includes(activeProduct) ? 'bg-gray-100/70 shadow-sm ring-0' : 'bg-gradient-to-r from-[#3DC47E] to-[#2FA964] shadow-lg ring-1 ring-[rgba(61,196,126,0.25)]'}`} style={{ top: prodHighlightTop, height: prodHighlightHeight }} />
+                          <div className="relative z-10 flex flex-col h-full">
+                            <div className="space-y-2">
+                              {productMenu.filter((p) => ['ediscovery', 'legal-hold'].includes(p.id)).map((p) => (
+                                <button
+                                  key={p.id}
+                                  data-id={p.id}
+                                  className={`w-full text-left px-6 py-4 rounded-lg font-semibold transition-colors ${activeProduct === p.id ? 'text-white' : 'text-[#2E2E2E] hover:text-white'}`}
+                                  onClick={() => setActiveProduct(p.id)}
+                                  onMouseEnter={(e) => { 
+                                    setActiveProduct(p.id);
+                                    setProdHighlightTop(e.currentTarget.offsetTop); 
+                                    setProdHighlightHeight(e.currentTarget.offsetHeight); 
+                                  }}
+                                >
+                                  <div className="flex items-center justify-between px-1 py-1">
+                                    <div className="leading-tight">
+                                      <div className="font-semibold text-base">{p.name}</div>
+                                    </div>
+                                    <ChevronRight size={16} className={`${activeProduct === p.id ? 'text-white' : 'text-[#0b1c3f]'} opacity-60`} />
+                                  </div>
+                                </button>
+                              ))}
+                            </div>
+                            <div className="mt-4 pt-3 border-t border-gray-200"></div>
+                            <div className="mt-auto space-y-2">
+                              {productMenu.filter((p) => ['competition', 'deployment'].includes(p.id)).map((p) => (
+                                <button
+                                  key={p.id}
+                                  data-id={p.id}
+                                  className={`w-full text-left px-6 py-2.5 rounded-lg font-semibold transition-colors text-[#0b1c3f]`}
+                                  onClick={() => setActiveProduct(p.id)}
+                                  onMouseEnter={(e) => { 
+                                    setActiveProduct(p.id);
+                                    setProdHighlightTop(e.currentTarget.offsetTop); 
+                                    setProdHighlightHeight(e.currentTarget.offsetHeight); 
+                                  }}
+                                >
+                                  <div className={`flex items-center justify-between rounded-lg px-2 py-1.5 ${activeProduct === p.id ? 'bg-transparent' : 'bg-transparent hover:bg-gray-50'} transition-colors`}>
+                                    <div className="flex items-center gap-2">
+                                      <div className="w-6 h-6 rounded-md flex items-center justify-center border bg-white border-gray-200 hover:border-gray-300">
+                                        {"icon" in p && (p as any).icon ? (
+                                          React.createElement((p as any).icon, { className: "h-3.5 w-3.5 text-[#0b1c3f] opacity-70" })
+                                        ) : null}
+                                      </div>
+                                      <div className="leading-tight">
+                                        <div className={`font-semibold text-sm text-[#0b1c3f]`}>{p.name}</div>
+                                      </div>
+                                    </div>
+                                    <ChevronRight size={12} className={`text-[#0b1c3f] opacity-50`} />
+                                  </div>
+                                </button>
+                              ))}
+                            </div>
                           </div>
                         </div>
                         {productMenu.filter((p) => p.id === activeProduct).map((p) => (
@@ -250,6 +319,22 @@ const Navbar = () => {
                                 </Link>
                                 <p className="text-[#2E2E2E] text-sm mt-0.5 opacity-80">{p.overviewDesc}</p>
                                 <div className="border-t border-gray-200"></div>
+                                {"subitems" in p && (p as any).subitems && (p as any).subitems.length > 0 && (
+                                  <div className={`grid ${p.id === 'competition' ? 'grid-cols-2' : 'grid-cols-1'} gap-2 pt-2`}>
+                                    {((p as any).subitems as Array<any>).map((s, i) => (
+                                      <Link key={i} to={s.link} className="group flex items-center gap-4 px-4 py-3.5 rounded-lg text-[#2E2E2E] hover:text-[#0b1c3f] hover:bg-gray-50 hover:shadow-sm hover:ring-1 ring-[rgba(11,28,63,0.12)] transition-transform duration-200 hover:translate-y-px">
+                                        <div className="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center flex-shrink-0">
+                                          {React.createElement(s.icon, { className: "h-5 w-5 text-[#0b1c3f]" })}
+                                        </div>
+                                        <div>
+                                          <div className="font-semibold text-[#2E2E2E] group-hover:text-[#0b1c3f]">{s.label}</div>
+                                          <div className="text-xs text-[#2E2E2E] opacity-70">Learn more</div>
+                                        </div>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+                                
                                 <div className="space-y-2">
                                   {p.modules.map((m, i) => (
                                     <Link key={i} to={p.overviewLink} className="group flex items-center gap-4 px-4 py-3.5 rounded-lg text-[#2E2E2E] hover:text-[#0b1c3f] hover:bg-gray-50 hover:shadow-sm hover:ring-1 ring-[rgba(11,28,63,0.12)] transition-transform duration-200 hover:translate-y-px">
@@ -276,19 +361,30 @@ const Navbar = () => {
                                     <div className="w-8 h-8 rounded-full bg-white/20" />
                                   </div>
                                 </Link>
-                                <div className="space-y-2">
-                                  <div className="text-[#2E2E2E] font-semibold">Features</div>
-                                  <div className="grid grid-cols-1 gap-2">
-                                    {p.features.map((f, i) => (
-                                      <div key={i} className="flex items-center gap-2.5 px-2 py-1.5 rounded-md bg-gray-50 hover:bg-gray-100">
-                                        <div className="w-6 h-6 rounded-md bg-gray-100 flex items-center justify-center opacity-70">
-                                          <f.icon className="h-3.5 w-3.5 text-[#0b1c3f]" />
-                                        </div>
-                                        <span className="text-sm text-[#2E2E2E] opacity-80">{f.label}</span>
-                                      </div>
-                                    ))}
+                                {p.features && p.features.length > 0 && (
+                                  <div className="space-y-2">
+                                    <div className="text-[#2E2E2E] font-semibold">Features</div>
+                                    <div className="grid grid-cols-1 gap-2">
+                                      {p.features.map((f, i) => (
+                                        f.link ? (
+                                          <Link key={i} to={f.link} className="group flex items-center gap-2.5 px-2 py-1.5 rounded-md bg-gray-50 hover:bg-gray-100 hover:shadow-sm hover:ring-1 ring-[rgba(11,28,63,0.12)] transition-transform duration-200 hover:translate-y-px">
+                                            <div className="w-6 h-6 rounded-md bg-gray-100 flex items-center justify-center opacity-70">
+                                              <f.icon className="h-3.5 w-3.5 text-[#0b1c3f]" />
+                                            </div>
+                                            <span className="text-sm text-[#2E2E2E] opacity-80 group-hover:text-[#0b1c3f]">{f.label}</span>
+                                          </Link>
+                                        ) : (
+                                          <div key={i} className="flex items-center gap-2.5 px-2 py-1.5 rounded-md bg-gray-50 hover:bg-gray-100">
+                                            <div className="w-6 h-6 rounded-md bg-gray-100 flex items-center justify-center opacity-70">
+                                              <f.icon className="h-3.5 w-3.5 text-[#0b1c3f]" />
+                                            </div>
+                                            <span className="text-sm text-[#2E2E2E] opacity-80">{f.label}</span>
+                                          </div>
+                                        )
+                                      ))}
+                                    </div>
                                   </div>
-                                </div>
+                                )}
                               </div>
                             </div>
                           </React.Fragment>

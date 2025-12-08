@@ -127,6 +127,15 @@ All colors MUST be HSL.
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
   }
+  body .font-bold {
+    font-weight: 600 !important;
+  }
+  body b, body strong {
+    font-weight: 600;
+  }
+  h1.font-bold, h2.font-bold, h3.font-bold, h4.font-bold, h5.font-bold, h6.font-bold {
+    font-weight: 700 !important;
+  }
 }
 
 @layer components {
@@ -345,7 +354,7 @@ All colors MUST be HSL.
     overflow: hidden;
     border: none;
     cursor: pointer;
-    font-family: 'Inter', sans-serif;
+    font-family: 'General Sans', sans-serif;
   }
 
   .btn-primary {

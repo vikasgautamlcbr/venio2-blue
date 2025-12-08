@@ -25,6 +25,10 @@ import HowToGuide from "./pages/HowToGuide";
 import InfographicResource from "./pages/InfographicResource";
 import RequestDemo from "./pages/RequestDemo";
 import ResourceTypeDemo from "./pages/ResourceTypeDemo";
+import VenioVsCompetition from "./pages/VenioVsCompetition";
+import DeploymentOverview from "./pages/DeploymentOverview";
+import CompareVendor from "./pages/CompareVendor";
+import DeploymentType from "./pages/DeploymentType";
 import ChatbotWidget from "./components/ChatbotWidget";
 
 const queryClient = new QueryClient();
@@ -47,6 +51,10 @@ const App = () => (
           <Route path="/search" element={<Search />} />
           <Route path="/blog/demo" element={<BlogPost />} />
           <Route path="/resources/demo-asset" element={<AssetDownload />} />
+          <Route path="/venio-vs-competition" element={<VenioVsCompetition />} />
+          <Route path="/compare/:vendor" element={<CompareVendor />} />
+          <Route path="/deployment-options" element={<DeploymentOverview />} />
+          <Route path="/deployment/:type" element={<DeploymentType />} />
           
           {/* Individual Resource Type Demo Routes */}
           <Route path="/resources/case-studies/demo" element={<CaseStudy />} />
