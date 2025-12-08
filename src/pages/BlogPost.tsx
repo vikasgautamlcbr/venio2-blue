@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, User, ArrowLeft, Share2, Clock, Bookmark, Linkedin, Twitter, Facebook, ArrowRight } from "lucide-react";
+import { Calendar, ArrowLeft, Clock, Bookmark, Linkedin, Twitter, Facebook, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const BlogPost = () => {
@@ -20,7 +20,6 @@ const BlogPost = () => {
       
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 bg-[#EAF8F2] overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid-pattern.svg')] opacity-[0.03]"></div>
         <div className="absolute top-20 right-20 w-64 h-64 rounded-full bg-[rgba(61,196,126,0.2)] blur-3xl pointer-events-none"></div>
         
         <div className="container max-w-4xl relative z-10 text-center">

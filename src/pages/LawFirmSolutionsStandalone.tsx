@@ -681,7 +681,7 @@ const Footer = () => {
                 autoCapitalize="none"
                 enterKeyHint="send"
                 aria-label="Email address"
-                className="w-full max-w-xl h-14 rounded-xl bg-white text-slate-900 placeholder:text-slate-500 border-white/80 focus:ring-4 focus:ring-accent/30 focus:border-accent px-5 mx-auto"
+                className="w-full max-w-xl h-14 rounded-xl bg-white text-slate-900 placeholder:text-slate-500 border border-slate-300 focus-visible:ring-4 focus-visible:ring-accent/30 focus-visible:border-accent px-5 mx-auto"
               />
               <Button className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group rounded-xl mx-auto">Submit</Button>
             </div>
@@ -1867,11 +1867,9 @@ const LawFirmSolutionsStandalone = () => {
             <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
             <div className="absolute bottom-32 right-10 w-[500px] h-[500px] bg-accent/25 rounded-full blur-3xl float-delayed"></div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-            
-            <div className="absolute top-40 right-20 w-20 h-20 border-2 border-white/20 rounded-lg animate-spin-slow"></div>
-            <div className="absolute bottom-40 left-32 w-16 h-16 border-2 border-accent/30 rotate-45 animate-bounce-slow"></div>
             <div className="absolute top-1/3 left-20 w-12 h-12 bg-secondary/20 rounded-full animate-float"></div>
-            <div className="absolute bottom-1/3 right-40 w-24 h-24 border-2 border-white/10 rounded-full animate-pulse"></div>
+            <div className="absolute top-16 right-24 w-28 h-28 bg-secondary/25 rounded-full blur-xl animate-float"></div>
+            <div className="absolute top-[55%] right-40 w-56 h-56 bg-accent/20 rounded-full blur-3xl float-delayed"></div>
           </div>
 
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/50 to-primary/80"></div>
@@ -1953,11 +1951,9 @@ const LawFirmSolutionsStandalone = () => {
             <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
             <div className="absolute bottom-32 right-10 w-[500px] h-[500px] bg-accent/25 rounded-full blur-3xl float-delayed"></div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-            
-            <div className="absolute top-40 right-20 w-20 h-20 border-2 border-white/20 rounded-lg animate-spin-slow"></div>
-            <div className="absolute bottom-40 left-32 w-16 h-16 border-2 border-accent/30 rotate-45 animate-bounce-slow"></div>
             <div className="absolute top-1/3 left-20 w-12 h-12 bg-secondary/20 rounded-full animate-float"></div>
-            <div className="absolute bottom-1/3 right-40 w-24 h-24 border-2 border-white/10 rounded-full animate-pulse"></div>
+            <div className="absolute top-20 right-24 w-28 h-28 bg-secondary/25 rounded-full blur-xl animate-float"></div>
+            <div className="absolute top-[60%] right-36 w-52 h-52 bg-accent/20 rounded-full blur-3xl float-delayed"></div>
           </div>
 
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/50 to-primary/80"></div>

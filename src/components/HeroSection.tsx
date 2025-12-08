@@ -80,9 +80,7 @@ const HeroSection = () => {
       {/* Animated Gradient Background */}
       <div className="absolute inset-0 gradient-animated"></div>
 
-      {/* Dynamic Animated Background Elements */}
       <div className="absolute inset-0">
-        {/* Large Glowing Orbs */}
         <div className="absolute top-20 left-10 w-96 h-96 rounded-full blur-[80px]" style={{ background: 'hsla(202, 100%, 50%, 0.3)' }}>
           <div className="w-full h-full animate-float"></div>
         </div>
@@ -92,12 +90,13 @@ const HeroSection = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[80px]" style={{ background: 'hsla(217, 72%, 15%, 0.2)' }}>
           <div className="w-full h-full animate-pulse"></div>
         </div>
-        
-        {/* Floating Geometric Shapes */}
-        <div className="absolute top-40 right-20 w-20 h-20 border-2 rounded-lg animate-spin-slow" style={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}></div>
-        <div className="absolute bottom-40 left-32 w-16 h-16 border-2 rotate-45 animate-bounce-slow" style={{ borderColor: 'rgba(61, 196, 126, 0.3)' }}></div>
         <div className="absolute top-1/3 left-20 w-12 h-12 rounded-full animate-float" style={{ background: 'hsla(202, 100%, 50%, 0.2)' }}></div>
-        <div className="absolute bottom-1/3 right-40 w-24 h-24 border-2 rounded-full animate-pulse" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}></div>
+        <div className="absolute top-16 right-24 w-28 h-28 rounded-full blur-[40px]" style={{ background: 'hsla(202, 100%, 50%, 0.18)' }}>
+          <div className="w-full h-full animate-float"></div>
+        </div>
+        <div className="absolute top-[55%] right-40 w-56 h-56 rounded-full blur-[60px]" style={{ background: 'hsla(145, 53%, 51%, 0.18)' }}>
+          <div className="w-full h-full float-delayed"></div>
+        </div>
       </div>
 
       {/* Gradient Overlay - ends at middle of video placeholder */}

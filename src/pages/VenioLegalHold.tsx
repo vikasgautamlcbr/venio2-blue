@@ -72,16 +72,12 @@ const VenioLegalHold = () => {
       <section id="hero" className="relative min-h-[75vh] md:min-h-[70vh] flex items-center overflow-hidden gradient-animated pt-24 xl:pt-28 2xl:pt-40 pb-16">
         {/* Dynamic Animated Background */}
         <div className="absolute inset-0">
-          {/* Large Glowing Orbs */}
           <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
           <div className="absolute bottom-32 right-10 w-[500px] h-[500px] bg-accent/25 rounded-full blur-3xl float-delayed"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-          
-          {/* Floating Geometric Shapes */}
-          <div className="absolute top-40 right-20 w-20 h-20 border-2 border-white/20 rounded-lg animate-spin-slow"></div>
-          <div className="absolute bottom-40 left-32 w-16 h-16 border-2 border-accent/30 rotate-45 animate-bounce-slow"></div>
           <div className="absolute top-1/3 left-20 w-12 h-12 bg-secondary/20 rounded-full animate-float"></div>
-          <div className="absolute bottom-1/3 right-40 w-24 h-24 border-2 border-white/10 rounded-full animate-pulse"></div>
+          <div className="absolute top-16 right-24 w-32 h-32 bg-secondary/25 rounded-full blur-2xl animate-float"></div>
+          <div className="absolute top-1/2 right-36 w-64 h-64 bg-accent/20 rounded-full blur-3xl float-delayed"></div>
         </div>
 
         {/* Gradient Overlay */}

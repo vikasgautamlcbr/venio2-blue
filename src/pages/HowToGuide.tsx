@@ -5,7 +5,7 @@ import CTABanner from "@/components/CTABanner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, User, ArrowLeft, Share2, CheckSquare, Wrench, Clock } from "lucide-react";
+import { Calendar, User, ArrowLeft, Share2, Wrench, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const HowToGuide = () => {
@@ -18,7 +18,6 @@ const HowToGuide = () => {
       <Navbar />
       
       <section className="relative pt-32 pb-24 bg-[#EAF8F2] overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid-pattern.svg')] opacity-[0.03]"></div>
         <div className="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#3DC47E]/20 blur-3xl pointer-events-none"></div>
         
         <div className="container max-w-4xl relative z-10 text-center">

@@ -154,15 +154,12 @@ const InteractiveDemosSection = () => {
                 <div className="h-full min-h-full flex items-center justify-center rounded-xl border-2 border-primary/20 p-8 relative overflow-hidden gradient-animated">
                   {/* Animated Background - Same as Hero */}
                   <div className="absolute inset-0">
-                    {/* Glowing Orbs */}
                     <div className="absolute top-10 left-10 w-48 h-48 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
                     <div className="absolute bottom-10 right-10 w-64 h-64 bg-accent/25 rounded-full blur-3xl float-delayed"></div>
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-                    
-                    {/* Floating Geometric Shapes */}
-                    <div className="absolute top-20 right-10 w-12 h-12 border-2 border-white/20 rounded-lg animate-spin-slow"></div>
-                    <div className="absolute bottom-20 left-16 w-10 h-10 border-2 border-accent/30 rotate-45 animate-bounce-slow"></div>
                     <div className="absolute top-1/3 left-10 w-8 h-8 bg-secondary/20 rounded-full animate-float"></div>
+                    <div className="absolute top-8 right-20 w-24 h-24 bg-secondary/25 rounded-full blur-2xl animate-float"></div>
+                    <div className="absolute top-[60%] right-28 w-40 h-40 bg-accent/20 rounded-full blur-3xl float-delayed"></div>
                   </div>
 
                   {/* Gradient Overlay with Transparency */}

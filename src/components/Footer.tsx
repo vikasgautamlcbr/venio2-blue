@@ -133,7 +133,7 @@ const Footer = () => {
                   autoCapitalize="none"
                   enterKeyHint="send"
                   aria-label="Email address"
-                  className="w-full max-w-xl h-14 rounded-xl bg-white text-slate-900 placeholder:text-slate-500 border-white/80 focus:ring-4 focus:ring-accent/30 focus:border-accent px-5 mx-auto"
+                  className="w-full max-w-xl h-14 rounded-xl bg-white text-slate-900 placeholder:text-slate-500 border border-slate-300 focus-visible:ring-4 focus-visible:ring-accent/30 focus-visible:border-accent px-5 mx-auto"
                 />
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group rounded-xl mx-auto">Submit</Button>
               </div>

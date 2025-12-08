@@ -21,6 +21,10 @@ const DeploymentType = () => {
       <Navbar />
       <main>
         <section className="relative min-h-[40vh] flex items-center overflow-hidden gradient-animated pt-24 xl:pt-28 2xl:pt-40 pb-12">
+          <div className="absolute inset-0">
+            <div className="absolute bottom-28 right-10 w-[420px] h-[420px] bg-accent/20 rounded-full blur-3xl float-delayed"></div>
+            <div className="absolute top-16 right-24 w-28 h-28 bg-secondary/25 rounded-full blur-xl animate-float"></div>
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/40 to-primary/70" />
           <div className="relative z-10 container mx-auto px-6 max-w-7xl text-center">
             <div className="mb-4 flex justify-center">

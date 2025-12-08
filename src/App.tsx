@@ -3,32 +3,33 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import VenioLegalHold from "./pages/VenioLegalHold";
-import VenioEDiscovery from "./pages/VenioEDiscovery";
-import LawFirmSolutions from "./pages/LawFirmSolutions";
-import Pricing from "./pages/Pricing";
-import Resources from "./pages/Resources";
-import WhyVenio from "./pages/WhyVenio";
-import Search from "./pages/Search";
-import BlogPost from "./pages/BlogPost";
-import AssetDownload from "./pages/AssetDownload";
-import CaseStudy from "./pages/CaseStudy";
-import WhitePaper from "./pages/WhitePaper";
-import ProductBrief from "./pages/ProductBrief";
-import Ebook from "./pages/Ebook";
-import VideoResource from "./pages/VideoResource";
-import Brochure from "./pages/Brochure";
-import PressRelease from "./pages/PressRelease";
-import HowToGuide from "./pages/HowToGuide";
-import InfographicResource from "./pages/InfographicResource";
-import RequestDemo from "./pages/RequestDemo";
-import ResourceTypeDemo from "./pages/ResourceTypeDemo";
-import VenioVsCompetition from "./pages/VenioVsCompetition";
-import DeploymentOverview from "./pages/DeploymentOverview";
-import CompareVendor from "./pages/CompareVendor";
-import DeploymentType from "./pages/DeploymentType";
+import { lazy, Suspense } from "react";
+const Index = lazy(() => import("./pages/Index"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const VenioLegalHold = lazy(() => import("./pages/VenioLegalHold"));
+const VenioEDiscovery = lazy(() => import("./pages/VenioEDiscovery"));
+const LawFirmSolutions = lazy(() => import("./pages/LawFirmSolutions"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const Resources = lazy(() => import("./pages/Resources"));
+const WhyVenio = lazy(() => import("./pages/WhyVenio"));
+const Search = lazy(() => import("./pages/Search"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const AssetDownload = lazy(() => import("./pages/AssetDownload"));
+const CaseStudy = lazy(() => import("./pages/CaseStudy"));
+const WhitePaper = lazy(() => import("./pages/WhitePaper"));
+const ProductBrief = lazy(() => import("./pages/ProductBrief"));
+const Ebook = lazy(() => import("./pages/Ebook"));
+const VideoResource = lazy(() => import("./pages/VideoResource"));
+const Brochure = lazy(() => import("./pages/Brochure"));
+const PressRelease = lazy(() => import("./pages/PressRelease"));
+const HowToGuide = lazy(() => import("./pages/HowToGuide"));
+const InfographicResource = lazy(() => import("./pages/InfographicResource"));
+const RequestDemo = lazy(() => import("./pages/RequestDemo"));
+const ResourceTypeDemo = lazy(() => import("./pages/ResourceTypeDemo"));
+const VenioVsCompetition = lazy(() => import("./pages/VenioVsCompetition"));
+const DeploymentOverview = lazy(() => import("./pages/DeploymentOverview"));
+const CompareVendor = lazy(() => import("./pages/CompareVendor"));
+const DeploymentType = lazy(() => import("./pages/DeploymentType"));
 import ChatbotWidget from "./components/ChatbotWidget";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <Suspense fallback={<div />}> 
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/venio-legal-hold" element={<VenioLegalHold />} />
@@ -71,6 +73,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
         <ChatbotWidget />
       </BrowserRouter>
     </TooltipProvider>

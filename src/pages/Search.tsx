@@ -219,6 +219,8 @@ const Search = () => {
           <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
           <div className="absolute bottom-32 right-10 w-[500px] h-[500px] bg-accent/25 rounded-full blur-3xl float-delayed"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-24 right-28 w-28 h-28 bg-secondary/25 rounded-full blur-xl animate-float"></div>
+          <div className="absolute top-[60%] right-40 w-52 h-52 bg-accent/20 rounded-full blur-3xl float-delayed"></div>
         </div>
 
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/50 to-primary/80"></div>

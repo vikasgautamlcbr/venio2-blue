@@ -78,6 +78,10 @@ const RequestDemo = () => {
       <main>
         {/* Hero Section */}
         <section className="relative min-h-[70vh] flex flex-col justify-between overflow-hidden gradient-animated pt-24 xl:pt-28 2xl:pt-40 pb-20">
+          <div className="absolute inset-0">
+            <div className="absolute top-20 right-24 w-32 h-32 bg-secondary/25 rounded-full blur-2xl animate-float"></div>
+            <div className="absolute top-[58%] right-40 w-60 h-60 bg-accent/20 rounded-full blur-3xl float-delayed"></div>
+          </div>
           <div className="absolute inset-0 bg-[#0B1B3A]/15 pointer-events-none z-0"></div>
           <div className="container mx-auto px-6 max-w-7xl relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -262,7 +266,7 @@ const RequestDemo = () => {
 
             <div className="overflow-x-auto">
               <div className="inline-block min-w-full align-middle">
-                <div className="overflow-hidden glass rounded-2xl border border-border/50">
+                <div className="overflow-hidden glass rounded-2xl border border-border/50 table-rounded">
                   <table className="min-w-full divide-y divide-border/50">
                     <thead>
                       <tr className="bg-muted/30">

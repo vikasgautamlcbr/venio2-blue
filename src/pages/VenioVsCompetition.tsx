@@ -21,10 +21,9 @@ const VenioVsCompetition = () => {
             <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl"></div>
             <div className="absolute bottom-32 right-10 w-[500px] h-[500px] bg-accent/25 rounded-full blur-3xl"></div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-3xl"></div>
-            <div className="absolute top-40 right-20 w-20 h-20 border-2 border-white/20 rounded-lg"></div>
-            <div className="absolute bottom-40 left-32 w-16 h-16 border-2 border-accent/30 rotate-45"></div>
             <div className="absolute top-1/3 left-20 w-12 h-12 bg-secondary/20 rounded-full"></div>
-            <div className="absolute bottom-1/3 right-40 w-24 h-24 border-2 border-white/10 rounded-full"></div>
+            <div className="absolute top-20 right-24 w-28 h-28 bg-secondary/25 rounded-full blur-xl"></div>
+            <div className="absolute top-[58%] right-36 w-56 h-56 bg-accent/20 rounded-full blur-3xl"></div>
           </div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/50 to-primary/80"></div>
           <div className="relative z-10 container mx-auto px-6 max-w-5xl flex items-center justify-center">
