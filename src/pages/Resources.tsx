@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,6 +18,7 @@ import esiProtocolImg from "@/assets/resources/esi-protocol.jpg";
 import ediscoveryPricingImg from "@/assets/resources/ediscovery-pricing.jpg";
 
 const Resources = () => {
+  const location = useLocation();
   const [topicFilter, setTopicFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,6 +27,15 @@ const Resources = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Initialize filters from query params (e.g., ?type=case-study)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const typeParam = params.get("type");
+    const topicParam = params.get("topic");
+    if (typeParam) setTypeFilter(typeParam);
+    if (topicParam) setTopicFilter(topicParam);
+  }, [location.search]);
 
   // Color accents for resource types
   const typeColors: Record<string, { bg: string; border: string; text: string; badge: string }> = {
@@ -356,7 +367,7 @@ const Resources = () => {
         
         <div className="container mx-auto text-center relative z-10 px-6">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-            Resource Hub
+            {typeFilter === "case-study" ? "Case Studies" : "Resource Hub"}
           </h1>
           <p className="text-xl text-white/90 max-w-3xl mx-auto mb-12">
             Explore case studies, guides, white papers, and more to help you master eDiscovery and stay ahead of industry trends.

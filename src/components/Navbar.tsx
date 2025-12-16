@@ -69,7 +69,7 @@ const Navbar = () => {
     {
       label: "Customer Success",
       hasDropdown: false,
-      link: "#",
+      link: "/resources?type=case-study",
     },
     {
       label: "Why Venio",
