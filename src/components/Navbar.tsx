@@ -67,7 +67,7 @@ const Navbar = () => {
       items: ["Blogs", "eBooks / Guides", "Product Videos", "Case Studies"],
     },
     {
-      label: "Partner",
+      label: "Customer Success",
       hasDropdown: false,
       link: "#",
     },
