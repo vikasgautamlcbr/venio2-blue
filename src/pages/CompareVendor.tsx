@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from "react-router-dom";
-import { Sparkles, Layers, UserCog, Cloud, CheckCircle, Check, X, ClipboardCheck, Zap, Info } from "lucide-react";
+import { Sparkles, Layers, UserCog, Cloud, CheckCircle, Check, X, ClipboardCheck, Zap, Info, DollarSign } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import ROICalculator from "@/components/ROICalculator";
 import CTABanner from "@/components/CTABanner";
@@ -34,30 +34,68 @@ const CompareVendor = () => {
             <div className="absolute top-[60%] right-36 w-56 h-56 bg-accent/20 rounded-full blur-3xl float-delayed"></div>
           </div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/50 to-primary/80"></div>
-          <div className="relative z-10 container mx-auto px-6 max-w-5xl flex-1 flex items-center justify-center">
-            <div className="text-center animate-fade-in w-full">
-              <div className="inline-flex items-center gap-2 bg-primary/80 backdrop-blur-sm px-5 py-2.5 rounded-full mb-6 border border-white/20">
-                <Sparkles className="w-4 h-4 text-accent" />
-                <span className="text-white/90 text-sm font-medium">Stop Overpaying for Legacy</span>
+          <div className="relative z-10 container mx-auto px-6 max-w-7xl flex-1">
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              <div className="animate-fade-in w-full text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 bg-primary/80 backdrop-blur-sm px-5 py-2.5 rounded-full mb-6 border border-white/20">
+                  <Sparkles className="w-4 h-4 text-accent" />
+                  <span className="text-white/90 text-sm font-medium">Stop Overpaying for Legacy</span>
+                </div>
+                <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+                  {`Enterprise Power without the "${label} Tax."`}
+                </h1>
+                <p className="text-xl text-white/90 max-w-3xl lg:max-w-none mx-auto lg:mx-0 leading-relaxed mb-10">
+                  {`Why settle for a fragmented, complex, and expensive legacy system? Venio Systems offers a unified eDiscovery platform that matches ${label} feature-for-feature while slashing your TCO by up to 50%.`}
+                </p>
+                <div className="flex items-center justify-center lg:justify-start gap-3">
+                  <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 min-w-[240px] shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group">
+                    <Link to="/venio-vs-competition">Compare Features</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="border-white/30 text-white bg-transparent hover:bg-white/10 text-lg px-8 py-6 min-w-[240px] shadow-lg transition-all duration-300 hover:scale-105 group"
+                  >
+                    <a href="#calculator">Calculate Your ROI</a>
+                  </Button>
+                </div>
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-                {`Enterprise Power without the "${label} Tax."`}
-              </h1>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-10">
-                {`Why settle for a fragmented, complex, and expensive legacy system? Venio Systems offers a unified eDiscovery platform that matches ${label} feature-for-feature while slashing your TCO by up to 50%.`}
-              </p>
-              <div className="flex items-center justify-center gap-3">
-                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group">
-                  <Link to="/venio-vs-competition">Compare Features</Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-white/30 text-white bg-transparent hover:bg-white/10"
-                >
-                  <a href="#calculator">Calculate Your ROI</a>
-                </Button>
+              <div className="w-full max-w-lg mx-auto lg:ml-auto">
+                <div className="relative">
+                  <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-primary/20 to-accent/10 blur-2xl opacity-60" />
+                  <div className="glass rounded-2xl border border-white/30 bg-white/10 backdrop-blur-md p-6 md:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="text-lg font-bold text-white">Platform Health Snapshot</div>
+                      <span className="inline-flex items-center rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold px-3 py-1 border border-emerald-400/40">
+                        Optimized
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="rounded-xl bg-white/20 border border-white/30 p-4">
+                        <div className="text-xs text-white/70">Processing Speed</div>
+                        <div className="mt-1 text-xl font-bold text-accent">10TB+ / Day</div>
+                      </div>
+                      <div className="rounded-xl bg-white/20 border border-white/30 p-4">
+                        <div className="text-xs text-white/70">Deployment</div>
+                        <div className="mt-1 text-xl font-bold text-secondary">Hybrid</div>
+                      </div>
+                      <div className="col-span-2 rounded-xl bg-accent/15 border border-accent/40 p-4 flex items-center justify-between">
+                        <div>
+                          <div className="text-xs text-white/70">AI Analytics (CAL)</div>
+                          <div className="mt-1 text-base font-semibold text-accent">Standard</div>
+                        </div>
+                        <Zap className="h-5 w-5 text-accent" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="absolute -bottom-4 -left-4">
+                    <div className="inline-flex items-center gap-2 rounded-xl bg-white text-slate-900 px-4 py-2 shadow-xl border border-slate-200 ring-1 ring-accent/30">
+                      <DollarSign className="h-4 w-4 text-accent" />
+                      <span className="text-sm font-semibold">Save up to 50% annually</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
