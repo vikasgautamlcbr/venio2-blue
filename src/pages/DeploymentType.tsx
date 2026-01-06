@@ -267,6 +267,39 @@ const DeploymentType = () => {
               </div>
             </section>
 
+            <section className="py-20 px-6 bg-muted/30">
+              <div className="container mx-auto max-w-6xl">
+                <div className="text-center mb-12">
+                  <h2 className="text-4xl font-bold mb-4">Seamless Integrations</h2>
+                  <p className="text-lg text-muted-foreground">
+                    Connect with the tools and platforms your team already uses
+                  </p>
+                </div>
+                <div className="flex items-center justify-center gap-12 flex-wrap px-8">
+                  {[
+                    { name: "Microsoft 365", icon: "M365" },
+                    { name: "Google Workspace", icon: "GWS" },
+                    { name: "Slack", icon: "SLACK" },
+                    { name: "Microsoft Teams", icon: "TEAMS" },
+                    { name: "AWS", icon: "AWS" },
+                    { name: "Azure", icon: "AZURE" },
+                    { name: "Box", icon: "BOX" },
+                    { name: "Dropbox", icon: "DBXPX" },
+                  ].map((integration, index) => (
+                    <div
+                      key={index}
+                      className="group transition-all duration-300 hover:scale-110"
+                      title={integration.name}
+                    >
+                      <div className="w-16 h-16 rounded-lg bg-white shadow-md flex items-center justify-center text-xs font-bold text-primary group-hover:shadow-xl transition-shadow">
+                        {integration.icon}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
             <CTABanner />
 
             {/* Testimonials */}
