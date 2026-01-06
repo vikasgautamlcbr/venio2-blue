@@ -49,7 +49,16 @@ const CompareVendor = () => {
                 </p>
                 <div className="flex items-center justify-center lg:justify-start gap-3">
                   <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white text-lg px-8 py-6 min-w-[240px] shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 group">
-                    <Link to="/venio-vs-competition">Compare Features</Link>
+                    <a
+                      href="#comparison"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const el = document.getElementById("comparison");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    >
+                      Compare Features
+                    </a>
                   </Button>
                   <Button
                     asChild
@@ -57,7 +66,16 @@ const CompareVendor = () => {
                     size="lg"
                     className="border-white/30 text-white bg-transparent hover:bg-white/10 text-lg px-8 py-6 min-w-[240px] shadow-lg transition-all duration-300 hover:scale-105 group"
                   >
-                    <a href="#calculator">Calculate Your ROI</a>
+                    <a
+                      href="#calculator"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const el = document.getElementById("calculator");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    >
+                      Calculate Your ROI
+                    </a>
                   </Button>
                 </div>
               </div>
