@@ -559,7 +559,7 @@ const Navbar = () => {
                 {item.link && !item.hasDropdown ? (
                   <Link
                     to={item.link}
-                    className={`relative mb-2 flex items-center gap-1 block font-semibold text-white ${
+                    className={`relative mb-2 flex items-center gap-1 font-semibold text-white ${
                       isActiveRoute(item.link)
                         ? 'after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent'
                         : ''
