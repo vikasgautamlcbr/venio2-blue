@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Linkedin, Facebook, Twitter, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
+import venioLogo from "@/assets/venio-logo.svg";
 
 const Footer = () => {
   const footerLinks = {
@@ -147,9 +148,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Logo and Copyright */}
             <div className="flex items-center gap-8">
-              <div className="text-2xl font-bold">
-                V<span className="text-accent">E</span>NIO
-              </div>
+              <img src={venioLogo} alt="VENIO" className="h-7 w-auto" />
               <p className="text-white/60 text-sm font-body">
                 ©2025 Venio Systems, Inc. All rights reserved.
               </p>
