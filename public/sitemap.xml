@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>http://localhost:4173/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>http://localhost:4173/resources</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>http://localhost:4173/pricing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>http://localhost:4173/why-venio</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>http://localhost:4173/venio-legal-hold</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>http://localhost:4173/venio-ediscovery</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>http://localhost:4173/law-firm-solutions</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>http://localhost:4173/search</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>http://localhost:4173/venio-vs-competition</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>http://localhost:4173/book-a-demo</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>http://localhost:4173/deployment-options</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>http://localhost:4173/deployment/cloud</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>http://localhost:4173/deployment/on-premises</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>http://localhost:4173/deployment/hybrid</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>http://localhost:4173/resources/case-studies/demo</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/resources/white-papers/demo</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/resources/product-briefs/demo</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/resources/ebooks/demo</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/resources/videos/demo</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/resources/brochures/demo</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/resources/press-releases/demo</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/resources/how-to-guides/demo</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/resources/infographics/demo</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/compare/relativity</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/compare/everlaw</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/compare/logikcull</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/compare/nextpoint</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>http://localhost:4173/compare/buix</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+</urlset>

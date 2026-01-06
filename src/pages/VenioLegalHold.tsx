@@ -47,6 +47,45 @@ const VenioLegalHold = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  useEffect(() => {
+    const title = "Venio Legal Hold - Venio Systems";
+    const description = "Modernizing legal hold with automated workflows, defensible tracking, and enterprise-grade compliance.";
+    document.title = title;
+    let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+    if (meta) {
+      meta.setAttribute("content", description);
+    } else {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "description");
+      meta.setAttribute("content", description);
+      document.head.appendChild(meta);
+    }
+    const scriptId = "ld-json-legalhold";
+    const existing = document.getElementById(scriptId);
+    if (existing) existing.remove();
+    const ld = document.createElement("script");
+    ld.type = "application/ld+json";
+    ld.id = scriptId;
+    ld.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Venio Legal Hold",
+      "brand": { "@type": "Brand", "name": "Venio Systems" },
+      "url": window.location.origin + "/venio-legal-hold"
+    });
+    document.head.appendChild(ld);
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", window.location.origin + "/venio-legal-hold");
+    return () => {
+      const e = document.getElementById(scriptId);
+      if (e) e.remove();
+    };
+  }, []);
 
   const handleDemoAccess = () => {
     if (!isDemoUnlocked) {

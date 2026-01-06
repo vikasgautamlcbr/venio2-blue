@@ -36,6 +36,46 @@ const Resources = () => {
     if (typeParam) setTypeFilter(typeParam);
     if (topicParam) setTopicFilter(topicParam);
   }, [location.search]);
+  useEffect(() => {
+    const isCase = typeFilter === "case-study";
+    const title = isCase ? "Case Studies - Venio Systems" : "Resource Hub - Venio Systems";
+    const description = "Explore case studies, guides, white papers, and more to help you master eDiscovery and stay ahead of industry trends.";
+    document.title = title;
+    let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+    if (meta) {
+      meta.setAttribute("content", description);
+    } else {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "description");
+      meta.setAttribute("content", description);
+      document.head.appendChild(meta);
+    }
+    const scriptId = "ld-json-resources";
+    const existing = document.getElementById(scriptId);
+    if (existing) existing.remove();
+    const ld = document.createElement("script");
+    ld.type = "application/ld+json";
+    ld.id = scriptId;
+    ld.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": isCase ? "Case Studies" : "Resource Hub",
+      "url": window.location.origin + "/resources"
+    });
+    document.head.appendChild(ld);
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    const href = window.location.origin + "/resources" + (isCase ? "?type=case-study" : "");
+    canonical.setAttribute("href", href);
+    return () => {
+      const e = document.getElementById(scriptId);
+      if (e) e.remove();
+    };
+  }, [typeFilter]);
 
   // Color accents for resource types
   const typeColors: Record<string, { bg: string; border: string; text: string; badge: string }> = {
