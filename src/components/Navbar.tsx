@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, ChevronRight, Search, Brain, FileCheck, Server, Workflow, MonitorSmartphone, AudioLines, Scissors, Upload, Shield, FileText, Clock, BookOpen, Video, Newspaper, Users, Building, Briefcase, Landmark, Cloud, BarChart3 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import venioLogo from "@/assets/venio-logo.svg";
 import BookDemoDialog from "./BookDemoDialog";
@@ -101,26 +102,41 @@ const Navbar = () => {
       items: [
         { label: "For Law Firms", link: "/law-firm-solutions", icon: Briefcase, desc: "End-to-end eDiscovery for legal practices" },
         { label: "For Corporations", link: "/for-corporations", icon: Building, desc: "In-house legal hold and discovery management" },
-        { label: "For Service Providers", link: "#", icon: Users, desc: "Scalable platform for hosting partners" },
-        { label: "For Government & Public Sector", link: "#", icon: Landmark, desc: "Secure solutions for government agencies" },
-        { label: "For Litigation Support Teams", link: "#", icon: Shield, desc: "Tools for complex litigation needs" },
-        { label: "For Investigations & Compliance Teams", link: "#", icon: Search, desc: "Compliance and investigation management" },
+        { label: "For Service Providers", link: "/for-service-providers", icon: Users, desc: "Scalable platform for hosting partners" },
+        { label: "For Government & Public Sector", link: "/for-government", icon: Landmark, desc: "Secure solutions for government agencies" },
+        { label: "For Litigation Support Teams", link: "/for-litigation-support", icon: Shield, desc: "Tools for complex litigation needs" },
+        { label: "For Investigations & Compliance Teams", link: "/for-investigations-compliance", icon: Search, desc: "Compliance and investigation management" },
       ],
     },
     {
       id: "role",
       name: "By Role",
       items: [
-        { label: "Legal Counsel", link: "#", icon: FileText, desc: "Oversight and strategy tools" },
-        { label: "eDiscovery Manager", link: "#", icon: Users, desc: "Day-to-day project management" },
-        { label: "eDiscovery Attorneys", link: "#", icon: Briefcase, desc: "Review and analysis interface" },
-        { label: "VP of eDiscovery Ops", link: "#", icon: Brain, desc: "Operational insights and reporting" },
-        { label: "CTO of eDiscovery Ops", link: "#", icon: Server, desc: "Secure and scalable infrastructure" },
+        { label: "Legal Counsel", link: "/role-legal-counsel", icon: FileText, desc: "Oversight and strategy tools" },
+        { label: "eDiscovery Manager", link: "/role-ediscovery-manager", icon: Users, desc: "Day-to-day project management" },
+        { label: "eDiscovery Attorneys", link: "/role-ediscovery-attorneys", icon: Briefcase, desc: "Review and analysis interface" },
+        { label: "VP of eDiscovery Ops", link: "/role-vp-ediscovery-ops", icon: Brain, desc: "Operational insights and reporting" },
+        { label: "CTO of eDiscovery Ops", link: "/role-cto-ediscovery-ops", icon: Server, desc: "Secure and scalable infrastructure" },
       ],
     },
   ];
 
-  const productMenu = [
+  type ProductId = "ediscovery" | "legal-hold" | "competition" | "deployment";
+  interface ProductModule { title: string; desc: string; icon: LucideIcon }
+  interface ProductFeature { label: string; icon: LucideIcon; link?: string }
+  interface ProductSubitem { label: string; icon: LucideIcon; link: string }
+  interface ProductMenuItem {
+    id: ProductId;
+    name: string;
+    overviewTitle?: string;
+    overviewDesc?: string;
+    overviewLink?: string;
+    icon?: LucideIcon;
+    modules: ProductModule[];
+    features: ProductFeature[];
+    subitems?: ProductSubitem[];
+  }
+  const productMenu: ProductMenuItem[] = [
     {
       id: "ediscovery",
       name: "Venio eDiscovery",
@@ -294,9 +310,7 @@ const Navbar = () => {
                                   <div className={`flex items-center justify-between rounded-lg px-2 py-1.5 ${activeProduct === p.id ? 'bg-transparent' : 'bg-transparent hover:bg-gray-50'} transition-colors`}>
                                     <div className="flex items-center gap-2">
                                       <div className="w-6 h-6 rounded-md flex items-center justify-center border bg-white border-gray-200 hover:border-gray-300">
-                                        {"icon" in p && (p as any).icon ? (
-                                          React.createElement((p as any).icon, { className: "h-3.5 w-3.5 text-[#0b1c3f] opacity-70" })
-                                        ) : null}
+                                        {p.icon ? React.createElement(p.icon, { className: "h-3.5 w-3.5 text-[#0b1c3f] opacity-70" }) : null}
                                       </div>
                                       <div className="leading-tight">
                                         <div className={`font-semibold text-sm text-[#0b1c3f]`}>{p.name}</div>
@@ -319,9 +333,9 @@ const Navbar = () => {
                                 </Link>
                                 <p className="text-[#2E2E2E] text-sm mt-0.5 opacity-80">{p.overviewDesc}</p>
                                 <div className="border-t border-gray-200"></div>
-                                {"subitems" in p && (p as any).subitems && (p as any).subitems.length > 0 && (
+                                {p.subitems && p.subitems.length > 0 && (
                                   <div className={`grid ${p.id === 'competition' ? 'grid-cols-2' : 'grid-cols-1'} gap-2 pt-2`}>
-                                    {((p as any).subitems as Array<any>).map((s, i) => (
+                                    {p.subitems.map((s, i) => (
                                       <Link key={i} to={s.link} className="group flex items-center gap-4 px-4 py-3.5 rounded-lg text-[#2E2E2E] hover:text-[#0b1c3f] hover:bg-gray-50 hover:shadow-sm hover:ring-1 ring-[rgba(11,28,63,0.12)] transition-transform duration-200 hover:translate-y-px">
                                         <div className="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center flex-shrink-0">
                                           {React.createElement(s.icon, { className: "h-5 w-5 text-[#0b1c3f]" })}

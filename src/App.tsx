@@ -31,6 +31,15 @@ const DeploymentOverview = lazy(() => import("./pages/DeploymentOverview"));
 const CompareVendor = lazy(() => import("./pages/CompareVendor"));
 const DeploymentType = lazy(() => import("./pages/DeploymentType"));
 const ForCorporations = lazy(() => import("./pages/ForCorporations"));
+const ForServiceProviders = lazy(() => import("./pages/ForServiceProviders"));
+const ForGovernment = lazy(() => import("./pages/ForGovernment"));
+const ForLitigationSupport = lazy(() => import("./pages/ForLitigationSupport"));
+const ForInvestigationsCompliance = lazy(() => import("./pages/ForInvestigationsCompliance"));
+const RoleLegalCounsel = lazy(() => import("./pages/RoleLegalCounsel"));
+const RoleEDiscoveryManager = lazy(() => import("./pages/RoleEDiscoveryManager"));
+const RoleEDiscoveryAttorneys = lazy(() => import("./pages/RoleEDiscoveryAttorneys"));
+const RoleVPEdiscoveryOps = lazy(() => import("./pages/RoleVPEdiscoveryOps"));
+const RoleCTOEdiscoveryOps = lazy(() => import("./pages/RoleCTOEdiscoveryOps"));
 import ChatbotWidget from "./components/ChatbotWidget";
 
 const queryClient = new QueryClient();
@@ -59,6 +68,15 @@ const App = () => (
           <Route path="/deployment-options" element={<DeploymentOverview />} />
           <Route path="/deployment/:type" element={<DeploymentType />} />
           <Route path="/for-corporations" element={<ForCorporations />} />
+          <Route path="/for-service-providers" element={<ForServiceProviders />} />
+          <Route path="/for-government" element={<ForGovernment />} />
+          <Route path="/for-litigation-support" element={<ForLitigationSupport />} />
+          <Route path="/for-investigations-compliance" element={<ForInvestigationsCompliance />} />
+          <Route path="/role-legal-counsel" element={<RoleLegalCounsel />} />
+          <Route path="/role-ediscovery-manager" element={<RoleEDiscoveryManager />} />
+          <Route path="/role-ediscovery-attorneys" element={<RoleEDiscoveryAttorneys />} />
+          <Route path="/role-vp-ediscovery-ops" element={<RoleVPEdiscoveryOps />} />
+          <Route path="/role-cto-ediscovery-ops" element={<RoleCTOEdiscoveryOps />} />
           
           {/* Individual Resource Type Demo Routes */}
           <Route path="/resources/case-studies/demo" element={<CaseStudy />} />
