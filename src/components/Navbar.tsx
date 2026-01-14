@@ -100,7 +100,7 @@ const Navbar = () => {
       name: "By Industry",
       items: [
         { label: "For Law Firms", link: "/law-firm-solutions", icon: Briefcase, desc: "End-to-end eDiscovery for legal practices" },
-        { label: "For Corporations", link: "#", icon: Building, desc: "In-house legal hold and discovery management" },
+        { label: "For Corporations", link: "/for-corporations", icon: Building, desc: "In-house legal hold and discovery management" },
         { label: "For Service Providers", link: "#", icon: Users, desc: "Scalable platform for hosting partners" },
         { label: "For Government & Public Sector", link: "#", icon: Landmark, desc: "Secure solutions for government agencies" },
         { label: "For Litigation Support Teams", link: "#", icon: Shield, desc: "Tools for complex litigation needs" },
@@ -592,6 +592,23 @@ const Navbar = () => {
                               <Link
                                 key={subItem}
                                 to="/law-firm-solutions"
+                                className={`flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-all ${
+                                  isActive
+                                    ? 'text-white bg-white/15 font-medium'
+                                    : 'text-white/90 hover:text-accent hover:bg-white/10'
+                                }`}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent/60"></div>
+                                {subItem}
+                              </Link>
+                            );
+                          }
+                          if (subItem === "For Corporations") {
+                            return (
+                              <Link
+                                key={subItem}
+                                to="/for-corporations"
                                 className={`flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-all ${
                                   isActive
                                     ? 'text-white bg-white/15 font-medium'

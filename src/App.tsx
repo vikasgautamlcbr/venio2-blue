@@ -30,6 +30,7 @@ const VenioVsCompetition = lazy(() => import("./pages/VenioVsCompetition"));
 const DeploymentOverview = lazy(() => import("./pages/DeploymentOverview"));
 const CompareVendor = lazy(() => import("./pages/CompareVendor"));
 const DeploymentType = lazy(() => import("./pages/DeploymentType"));
+const ForCorporations = lazy(() => import("./pages/ForCorporations"));
 import ChatbotWidget from "./components/ChatbotWidget";
 
 const queryClient = new QueryClient();
@@ -57,6 +58,7 @@ const App = () => (
           <Route path="/compare/:vendor" element={<CompareVendor />} />
           <Route path="/deployment-options" element={<DeploymentOverview />} />
           <Route path="/deployment/:type" element={<DeploymentType />} />
+          <Route path="/for-corporations" element={<ForCorporations />} />
           
           {/* Individual Resource Type Demo Routes */}
           <Route path="/resources/case-studies/demo" element={<CaseStudy />} />

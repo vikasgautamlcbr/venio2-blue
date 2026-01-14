@@ -28,6 +28,10 @@
       <stop offset="0%" stop-color="#5EA9FF"/>
       <stop offset="100%" stop-color="#89C2FF"/>
     </linearGradient>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+      text { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    ]]></style>
   </defs>
 
   <rect x="40" y="10" width="820" height="500" rx="40" fill="url(#glow)"/>
@@ -35,21 +39,21 @@
   <g filter="url(#shadow-card)">
     <rect x="60" y="40" width="780" height="380" rx="24" fill="url(#card-gradient)" stroke="#FFFFFF" stroke-opacity="0.30"/>
 
-    <text x="88" y="90" fill="#FFFFFF" font-size="20" font-weight="700">Platform Health Snapshot</text>
+    <text x="88" y="90" fill="#FFFFFF" font-size="20" font-weight="700" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">Platform Health Snapshot</text>
     <rect x="700" y="70" width="120" height="28" rx="14" fill="#10B981" fill-opacity="0.20" stroke="#34D399" stroke-opacity="0.40"/>
-    <text x="760" y="89" fill="#34D399" font-size="12" font-weight="700" text-anchor="middle">Optimized</text>
+    <text x="760" y="89" fill="#34D399" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">Optimized</text>
 
     <rect x="88" y="120" width="335" height="90" rx="16" fill="#FFFFFF" fill-opacity="0.20" stroke="#FFFFFF" stroke-opacity="0.30"/>
-    <text x="108" y="150" fill="#D1D5DB" font-size="12" font-weight="600">Processing Speed</text>
-    <text x="108" y="183" fill="#3DC47E" font-size="24" font-weight="800">10TB+ / Day</text>
+    <text x="108" y="150" fill="#D1D5DB" font-size="12" font-weight="600" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">Processing Speed</text>
+    <text x="108" y="183" fill="#3DC47E" font-size="24" font-weight="800" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">10TB+ / Day</text>
 
     <rect x="425" y="120" width="335" height="90" rx="16" fill="#FFFFFF" fill-opacity="0.20" stroke="#FFFFFF" stroke-opacity="0.30"/>
-    <text x="445" y="150" fill="#D1D5DB" font-size="12" font-weight="600">Deployment</text>
-    <text x="445" y="183" fill="#5EA9FF" font-size="24" font-weight="800">Hybrid</text>
+    <text x="445" y="150" fill="#D1D5DB" font-size="12" font-weight="600" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">Deployment</text>
+    <text x="445" y="183" fill="#5EA9FF" font-size="24" font-weight="800" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">Hybrid</text>
 
     <rect x="88" y="220" width="672" height="90" rx="16" fill="#3DC47E" fill-opacity="0.15" stroke="#3DC47E" stroke-opacity="0.40"/>
-    <text x="108" y="255" fill="#D1D5DB" font-size="12" font-weight="600">AI Analytics (CAL)</text>
-    <text x="108" y="285" fill="#3DC47E" font-size="18" font-weight="700">Standard</text>
+    <text x="108" y="255" fill="#D1D5DB" font-size="12" font-weight="600" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">AI Analytics (CAL)</text>
+    <text x="108" y="285" fill="#3DC47E" font-size="18" font-weight="700" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">Standard</text>
 
     <path d="M730 248 L750 248 L742 268 L760 268 L740 298 L746 278 L730 278 Z" fill="#3DC47E"/>
   </g>
@@ -57,7 +61,7 @@
   <g filter="url(#shadow-badge)">
     <rect x="72" y="430" width="300" height="56" rx="16" fill="#FFFFFF" stroke="#E5E7EB"/>
     <rect x="88" y="444" width="32" height="32" rx="8" fill="url(#accent-green)"/>
-    <text x="104" y="466" fill="#FFFFFF" font-size="16" font-weight="800" text-anchor="middle">$</text>
-    <text x="132" y="466" fill="#0F172A" font-size="16" font-weight="700">Save up to 50% annually</text>
+    <text x="104" y="466" fill="#FFFFFF" font-size="16" font-weight="800" text-anchor="middle" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">$</text>
+    <text x="132" y="466" fill="#0F172A" font-size="16" font-weight="700" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">Save up to 50% annually</text>
   </g>
 </svg>
