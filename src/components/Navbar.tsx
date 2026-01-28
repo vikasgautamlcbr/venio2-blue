@@ -587,6 +587,28 @@ const Navbar = () => {
                             style={{ top: resHighlightTop, height: resHighlightHeight }}
                           />
                           <div className="space-y-2 relative z-10">
+                            <Link
+                              to="/resources"
+                              data-id="resources-library"
+                              onMouseEnter={(e) => {
+                                const target = e.currentTarget as HTMLElement;
+                                setResHighlightTop(target.offsetTop);
+                                setResHighlightHeight(target.offsetHeight);
+                              }}
+                              className="w-full block text-left px-6 py-4 rounded-lg font-semibold transition-colors text-[#2E2E2E] hover:text-white"
+                            >
+                              <div className="flex items-center justify-between px-1 py-1">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-6 h-6 rounded-md flex items-center justify-center border bg-white border-gray-200 hover:border-gray-300">
+                                    <BookOpen className="h-3.5 w-3.5 text-[#0b1c3f] opacity-70" />
+                                  </div>
+                                  <div className="leading-tight">
+                                    <div className="font-semibold text-base">Resources Library</div>
+                                  </div>
+                                </div>
+                                <ChevronRight size={16} className="text-[#0b1c3f] opacity-60" />
+                              </div>
+                            </Link>
                             {resourcesCategories.map((c) => (
                               <button
                                 key={c.id}
