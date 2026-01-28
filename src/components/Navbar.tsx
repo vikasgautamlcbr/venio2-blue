@@ -5,6 +5,12 @@ import type { LucideIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import venioLogo from "@/assets/venio-logo.svg";
 import BookDemoDialog from "./BookDemoDialog";
+import fortuneBankImg from "@/assets/resources/fortune-100-bank.jpg";
+import amlawSuccessImg from "@/assets/resources/amlaw-50-success.jpg";
+import federalAgencyImg from "@/assets/resources/federal-agency.jpg";
+import venioReviewImg from "@/assets/resources/venio-review-platform.jpg";
+import esiProtocolImg from "@/assets/resources/esi-protocol.jpg";
+import ediscoveryPricingImg from "@/assets/resources/ediscovery-pricing.jpg";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,6 +25,10 @@ const Navbar = () => {
   const [prodHighlightHeight, setProdHighlightHeight] = useState(0);
   const [solHighlightTop, setSolHighlightTop] = useState(0);
   const [solHighlightHeight, setSolHighlightHeight] = useState(0);
+  const [activeResource, setActiveResource] = useState("blogs");
+  const resListRef = useRef<HTMLDivElement | null>(null);
+  const [resHighlightTop, setResHighlightTop] = useState(0);
+  const [resHighlightHeight, setResHighlightHeight] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +53,13 @@ const Navbar = () => {
       setSolHighlightHeight(el.offsetHeight);
     }
   }, [activeSolution]);
+  useEffect(() => {
+    const el = resListRef.current?.querySelector(`[data-id="${activeResource}"]`) as HTMLElement | null;
+    if (el) {
+      setResHighlightTop(el.offsetTop);
+      setResHighlightHeight(el.offsetHeight);
+    }
+  }, [activeResource]);
 
   const navItems = [
     {
@@ -65,6 +82,7 @@ const Navbar = () => {
     {
       label: "Resources",
       hasDropdown: true,
+      hasMegaMenu: true,
       items: ["Blogs", "eBooks / Guides", "Product Videos", "Case Studies"],
     },
     {
@@ -120,6 +138,72 @@ const Navbar = () => {
       ],
     },
   ];
+  const resourcesCategories = [
+    {
+      id: "blogs",
+      name: "Blogs",
+      icon: Newspaper,
+      items: [
+        { label: "What Is FRCP Rule 33? A Reference Guide", link: "https://www.veniosystems.com/blog/what-is-frcp-rule-33-a-reference-guide/" },
+        { label: "Why Premium eDiscovery Pricing Doesn't Guarantee Better Results", link: "https://www.veniosystems.com/blog/why-premium-ediscovery-software-pricing-doesnt-guarantee-better-results/" },
+        { label: "Understanding ESI Protocol: The Definitive Checklist", link: "https://www.veniosystems.com/blog/understanding-formulating-esi-protocol-checklist/" },
+        { label: "What is ESI? The Ultimate Guide to ESI", link: "https://www.veniosystems.com/blog/what-is-esi-legal-hold-guide/" },
+      ],
+    },
+    {
+      id: "guides",
+      name: "eBooks / Guides",
+      icon: BookOpen,
+      items: [
+        { label: "10‑Point Checklist for Document Review", link: "/resources/10_points_checklist_for_Doc_Review.pdf" },
+        { label: "Venio Review Product Brief", link: "/resources/Product_Brief-Venio_Review.pdf" },
+        { label: "Venio ECA Product Brief", link: "/resources/Product_Brief-Venio_ECA.pdf" },
+        { label: "Venio Legal Hold Product Brief", link: "/resources/Product_Brief-Venio_Legal_Hold.pdf" },
+      ],
+    },
+    {
+      id: "case-studies",
+      name: "Case Studies",
+      icon: FileText,
+      items: [
+        { label: "Petabyte‑Scale eDiscovery: Fortune 100 Financial Services", link: "/resources/Case_Study-Fortune_100_Financial_Services.pdf" },
+        { label: "Weekly Productions, Zero Rejections: AmLaw 50 Success", link: "/resources/Case_Study-AmLaw_50_Success_Story.pdf" },
+        { label: "Audit‑Ready Federal Workflows: Agency Success Story", link: "/resources/Case_Study-Federal_Agency_Workflows.pdf" },
+        { label: "All Case Studies", link: "/resources?type=case-study" },
+      ],
+    },
+    {
+      id: "videos",
+      name: "Videos",
+      icon: Video,
+      items: [
+        { label: "VenioOne Overview", link: "/videos/venio-one.mp4" },
+        { label: "Venio AI Review", link: "/videos/venio-ai-review.mp4" },
+        { label: "Venio ECA", link: "/videos/venio-eca.mp4" },
+        { label: "Venio Legal Hold", link: "/videos/venio-legal-hold.mp4" },
+      ],
+    },
+  ];
+  const resourcesAccents: Record<string, { bg: string; border: string; iconBg: string; text: string }> = {
+    blogs: { bg: "bg-blue-50", border: "border-blue-200 hover:border-blue-300", iconBg: "bg-blue-100", text: "text-blue-700" },
+    guides: { bg: "bg-indigo-50", border: "border-indigo-200 hover:border-indigo-300", iconBg: "bg-indigo-100", text: "text-indigo-700" },
+    "case-studies": { bg: "bg-emerald-50", border: "border-emerald-200 hover:border-emerald-300", iconBg: "bg-emerald-100", text: "text-emerald-700" },
+    videos: { bg: "bg-violet-50", border: "border-violet-200 hover:border-violet-300", iconBg: "bg-violet-100", text: "text-violet-700" },
+  };
+  const viewAllLinks: Record<string, string> = {
+    blogs: "/resources?type=blog",
+    guides: "/resources?type=product-brief",
+    "case-studies": "/resources?type=case-study",
+    videos: "/resources?type=video",
+  };
+  const resourceThumbs: Record<string, string> = {
+    "Why Premium eDiscovery Pricing Doesn't Guarantee Better Results": ediscoveryPricingImg,
+    "Understanding ESI Protocol: The Definitive Checklist": esiProtocolImg,
+    "Petabyte‑Scale eDiscovery: Fortune 100 Financial Services": fortuneBankImg,
+    "Weekly Productions, Zero Rejections: AmLaw 50 Success": amlawSuccessImg,
+    "Audit‑Ready Federal Workflows: Agency Success Story": federalAgencyImg,
+    "Venio Review Product Brief": venioReviewImg,
+  };
 
   type ProductId = "ediscovery" | "legal-hold" | "competition" | "deployment";
   interface ProductModule { title: string; desc: string; icon: LucideIcon }
@@ -478,6 +562,122 @@ const Navbar = () => {
                                   });
                                 })()}
                               </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {item.hasDropdown && item.hasMegaMenu && item.label === "Resources" && (
+                  <div className="absolute top-full left-0 right-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                    <div className="rounded-2xl shadow-xl p-8 w-[1200px] max-w-[calc(100vw-4rem)] mx-auto bg-white backdrop-blur-sm border border-gray-100">
+                      <div className="grid grid-cols-[320px_1fr] gap-0">
+                        <div
+                          ref={resListRef}
+                          onMouseLeave={() => {
+                            const el = resListRef.current?.querySelector(`[data-id="${activeResource}"]`) as HTMLElement | null;
+                            if (el) { setResHighlightTop(el.offsetTop); setResHighlightHeight(el.offsetHeight); }
+                          }}
+                          className="relative pr-6 border-r border-gray-200"
+                        >
+                          <div
+                            className="absolute left-2 right-2 rounded-lg bg-gradient-to-r from-[#3DC47E] to-[#2FA964] shadow-lg ring-1 ring-[rgba(61,196,126,0.25)] transition-all duration-300 pointer-events-none z-0"
+                            style={{ top: resHighlightTop, height: resHighlightHeight }}
+                          />
+                          <div className="space-y-2 relative z-10">
+                            {resourcesCategories.map((c) => (
+                              <button
+                                key={c.id}
+                                data-id={c.id}
+                                className={`w-full text-left px-6 py-4 rounded-lg font-semibold transition-colors ${activeResource === c.id ? 'text-white' : 'text-[#2E2E2E] hover:text-white'}`}
+                                onClick={() => setActiveResource(c.id)}
+                                onMouseEnter={(e) => {
+                                  setActiveResource(c.id);
+                                  setResHighlightTop(e.currentTarget.offsetTop);
+                                  setResHighlightHeight(e.currentTarget.offsetHeight);
+                                }}
+                              >
+                                <div className="flex items-center justify-between px-1 py-1">
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-6 h-6 rounded-md flex items-center justify-center border bg-white border-gray-200 hover:border-gray-300">
+                                      {React.createElement(c.icon, { className: "h-3.5 w-3.5 text-[#0b1c3f] opacity-70" })}
+                                    </div>
+                                    <div className="leading-tight">
+                                      <div className="font-semibold text-base">{c.name}</div>
+                                    </div>
+                                  </div>
+                                  <ChevronRight size={16} className={`${activeResource === c.id ? 'text-white' : 'text-[#0b1c3f]'} opacity-60`} />
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="pl-6">
+                          {resourcesCategories.filter((c) => c.id === activeResource).map((c) => (
+                            <div key={c.id} className="space-y-6">
+                              {(() => {
+                                const accent = { bg: "bg-white", border: "border-gray-200 hover:border-gray-300", iconBg: "bg-gray-100", text: "text-[#0b1c3f]" };
+                                return (
+                                  <React.Fragment>
+                                    <div className="grid grid-cols-2 gap-4">
+                                      {c.items.slice(0, 4).map((r, i) => {
+                                        const action = r.link.endsWith(".pdf")
+                                          ? "Download"
+                                          : r.link.endsWith(".mp4") || r.link.includes("/videos/")
+                                          ? "Watch"
+                                          : r.link.startsWith("http")
+                                          ? "Read"
+                                          : "View";
+                                        const inner = (
+                                          <div className={`group flex items-center gap-4 p-4 rounded-xl border transition-all hover:shadow-md hover:-translate-y-px bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50`}>
+                                            <div className="relative w-16 h-16 rounded-lg overflow-hidden border border-gray-200 flex-shrink-0">
+                                              {resourceThumbs[r.label] ? (
+                                                <img src={resourceThumbs[r.label]} alt={r.label} className="w-full h-full object-cover" />
+                                              ) : (
+                                                <div className={`w-full h-full flex items-center justify-center ${accent.iconBg}`}>
+                                                  {React.createElement(c.icon, { className: `h-6 w-6 ${accent.text}` })}
+                                                </div>
+                                              )}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                              <div className="font-semibold text-[#0b1c3f] leading-snug group-hover:text-[#0b1c3f] line-clamp-2">{r.label}</div>
+                                              <div className="text-xs text-[#2E2E2E] opacity-70">{action}</div>
+                                            </div>
+                                            <ChevronRight size={16} className={`${accent.text} opacity-70 ml-auto`} />
+                                          </div>
+                                        );
+                                        return r.link.startsWith("http") ? (
+                                          <a key={i} href={r.link} target="_blank" rel="noreferrer">
+                                            {inner}
+                                          </a>
+                                        ) : (
+                                          <Link key={i} to={r.link}>
+                                            {inner}
+                                          </Link>
+                                        );
+                                      })}
+                                    </div>
+                                    {(() => {
+                                      const footerLink = viewAllLinks[c.id] || "/resources";
+                                      return (
+                                        <div className="flex items-center justify-end mt-4">
+                                          {footerLink.startsWith("/resources") ? (
+                                            <Button asChild size="sm" className="bg-accent hover:bg-accent/90 text-white">
+                                              <Link to={footerLink}>View All</Link>
+                                            </Button>
+                                          ) : (
+                                            <Button asChild size="sm" className="bg-accent hover:bg-accent/90 text-white">
+                                              <a href={footerLink}>View All</a>
+                                            </Button>
+                                          )}
+                                        </div>
+                                      );
+                                    })()}
+                                  </React.Fragment>
+                                );
+                              })()}
                             </div>
                           ))}
                         </div>
