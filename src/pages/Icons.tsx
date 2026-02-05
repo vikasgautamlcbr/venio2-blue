@@ -119,14 +119,15 @@ const Icons = () => {
     s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
   const buildSvg = (IconComp: LucideIcon) => {
-    const innerSvg = renderToStaticMarkup(
+    let innerSvg = renderToStaticMarkup(
       <IconComp size={32} color="#ffffff" strokeWidth={2} />
     );
-    const inner = innerSvg.replace(/^<svg[^>]*>/, "").replace(/<\/svg>$/, "");
+    innerSvg = innerSvg.replace(/stroke="currentColor"/, 'stroke="#ffffff"');
+    const positionedSvg = innerSvg.replace("<svg", '<svg x="16" y="16"');
     const full =
       `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
       `<rect width="64" height="64" fill="#3DC47E" rx="12"/>` +
-      `<g transform="translate(16,16)">${inner}</g>` +
+      `${positionedSvg}` +
       `</svg>`;
     return full;
   };
