@@ -34,6 +34,7 @@ const Footer = () => {
       { name: "Press Releases", url: "/resources/press-releases/demo" },
       { name: "How-to Guides", url: "/resources/how-to-guides/demo" },
       { name: "Infographics", url: "/resources/infographics/demo" },
+      { name: "Icons Library", url: "/icons" },
     ],
     Company: [
       { name: "Why Venio", url: "#" },
