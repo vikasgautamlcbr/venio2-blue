@@ -40,6 +40,7 @@ const RoleEDiscoveryManager = lazy(() => import("./pages/RoleEDiscoveryManager")
 const RoleEDiscoveryAttorneys = lazy(() => import("./pages/RoleEDiscoveryAttorneys"));
 const RoleVPEdiscoveryOps = lazy(() => import("./pages/RoleVPEdiscoveryOps"));
 const RoleCTOEdiscoveryOps = lazy(() => import("./pages/RoleCTOEdiscoveryOps"));
+const Icons = lazy(() => import("./pages/Icons"));
 import ChatbotWidget from "./components/ChatbotWidget";
 
 const queryClient = new QueryClient();
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/law-firm-solutions" element={<LawFirmSolutions />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/icons" element={<Icons />} />
           <Route path="/resources/demo/:type" element={<ResourceTypeDemo />} />
           <Route path="/why-venio" element={<WhyVenio />} />
           <Route path="/search" element={<Search />} />
