@@ -520,17 +520,27 @@ const Icons = () => {
     s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
   const buildSvg = (IconComp: LucideIcon) => {
-    let innerSvg = renderToStaticMarkup(
+    const rawInner = renderToStaticMarkup(
       <IconComp size={32} color="#ffffff" strokeWidth={2} />
     );
-    innerSvg = innerSvg.replace(/stroke="currentColor"/, 'stroke="#ffffff"');
-    const positionedSvg = innerSvg.replace("<svg", '<svg x="16" y="16"');
-    const full =
+    const sanitizedInner = rawInner
+      .replace(/stroke="currentColor"/g, 'stroke="#ffffff"')
+      .replace(/<svg\b/, '<svg x="16" y="16"');
+    const outer =
       `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
       `<rect width="64" height="64" fill="#3DC47E" rx="12"/>` +
-      `${positionedSvg}` +
+      `${sanitizedInner}` +
       `</svg>`;
-    return full;
+    return outer;
+  };
+
+  const isValidSvg = (svg: string) => {
+    try {
+      const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+      return !doc.querySelector("parsererror");
+    } catch {
+      return false;
+    }
   };
 
   const buildNavySvg = (IconComp: LucideIcon) => {
@@ -546,7 +556,9 @@ const Icons = () => {
 
     requestedIcons.forEach((item) => {
       const svg = buildSvg(item.Icon);
-      zip.file(`${slugify(item.name)}.svg`, svg);
+      const name = `${slugify(item.name)}.svg`;
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color="#ffffff" strokeWidth={2} />);
+      zip.file(name, finalSvg);
     });
 
     const blob = await zip.generateAsync({ type: "blob" });
@@ -566,7 +578,9 @@ const Icons = () => {
 
     moreIcons.forEach((item) => {
       const svg = buildNavySvg(item.Icon);
-      zip.file(`${slugify(item.name)}.svg`, svg);
+      const name = `${slugify(item.name)}.svg`;
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color="#0b1c3f" strokeWidth={2} />);
+      zip.file(name, finalSvg);
     });
 
     const blob = await zip.generateAsync({ type: "blob" });
