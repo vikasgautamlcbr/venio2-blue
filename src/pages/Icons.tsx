@@ -2,8 +2,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building2, ServerCog, FileWarning, TrendingDown, Timer } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building2, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award } from "lucide-react";
+import type { LucideIcon, LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
 import { renderToStaticMarkup } from "react-dom/server";
 
@@ -12,6 +12,192 @@ type IconItem = {
   desc: string;
   Icon: LucideIcon;
 };
+
+const ScalesIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <line x1="12" y1="5" x2="12" y2="18" />
+    <line x1="8" y1="20" x2="16" y2="20" />
+    <line x1="6" y1="8" x2="18" y2="8" />
+    <line x1="8" y1="8" x2="8" y2="12" />
+    <line x1="16" y1="8" x2="16" y2="12" />
+    <path d="M6.5 12 Q8 14 9.5 12" />
+    <path d="M14.5 12 Q16 14 17.5 12" />
+  </svg>
+)) as unknown as LucideIcon;
+
+const ChoiceArrowsIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <line x1="12" y1="8" x2="12" y2="16" />
+    <circle cx="12" cy="12" r="1" />
+    <line x1="8" y1="12" x2="16" y2="12" />
+    <polyline points="8 9.5 5.5 12 8 14.5" />
+    <polyline points="16 9.5 18.5 12 16 14.5" />
+  </svg>
+)) as unknown as LucideIcon;
+
+const ChoiceArrowsDecisionIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <line x1="12" y1="8" x2="12" y2="16" />
+    <circle cx="12" cy="12" r="1" />
+    <line x1="8" y1="12" x2="16" y2="12" />
+    <polyline points="8 9.5 5.5 12 8 14.5" />
+    <polyline points="16 9.5 18.5 12 16 14.5" />
+    <line x1="4.8" y1="10.5" x2="6.4" y2="12.1" />
+    <line x1="6.4" y1="10.5" x2="4.8" y2="12.1" />
+    <polyline points="17 12 18.2 13.2 20.2 11.2" />
+  </svg>
+)) as unknown as LucideIcon;
+
+const BranchChoiceIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <path d="M12 18 L12 10" />
+    <path d="M12 12 Q10.2 10.8 8 8.5" />
+    <path d="M12 12 Q13.8 10.8 16 8.5" />
+    <polyline points="10 6 12 4 14 6" />
+    <polyline points="7 6.5 8.6 8.2 9.2 6.2" />
+    <polyline points="14.8 6.2 15.4 8.2 17 6.5" />
+  </svg>
+)) as unknown as LucideIcon;
+
+const DocContextDecisionIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <rect x="4.5" y="4.5" width="9" height="14" rx="2" />
+    <line x1="6.5" y1="8" x2="11" y2="8" />
+    <line x1="6.5" y1="10.5" x2="9.5" y2="10.5" />
+    <circle cx="6.5" cy="8" r="0.7" />
+    <line x1="16.5" y1="6.5" x2="16.5" y2="17.5" />
+    <line x1="14.5" y1="9.5" x2="18.5" y2="9.5" />
+    <line x1="15.5" y1="9.5" x2="15.5" y2="12" />
+    <line x1="17.5" y1="9.5" x2="17.5" y2="12" />
+    <path d="M14.6 12 Q15.5 13.6 16.4 12" />
+    <path d="M16.6 12 Q17.5 13.6 18.4 12" />
+  </svg>
+)) as unknown as LucideIcon;
+
+const YesNoIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <rect x="5" y="4" width="10" height="14" rx="2" />
+    <line x1="6" y1="7" x2="12" y2="7" />
+    <line x1="6" y1="9" x2="10" y2="9" />
+    <line x1="6" y1="12" x2="8" y2="14" />
+    <line x1="8" y1="12" x2="6" y2="14" />
+    <polyline points="11 13 12 14 14 12" />
+  </svg>
+)) as unknown as LucideIcon;
 
 const requestedIcons: IconItem[] = [
   {
@@ -94,7 +280,213 @@ const requestedIcons: IconItem[] = [
     desc: "Handle sudden data spikes during investigations or audits without slowdowns.",
     Icon: Zap,
   },
+  {
+    name: "Faster Strategic Decision-Making",
+    desc: "Use early analytics to guide decisions and reduce uncertainty.",
+    Icon: TrendingUp,
+  },
+  {
+    name: "Direct Visibility Into Discovery Progress",
+    desc: "Track workflow status and bottlenecks in real time.",
+    Icon: LayoutDashboard,
+  },
+  {
+    name: "Stronger Defensibility and Risk Control",
+    desc: "Built-in safeguards and controls strengthen defensibility.",
+    Icon: ShieldCheck,
+  },
+  {
+    name: "Simplified Privilege Management",
+    desc: "Streamline access and controls to protect sensitive data.",
+    Icon: Lock,
+  },
+  {
+    name: "Consistent Review Quality Across Teams",
+    desc: "Standardized workflows help ensure consistent outputs.",
+    Icon: Award,
+  },
+  {
+    name: "Scalable Performance for Simultaneous Projects",
+    desc: "Maintain throughput across multiple concurrent matters.",
+    Icon: Gauge,
+  },
+  {
+    name: "Clear Audit Trails for Defensibility",
+    desc: "Capture actions and decisions for complete traceability.",
+    Icon: ClipboardList,
+  },
+  {
+    name: "Secure Collaboration Across Teams",
+    desc: "Enable teamwork while protecting sensitive information.",
+    Icon: Users,
+  },
+  {
+    name: "Reduce Privilege Risk with Consistent Controls",
+    desc: "Apply uniform controls to minimize privilege-related exposure.",
+    Icon: Key,
+  },
+  {
+    name: "Stay Defensible with Full Audit Trails",
+    desc: "Maintain reliable, court-ready documentation of every step.",
+    Icon: ClipboardList,
+  },
+  {
+    name: "Gain Real-Time Visibility into Review Progress",
+    desc: "See review activity and progress as it happens.",
+    Icon: Eye,
+  },
+  {
+    name: "Make Better Privilege Decisions with Context",
+    desc: "Leverage document context and metadata to judge privilege.",
+    Icon: FileCheck,
+  },
 ];
+
+const UpDownGraphIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <path d="M4 19H20" />
+    <path d="M4 19V5" />
+    <polyline points="5 15 8 10 11 13 14 8 19 12" />
+  </svg>
+)) as unknown as LucideIcon;
+
+ 
+
+const MagnifyClockIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <circle cx="10" cy="10" r="5" />
+    <line x1="10" y1="10" x2="10" y2="7" />
+    <line x1="10" y1="10" x2="12.5" y2="10" />
+    <line x1="14.5" y1="14.5" x2="20" y2="20" />
+  </svg>
+)) as unknown as LucideIcon;
+
+const ClockOverdueIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <circle cx="10" cy="10" r="5" />
+    <line x1="10" y1="10" x2="10" y2="7" />
+    <line x1="10" y1="10" x2="12.5" y2="10" />
+    <path d="M17 7 L20 7 L18.5 9.5 Z" />
+  </svg>
+)) as unknown as LucideIcon;
+
+const HourglassMoreIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <line x1="6" y1="6" x2="18" y2="6" />
+    <line x1="6" y1="18" x2="18" y2="18" />
+    <path d="M6 6 C11 9 11 15 6 18" />
+    <path d="M18 6 C13 9 13 15 18 18" />
+    <line x1="8.5" y1="8" x2="15.5" y2="8" />
+    <line x1="9.5" y1="9" x2="14.5" y2="9" />
+    <circle cx="12" cy="12.6" r="0.4" />
+    <path d="M11.2 16 Q12 15.6 12.8 16" />
+  </svg>
+)) as unknown as LucideIcon;
+
+const ClockDelayIcon = (({
+  color = "currentColor",
+  size = 24,
+  strokeWidth = 2,
+  className,
+  ...props
+}: LucideProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    color={color}
+    className={className}
+    {...props}
+  >
+    <circle cx="10" cy="10" r="5" />
+    <line x1="10" y1="10" x2="10" y2="7" />
+    <line x1="10" y1="10" x2="12.5" y2="10" />
+    <line x1="14" y1="10" x2="20" y2="10" />
+    <polyline points="18 8 20 10 18 12" />
+  </svg>
+)) as unknown as LucideIcon;
 
 const moreIcons: { name: string; Icon: LucideIcon }[] = [
   { name: "Cloud eDiscovery", Icon: Cloud },
@@ -112,6 +504,15 @@ const moreIcons: { name: string; Icon: LucideIcon }[] = [
   { name: "Strict Compliance", Icon: ShieldCheck },
   { name: "Data Security", Icon: Lock },
   { name: "Tight Timelines", Icon: Timer },
+  { name: "Fragmented Tools and Manual Tracking", Icon: Unlink },
+  { name: "Limited Early Case Insight", Icon: SearchX },
+  { name: "Heavy Reliance on External Vendors", Icon: Briefcase },
+  { name: "Limited Real-Time Visibility", Icon: EyeOff },
+  { name: "Tool Fragmentation Across Stages", Icon: Unlink },
+  { name: "Reviewer Coordination & Quality Gaps", Icon: AlertTriangle },
+  { name: "Late Insight into Key Evidence", Icon: Timer },
+  { name: "Inconsistent Data Review Quality", Icon: UpDownGraphIcon },
+  { name: "Unpredictable Review Costs", Icon: BadgeDollarSign },
 ];
 
 const Icons = () => {
