@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import CTABanner from "@/components/CTABanner";
 import ProblemSolutionSection from "@/components/ProblemSolutionSection";
 import SecuritySection from "@/components/SecuritySection";
@@ -105,54 +105,60 @@ const UseCaseECA = () => {
             <h2 className="text-4xl font-bold mb-4">Who Is It For?</h2>
             <p className="text-lg text-muted-foreground">Choose an industry to see roles and priorities</p>
           </div>
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            <Badge variant="outline" className="border-border/50">Corporate Legal Teams</Badge>
-            <Badge variant="outline" className="border-border/50">Law Firms</Badge>
-            <Badge variant="outline" className="border-border/50">Compliance Teams</Badge>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {industries.map((item, idx) => {
-              const active = industry === item.key;
-              return (
-                <Card
-                  key={idx}
-                  onClick={() => setIndustry(item.key)}
-                  className={`rounded-2xl bg-white border border-border/40 shadow-sm transition-all duration-300 cursor-pointer text-center ${
-                    active ? "ring-2 ring-secondary shadow-lg scale-[1.02]" : "hover:shadow-lg"
-                  }`}
+          <Tabs value={industry} onValueChange={setIndustry} className="w-full">
+            <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 bg-muted/50 p-2 h-auto mb-10">
+              {industries.map((item) => (
+                <TabsTrigger
+                  key={item.key}
+                  value={item.key}
+                  className="text-sm md:text-base py-3 data-[state=active]:bg-white data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                 >
-                  <CardContent className="p-8">
-                    <div className="w-14 h-14 mx-auto rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-6">
-                      <item.icon className={`h-7 w-7 ${active ? "text-secondary" : "text-secondary/60"}`} />
+                  <span className="inline-flex items-center gap-2">
+                    <item.icon className={`h-5 w-5 ${industry === item.key ? "text-secondary" : "text-muted-foreground"}`} />
+                    {item.title}
+                  </span>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+            {industries.map((item) => (
+              <TabsContent key={item.key} value={item.key} className="mt-0">
+                <div className="grid lg:grid-cols-3 gap-6">
+                  <Card className="rounded-2xl bg-white border border-border/40 shadow-sm lg:col-span-1">
+                    <CardContent className="p-8">
+                      <div className="w-14 h-14 rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-6">
+                        <item.icon className="h-7 w-7 text-secondary" />
+                      </div>
+                      <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    </CardContent>
+                  </Card>
+
+                  <div className="lg:col-span-2 rounded-2xl bg-white border border-border/40 shadow-sm">
+                    <div className="p-6 border-b border-border/40 flex items-center justify-between rounded-t-2xl">
+                      <div>
+                        <h3 className="text-2xl font-semibold">Roles & Priorities</h3>
+                        <p className="text-sm text-muted-foreground">Typical roles for {item.title} and their focus areas</p>
+                      </div>
+                      <div className="hidden md:block text-sm text-muted-foreground">Industry: {item.title}</div>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-          <div className="mt-10 rounded-2xl bg-white border border-border/40 shadow-sm">
-            <div className="p-6 border-b border-border/40 flex items-center justify-between rounded-t-2xl">
-              <div>
-                <h3 className="text-2xl font-semibold">Roles & Priorities</h3>
-                <p className="text-sm text-muted-foreground">Showing typical roles for {industry} and what they focus on</p>
-              </div>
-              <div className="hidden md:block text-sm text-muted-foreground">Industry: {industry}</div>
-            </div>
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground bg-muted/40 rounded-lg px-3 py-2">Role</div>
-                <div className="text-xs uppercase tracking-wide text-muted-foreground bg-muted/40 rounded-lg px-3 py-2">What They Focus On</div>
-                {rolesByIndustry[industry].map((r, i) => (
-                  <div key={i} className="contents">
-                    <div className="py-3 border-b border-border/30 font-medium">{r.role}</div>
-                    <div className="py-3 border-b border-border/30 text-muted-foreground">{r.care}</div>
+                    <div className="p-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="text-xs uppercase tracking-wide text-muted-foreground bg-muted/40 rounded-lg px-3 py-2">Role</div>
+                        <div className="text-xs uppercase tracking-wide text-muted-foreground bg-muted/40 rounded-lg px-3 py-2">What They Focus On</div>
+                        {rolesByIndustry[item.key].map((r, i) => (
+                          <div key={i} className="contents">
+                            <div className="py-3 border-b border-border/30 font-medium">{r.role}</div>
+                            <div className="py-3 border-b border-border/30 text-muted-foreground">{r.care}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
         </div>
       </section>
 
