@@ -13,6 +13,14 @@ import { DataPointsSection } from "@/components/DataPointsSection";
 import { Brain, Shield, Cloud, Server, Workflow, FileText, Users, Briefcase, Landmark, ArrowRight, Building, Layers } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import amentumLogo from "@/assets/clients/amentum-new.webp";
+import arrayLogo from "@/assets/clients/array-new.webp";
+import cdsLogo from "@/assets/clients/cds-new.webp";
+import consilioLogo from "@/assets/clients/consilio-new.webp";
+import eparioLogo from "@/assets/clients/epario-new.webp";
+import haugLogo from "@/assets/clients/haug-partners-new.webp";
+import nixonLogo from "@/assets/clients/nixon-peabody-new.webp";
+import proteusLogo from "@/assets/clients/proteus-new.webp";
 
 const UseCaseECA = () => {
   useEffect(() => {
@@ -58,7 +66,7 @@ const UseCaseECA = () => {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
 
-      <section id="hero" className="relative min-h-[75vh] md:min-h-[70vh] flex items-center overflow-hidden gradient-animated pt-24 xl:pt-28 2xl:pt-40 pb-16">
+      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden gradient-animated pt-24 xl:pt-28 2xl:pt-40 pb-40">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
           <div className="absolute bottom-32 right-10 w-[500px] h-[500px] bg-accent/25 rounded-full blur-3xl float-delayed"></div>
@@ -98,6 +106,40 @@ const UseCaseECA = () => {
                 <FileText className="h-24 w-24 mx-auto mb-4 text-secondary" />
                 <p className="text-sm">ECA Analytics Visual</p>
               </div>
+            </div>
+          </div>
+        </div>
+        {/* End-to-end logo ribbon inside hero */}
+        <div className="absolute bottom-0 left-0 right-0 z-10">
+          <div className="relative overflow-hidden py-12 md:py-14">
+            <div className="text-center mb-8 md:mb-10">
+              <p className="text-white/80 text-sm">
+                <span className="border-b-2 border-accent pb-1">Trusted by leading organizations</span>
+              </p>
+            </div>
+            <div className="logo-ticker-inner flex gap-16 sm:gap-20 md:gap-24 animate-logo-scroll">
+              {[
+                { src: amentumLogo, alt: "Amentum" },
+                { src: arrayLogo, alt: "Array" },
+                { src: cdsLogo, alt: "CDS" },
+                { src: consilioLogo, alt: "Consilio" },
+                { src: eparioLogo, alt: "Epario" },
+                { src: haugLogo, alt: "Haug Partners" },
+                { src: nixonLogo, alt: "Nixon Peabody" },
+                { src: proteusLogo, alt: "Proteus" },
+                { src: amentumLogo, alt: "Amentum" },
+                { src: arrayLogo, alt: "Array" },
+                { src: cdsLogo, alt: "CDS" },
+                { src: consilioLogo, alt: "Consilio" },
+                { src: eparioLogo, alt: "Epario" },
+                { src: haugLogo, alt: "Haug Partners" },
+                { src: nixonLogo, alt: "Nixon Peabody" },
+                { src: proteusLogo, alt: "Proteus" },
+              ].map((logo, index) => (
+                <div key={index} className="flex-shrink-0 flex items-center justify-center min-w-[160px] md:min-w-[180px] transition-transform duration-200 hover:scale-110">
+                  <img src={logo.src} alt={logo.alt} style={{ height: '36px', filter: 'brightness(0) invert(1)' }} className="w-auto object-contain opacity-90" />
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -223,13 +265,22 @@ const UseCaseECA = () => {
 
       <CaseStudiesSection />
 
-      <TestimonialsSection />
+      <TestimonialsSection showLogoTrail={false} />
 
       <SecuritySection />
 
       <CTABanner />
 
       <Footer />
+      <style>{`
+        @keyframes logo-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-logo-scroll {
+          animation: logo-scroll 30s linear infinite;
+        }
+      `}</style>
     </div>
   );
 };
