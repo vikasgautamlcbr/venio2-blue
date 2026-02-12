@@ -48,6 +48,12 @@ const UseCaseECA = () => {
       { role: "IT Security Lead", care: "Security posture, auditability, access control" },
     ],
   };
+  const industryRoutes: Record<string, string> = {
+    "Law Firms": "/law-firm-solutions",
+    "Corporations": "/for-corporations",
+    "Service Providers": "/for-service-providers",
+    "Government": "/for-government",
+  };
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -131,6 +137,12 @@ const UseCaseECA = () => {
                       </div>
                       <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                       <p className="text-sm text-muted-foreground">{item.desc}</p>
+                      <div className="mt-4">
+                        <Link to={industryRoutes[item.key]} className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium">
+                          Visit {item.title} page
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </div>
                     </CardContent>
                   </Card>
 
