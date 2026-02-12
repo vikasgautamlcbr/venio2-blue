@@ -108,7 +108,7 @@ const Navbar = () => {
       id: "use-case",
       name: "By Use Case",
       items: [
-        { label: "ECA (Early Case Assessment)", link: "#", icon: Brain, desc: "Analyze data early to assess case viability" },
+        { label: "ECA (Early Case Assessment)", link: "/solutions/use-cases/eca", icon: Brain, desc: "Analyze data early to assess case viability" },
         { label: "Document Review Workflows", link: "#", icon: Workflow, desc: "Streamline review with automated workflows" },
         { label: "Internal Investigations", link: "#", icon: Shield, desc: "Conduct rapid internal data probes" },
         { label: "FOIA Requests", link: "#", icon: FileText, desc: "Efficiently handle freedom of information requests" },

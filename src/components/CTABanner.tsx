@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const CTABanner = () => {
   return (
     <>
-      <section className="py-12 bg-gradient-to-r from-primary via-primary/95 to-primary relative overflow-hidden">
+      <section id="cta" className="py-12 bg-gradient-to-r from-primary via-primary/95 to-primary relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-20 w-64 h-64 bg-accent/20 rounded-full blur-3xl animate-pulse"></div>
