@@ -10,9 +10,11 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import { ScrollFeatureAccordion } from "@/components/ScrollFeatureAccordion";
 import { DataPointsSection } from "@/components/DataPointsSection";
-import { Brain, Shield, Cloud, Server, Workflow, FileText, Users, Briefcase, Landmark, ArrowRight, Building, Layers } from "lucide-react";
+import { Brain, Shield, Cloud, Server, Workflow, FileText, Users, Briefcase, Landmark, ArrowRight, Building, Layers, Anchor, CircleDollarSign } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import type { LucideIcon } from "lucide-react";
 import amentumLogo from "@/assets/clients/amentum-new.webp";
 import arrayLogo from "@/assets/clients/array-new.webp";
 import cdsLogo from "@/assets/clients/cds-new.webp";
@@ -28,6 +30,61 @@ const UseCaseECA = () => {
   }, []);
 
   const [industry, setIndustry] = useState<string>("Law Firms");
+  const palette = { accent: "#3DC47E", destructive: "#EF4444" };
+  const slugify = (s: string) =>
+    s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const buildTintedSvg = (IconComp: LucideIcon, hex: string) => {
+    const inner = renderToStaticMarkup(<IconComp size={32} color={hex} strokeWidth={2} />);
+    const sanitizedInner = inner.replace(/stroke="currentColor"/g, `stroke="${hex}"`).replace(/<svg\b/, '<svg x="16" y="16"');
+    const outer =
+      `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
+      `<rect width="64" height="64" rx="12" fill="${hex}" fill-opacity="0.12" stroke="${hex}" stroke-opacity="0.25" stroke-width="2"/>` +
+      `${sanitizedInner}` +
+      `</svg>`;
+    return outer;
+  };
+  const isValidSvg = (svg: string) => {
+    try {
+      const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+      return !doc.querySelector("parsererror");
+    } catch {
+      return false;
+    }
+  };
+  const pageIcons: { name: string; Icon: LucideIcon; variant: "accent" | "destructive" }[] = [
+    { name: "ECA Visual", Icon: FileText, variant: "accent" },
+    { name: "Law Firms", Icon: Briefcase, variant: "accent" },
+    { name: "Corporations", Icon: Building, variant: "accent" },
+    { name: "Service Providers", Icon: Users, variant: "accent" },
+    { name: "Government", Icon: Landmark, variant: "accent" },
+    { name: "Cloud eDiscovery", Icon: Cloud, variant: "accent" },
+    { name: "On-Premises eDiscovery", Icon: Server, variant: "accent" },
+    { name: "Hybrid eDiscovery", Icon: Layers, variant: "accent" },
+    { name: "Workflow", Icon: Workflow, variant: "destructive" },
+    { name: "Analytics", Icon: Brain, variant: "accent" },
+    { name: "Security", Icon: Shield, variant: "accent" },
+    { name: "Unpredictable Discovery Costs", Icon: CircleDollarSign, variant: "destructive" },
+    { name: "Heavy Vendor Dependency", Icon: Anchor, variant: "destructive" },
+  ];
+  const handleDownloadPageIcons = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    pageIcons.forEach(({ name, Icon, variant }) => {
+      const hex = palette[variant];
+      const svg = buildTintedSvg(Icon, hex);
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<Icon size={64} color="#ffffff" strokeWidth={2} />);
+      zip.file(`${slugify(name)}.svg`, finalSvg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-eca-page-icons.svg.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
   const industries = [
     { key: "Law Firms", icon: Briefcase, title: "Law Firms", desc: "Matter assessment to guide strategy and budgets" },
     { key: "Corporations", icon: Building, title: "Corporations", desc: "Control scope and reduce external review volume" },
@@ -270,6 +327,22 @@ const UseCaseECA = () => {
       <SecuritySection />
 
       <CTABanner />
+      <section id="icons-download" className="py-24 px-6 bg-muted/20">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-2">Download Icons</h2>
+            <p className="text-muted-foreground">Get all icons used on this page as SVG with backgrounds</p>
+          </div>
+          <div className="flex items-center justify-center gap-4">
+            <Button onClick={handleDownloadPageIcons} size="lg" className="bg-[#3DC47E] hover:bg-[#33B471] text-white">
+              Download All Icons (SVG)
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/icons">Browse Icons Library</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       <Footer />
       <style>{`

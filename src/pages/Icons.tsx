@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building2, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award } from "lucide-react";
+import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award } from "lucide-react";
 import type { LucideIcon, LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -515,9 +515,51 @@ const moreIcons: { name: string; Icon: LucideIcon }[] = [
   { name: "Unpredictable Review Costs", Icon: BadgeDollarSign },
 ];
 
+const ecaPageIcons: { name: string; Icon: LucideIcon; variant: "accent" | "destructive" }[] = [
+  { name: "ECA Visual", Icon: FileText, variant: "accent" },
+  { name: "Law Firms", Icon: Briefcase, variant: "accent" },
+  { name: "Corporations", Icon: Building, variant: "accent" },
+  { name: "Service Providers", Icon: Users, variant: "accent" },
+  { name: "Government", Icon: Landmark, variant: "accent" },
+  { name: "Cloud eDiscovery", Icon: Cloud, variant: "accent" },
+  { name: "On-Premises eDiscovery", Icon: Server, variant: "accent" },
+  { name: "Hybrid eDiscovery", Icon: Layers, variant: "accent" },
+  { name: "Workflow", Icon: Workflow, variant: "destructive" },
+  { name: "Analytics", Icon: BarChart3, variant: "accent" },
+  { name: "Security", Icon: Shield, variant: "accent" },
+  { name: "Unpredictable Discovery Costs", Icon: CircleDollarSign, variant: "destructive" },
+  { name: "Heavy Vendor Dependency", Icon: Anchor, variant: "destructive" },
+];
+
+const ecaIndustryIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Law Firms", Icon: Briefcase },
+  { name: "Corporations", Icon: Building },
+  { name: "Service Providers", Icon: Users },
+  { name: "Government", Icon: Landmark },
+];
+
 const Icons = () => {
   const slugify = (s: string) =>
     s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+  const palette = { accent: "#3DC47E", destructive: "#EF4444" };
+  const buildTintedSvg = (IconComp: LucideIcon, hex: string) => {
+    const innerSvg = renderToStaticMarkup(<IconComp size={32} color={hex} strokeWidth={2} />);
+    const sanitizedInner = innerSvg
+      .replace(/stroke="currentColor"/g, `stroke="${hex}"`)
+      .replace(/<svg\b/, '<svg x="16" y="16"');
+    const outer =
+      `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
+      `<rect width="64" height="64" rx="12" fill="${hex}" fill-opacity="0.12" stroke="${hex}" stroke-opacity="0.25" stroke-width="2"/>` +
+      `${sanitizedInner}` +
+      `</svg>`;
+    return outer;
+  };
+
+  const buildIconOnlySvg = (IconComp: LucideIcon, hex: string) => {
+    const innerSvg = renderToStaticMarkup(<IconComp size={64} color={hex} strokeWidth={2} />);
+    return innerSvg.replace(/stroke="currentColor"/g, `stroke="${hex}"`);
+  };
 
   const buildSvg = (IconComp: LucideIcon) => {
     const rawInner = renderToStaticMarkup(
@@ -549,6 +591,9 @@ const Icons = () => {
     );
     return innerSvg;
   };
+
+  // tinted pill SVG builder used for ECA page icons (accent or destructive)
+  // see UseCaseECA page for the same palette
 
   const handleDownloadAll = async () => {
     const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
@@ -588,6 +633,49 @@ const Icons = () => {
     const a = document.createElement("a");
     a.href = url;
     a.download = "venio-more-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+
+  const handleDownloadEcaPage = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    ecaPageIcons.forEach((item) => {
+      const hex = palette[item.variant];
+      const svg = buildTintedSvg(item.Icon, hex);
+      const name = `${slugify(item.name)}.svg`;
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color={hex} strokeWidth={2} />);
+      zip.file(name, finalSvg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-eca-page-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+
+  const handleDownloadEcaIndustryNav = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    const neutralHex = "#64748B";
+    const accentHex = palette.accent;
+    ecaIndustryIcons.forEach(({ name, Icon }) => {
+      const neutralSvg = buildIconOnlySvg(Icon, neutralHex);
+      const accentSvg = buildIconOnlySvg(Icon, accentHex);
+      zip.file(`${slugify(name)}-neutral.svg`, isValidSvg(neutralSvg) ? neutralSvg : renderToStaticMarkup(<Icon size={64} color={neutralHex} strokeWidth={2} />));
+      zip.file(`${slugify(name)}-accent.svg`, isValidSvg(accentSvg) ? accentSvg : renderToStaticMarkup(<Icon size={64} color={accentHex} strokeWidth={2} />));
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-eca-industry-nav-icons.zip";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -647,6 +735,71 @@ const Icons = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="eca-icons" className="py-14 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">ECA Page Icons</h2>
+            <p className="text-muted-foreground">Icons used on the ECA page with tinted pill backgrounds (same as page)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadEcaPage} className="bg-[#3DC47E] hover:bg-[#33B471] text-white gap-2">
+                <Download className="w-4 h-4" />
+                Download ECA Page Icons
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {ecaPageIcons.map((item, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{item.name}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4">
+                    <div className={`w-16 h-16 rounded-xl ${item.variant === "destructive" ? "bg-destructive/10 border border-destructive/20" : "bg-accent/10 border border-accent/20"} flex items-center justify-center`}>
+                      <item.Icon className={`w-10 h-10 ${item.variant === "destructive" ? "text-destructive" : "text-accent"}`} />
+                    </div>
+                    <div className="flex-1" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="eca-industry-icons" className="py-12 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">ECA Industry Nav Icons</h2>
+            <p className="text-muted-foreground">Icons used in the industry selector (neutral and accent states)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadEcaIndustryNav} variant="outline" className="gap-2">
+                <Download className="w-4 h-4" />
+                Download Industry Nav Icons
+              </Button>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-muted/50 p-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {ecaIndustryIcons.map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-muted/50">
+                    <item.Icon className="h-5 w-5 text-muted-foreground" />
+                    <span className="text-muted-foreground">{item.name}</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white text-foreground shadow-sm">
+                    <item.Icon className="h-5 w-5 text-secondary" />
+                    <span>{item.name}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
