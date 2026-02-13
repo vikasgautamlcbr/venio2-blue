@@ -550,8 +550,8 @@ const Icons = () => {
       .replace('<svg ', '<svg x="16" y="16" ');
     const outer =
       `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
-      `<rect x="0.5" y="0.5" width="63" height="63" rx="12" fill="${hex}" fill-opacity="0.12"/>` +
-      `<rect x="1" y="1" width="62" height="62" rx="12" fill="none" stroke="${hex}" stroke-opacity="0.25" stroke-width="2"/>` +
+      `<rect x="2" y="2" width="60" height="60" rx="12" fill="${hex}" fill-opacity="0.12"/>` +
+      `<rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="${hex}" stroke-opacity="0.25" stroke-width="2"/>` +
       `${sanitizedInner}` +
       `</svg>`;
     return outer;
