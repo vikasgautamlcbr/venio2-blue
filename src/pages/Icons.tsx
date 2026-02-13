@@ -547,7 +547,7 @@ const Icons = () => {
     const innerSvg = renderToStaticMarkup(<IconComp size={32} color={hex} strokeWidth={2} />);
     const sanitizedInner = innerSvg
       .replace(/stroke="currentColor"/g, `stroke="${hex}"`)
-      .replace(/<svg\b/, '<svg x="16" y="16"');
+      .replace('<svg ', '<svg x="16" y="16" ');
     const outer =
       `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
       `<rect width="64" height="64" rx="12" fill="${hex}" fill-opacity="0.12" stroke="${hex}" stroke-opacity="0.25" stroke-width="2"/>` +
@@ -567,7 +567,7 @@ const Icons = () => {
     );
     const sanitizedInner = rawInner
       .replace(/stroke="currentColor"/g, 'stroke="#ffffff"')
-      .replace(/<svg\b/, '<svg x="16" y="16"');
+      .replace('<svg ', '<svg x="16" y="16" ');
     const outer =
       `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
       `<rect width="64" height="64" fill="#3DC47E" rx="12"/>` +

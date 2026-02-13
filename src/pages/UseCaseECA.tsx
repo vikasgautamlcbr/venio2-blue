@@ -35,7 +35,9 @@ const UseCaseECA = () => {
     s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   const buildTintedSvg = (IconComp: LucideIcon, hex: string) => {
     const inner = renderToStaticMarkup(<IconComp size={32} color={hex} strokeWidth={2} />);
-    const sanitizedInner = inner.replace(/stroke="currentColor"/g, `stroke="${hex}"`).replace(/<svg\b/, '<svg x="16" y="16"');
+    const sanitizedInner = inner
+      .replace(/stroke="currentColor"/g, `stroke="${hex}"`)
+      .replace('<svg ', '<svg x="16" y="16" ');
     const outer =
       `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
       `<rect width="64" height="64" rx="12" fill="${hex}" fill-opacity="0.12" stroke="${hex}" stroke-opacity="0.25" stroke-width="2"/>` +
