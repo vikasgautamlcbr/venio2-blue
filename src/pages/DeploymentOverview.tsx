@@ -152,8 +152,10 @@ const DeploymentOverview = () => {
           </div>
         </section>
 
-        <section id="deployment-paths" className="py-24 px-6 bg-muted/30 animate-fade-in scroll-mt-28 md:scroll-mt-32" style={{ animationDelay: "0.05s" }}>
-          <div className="container mx-auto max-w-6xl">
+        <section id="deployment-paths" className="relative overflow-hidden py-24 px-6 bg-muted/30 animate-fade-in scroll-mt-28 md:scroll-mt-32" style={{ animationDelay: "0.05s" }}>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(16,185,129,0.12),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(96,165,250,0.10),transparent_60%)]" />
+          <div className="container mx-auto max-w-6xl relative z-10">
             <div className="text-center max-w-2xl mx-auto mb-10">
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-secondary/20 to-accent/20 px-6 py-3 rounded-full mb-4">
                 <Sparkles className="h-5 w-5 text-accent" />
@@ -163,81 +165,84 @@ const DeploymentOverview = () => {
               <p className="text-muted-foreground">The core hub of your discovery architecture.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="relative rounded-3xl bg-white border border-border/40 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl animate-fade-in" style={{ animationDelay: "0.05s" }}>
+              <Card className="relative rounded-3xl bg-white border border-border/40 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:border-accent/40 animate-fade-in" style={{ animationDelay: "0.05s" }}>
                 <CardContent className="p-10 flex flex-col h-full">
                   <div className="text-xs font-semibold tracking-widest text-muted-foreground mb-2">MAXIMUM CONTROL</div>
                   <h3 className="text-2xl font-semibold mb-2">On‑Premises</h3>
+                  <div className="h-1.5 w-full bg-gradient-to-r from-secondary via-accent to-secondary rounded-full mb-6" />
                   <p className="text-sm text-muted-foreground mb-4">Deploy Venio behind your firewall on your own hardware. Built for strict governance and existing infrastructure investments.</p>
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-muted-foreground">WHO IT’S FOR</p>
                     <ul className="mt-2 space-y-2">
-                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5" /><span className="text-sm text-muted-foreground">Government agencies</span></li>
-                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5" /><span className="text-sm text-muted-foreground">Law Enforcement</span></li>
-                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5" /><span className="text-sm text-muted-foreground">Financial Institutions</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" strokeWidth={2} /><span className="text-sm text-muted-foreground">Government agencies</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" strokeWidth={2} /><span className="text-sm text-muted-foreground">Law Enforcement</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" strokeWidth={2} /><span className="text-sm text-muted-foreground">Financial Institutions</span></li>
                     </ul>
                   </div>
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-muted-foreground">TYPICAL USE CASE</p>
                     <ul className="mt-2 space-y-2">
-                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5" /><span className="text-sm text-muted-foreground">Highly sensitive IP or internal investigations where data cannot leave the network</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" strokeWidth={2} /><span className="text-sm text-muted-foreground">Highly sensitive IP or internal investigations where data cannot leave the network</span></li>
                     </ul>
                   </div>
-                  <div className="rounded-2xl bg-muted/40 p-4 mb-6">
+                  <div className="rounded-2xl bg-accent/10 border border-accent/20 p-4 mb-6">
                     <p className="text-sm italic">“Zero Feature Compromise. On‑Prem offers the exact same code base, AI, and power as our Cloud version.”</p>
                   </div>
-                  <Button asChild className="w-full" variant="outline">
+                  <Button asChild className="w-full bg-accent hover:bg-accent/90 text-white mt-auto">
                     <Link to="/deployment/on-premises">Explore On‑Premises</Link>
                   </Button>
                 </CardContent>
               </Card>
-              <Card className="relative rounded-3xl bg-white border border-border/40 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl animate-fade-in" style={{ animationDelay: "0.1s" }}>
+              <Card className="relative rounded-3xl bg-white border border-border/40 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:border-accent/40 animate-fade-in" style={{ animationDelay: "0.1s" }}>
                 <CardContent className="p-10 flex flex-col h-full">
                   <div className="text-xs font-semibold tracking-widest text-muted-foreground mb-2">ELASTIC SCALE</div>
                   <h3 className="text-2xl font-semibold mb-2">Venio Cloud</h3>
+                  <div className="h-1.5 w-full bg-gradient-to-r from-secondary via-accent to-secondary rounded-full mb-6" />
                   <p className="text-sm text-muted-foreground mb-4">Leverage Venio’s managed infrastructure to spin up instances instantly. Scale processing power based on case volume without managing hardware.</p>
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-muted-foreground">WHO IT’S FOR</p>
                     <ul className="mt-2 space-y-2">
-                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5" /><span className="text-sm text-muted-foreground">Corporate Legal Departments</span></li>
-                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5" /><span className="text-sm text-muted-foreground">Service Providers needing rapid scalability</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" strokeWidth={2} /><span className="text-sm text-muted-foreground">Corporate Legal Departments</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" strokeWidth={2} /><span className="text-sm text-muted-foreground">Service Providers needing rapid scalability</span></li>
                     </ul>
                   </div>
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-muted-foreground">TYPICAL USE CASE</p>
                     <ul className="mt-2 space-y-2">
-                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5" /><span className="text-sm text-muted-foreground">Multi‑jurisdictional litigation requiring immediate access for external counsel</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" strokeWidth={2} /><span className="text-sm text-muted-foreground">Multi‑jurisdictional litigation requiring immediate access for external counsel</span></li>
                     </ul>
                   </div>
-                  <div className="rounded-2xl bg-muted/40 p-4 mb-6">
+                  <div className="rounded-2xl bg-accent/10 border border-accent/20 p-4 mb-6">
                     <p className="text-sm italic">“Single‑Tenant Options. We offer dedicated cloud environments ensuring your data is never commingled.”</p>
                   </div>
-                  <Button asChild className="w-full" variant="outline">
+                  <Button asChild className="w-full bg-accent hover:bg-accent/90 text-white mt-auto">
                     <Link to="/deployment/cloud">Explore Cloud</Link>
                   </Button>
                 </CardContent>
               </Card>
-              <Card className="relative rounded-3xl bg-white border border-border/40 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl animate-fade-in" style={{ animationDelay: "0.15s" }}>
+              <Card className="relative rounded-3xl bg-white border border-border/40 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] hover:border-accent/40 animate-fade-in" style={{ animationDelay: "0.15s" }}>
                 <CardContent className="p-10 flex flex-col h-full">
                   <div className="text-xs font-semibold tracking-widest text-muted-foreground mb-2">BEST OF BOTH WORLDS</div>
                   <h3 className="text-2xl font-semibold mb-2">Hybrid / On‑Demand</h3>
+                  <div className="h-1.5 w-full bg-gradient-to-r from-secondary via-accent to-secondary rounded-full mb-6" />
                   <p className="text-sm text-muted-foreground mb-4">Maintain a steady on‑prem footprint for daily operations and burst into the cloud when volumes spike. Manage it all from a single pane of glass.</p>
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-muted-foreground">WHO IT’S FOR</p>
                     <ul className="mt-2 space-y-2">
-                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5" /><span className="text-sm text-muted-foreground">Global Enterprises</span></li>
-                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5" /><span className="text-sm text-muted-foreground">LSPs with fluctuating workloads or mixed data sensitivity</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" strokeWidth={2} /><span className="text-sm text-muted-foreground">Global Enterprises</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" strokeWidth={2} /><span className="text-sm text-muted-foreground">LSPs with fluctuating workloads or mixed data sensitivity</span></li>
                     </ul>
                   </div>
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-muted-foreground">TYPICAL USE CASE</p>
                     <ul className="mt-2 space-y-2">
-                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5" /><span className="text-sm text-muted-foreground">Internal investigations on‑prem while pushing large second requests to cloud review</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-accent mt-0.5" strokeWidth={2} /><span className="text-sm text-muted-foreground">Internal investigations on‑prem while pushing large second requests to cloud review</span></li>
                     </ul>
                   </div>
-                  <div className="rounded-2xl bg-muted/40 p-4 mb-6">
+                  <div className="rounded-2xl bg-accent/10 border border-accent/20 p-4 mb-6">
                     <p className="text-sm italic">“Unified Workflow. Seamlessly move data between environments using Venio’s portable archive format.”</p>
                   </div>
-                  <Button asChild className="w-full" variant="outline">
+                  <Button asChild className="w-full bg-accent hover:bg-accent/90 text-white mt-auto">
                     <Link to="/deployment/hybrid">Explore Hybrid</Link>
                   </Button>
                 </CardContent>
