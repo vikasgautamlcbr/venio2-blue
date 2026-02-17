@@ -222,7 +222,7 @@ const UseCaseECA = () => {
                   className="text-sm md:text-base py-3 data-[state=active]:bg-white data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                 >
                   <span className="inline-flex items-center gap-2">
-                    <item.icon className={`h-5 w-5 ${industry === item.key ? "text-secondary" : "text-muted-foreground"}`} />
+                    <item.icon className={`h-5 w-5 ${industry === item.key ? "text-[#3DC47E]" : "text-muted-foreground"}`} />
                     {item.title}
                   </span>
                 </TabsTrigger>
@@ -234,8 +234,8 @@ const UseCaseECA = () => {
                 <div className="grid lg:grid-cols-3 gap-6">
                   <Card className="rounded-2xl bg-white border border-border/40 shadow-sm lg:col-span-1">
                     <CardContent className="p-8">
-                      <div className="w-14 h-14 rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-6">
-                        <item.icon className="h-7 w-7 text-secondary" />
+                      <div className="w-14 h-14 rounded-2xl bg-[#3DC47E]/10 border border-[#3DC47E]/20 flex items-center justify-center mb-6">
+                        <item.icon className="h-7 w-7 text-[#3DC47E]" />
                       </div>
                       <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                       <p className="text-sm text-muted-foreground">{item.desc}</p>
