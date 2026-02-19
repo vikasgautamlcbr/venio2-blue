@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award } from "lucide-react";
+import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award, Filter } from "lucide-react";
 import type { LucideIcon, LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -513,6 +513,18 @@ const moreIcons: { name: string; Icon: LucideIcon }[] = [
   { name: "Late Insight into Key Evidence", Icon: Timer },
   { name: "Inconsistent Data Review Quality", Icon: UpDownGraphIcon },
   { name: "Unpredictable Review Costs", Icon: BadgeDollarSign },
+  { name: "Unclear Data Scope", Icon: Puzzle },
+  { name: "Inaccurate Cost & Timelines", Icon: Timer },
+  { name: "Hidden Risk & Privileged Content", Icon: EyeOff },
+  { name: "Data Overload", Icon: Database },
+  { name: "Fragmented Data Sources", Icon: Layers },
+  { name: "Defensibility & Chain of Custody", Icon: Shield },
+  { name: "Slow, Risky Manual Redactions", Icon: FileWarning },
+  { name: "Deadlines and Compliance Penalties", Icon: Clock },
+  { name: "Cross-Department Delays", Icon: Workflow },
+  { name: "Unclear Custodians", Icon: Users },
+  { name: "Manual Notices & Follow-Ups", Icon: ClipboardList },
+  { name: "No Acknowledgment Visibility", Icon: LightbulbOff },
 ];
 
 const ecaPageIcons: { name: string; Icon: LucideIcon; variant: "accent" | "destructive" }[] = [
@@ -536,6 +548,58 @@ const ecaIndustryIcons: { name: string; Icon: LucideIcon }[] = [
   { name: "Corporations", Icon: Building },
   { name: "Service Providers", Icon: Users },
   { name: "Government", Icon: Landmark },
+];
+
+const investigationsPageIcons: { name: string; Icon: LucideIcon; variant: "accent" | "destructive" }[] = [
+  { name: "Data Overload", Icon: Database, variant: "destructive" },
+  { name: "Fragmented Data Sources", Icon: Layers, variant: "destructive" },
+  { name: "Defensibility & Chain of Custody", Icon: Shield, variant: "destructive" },
+  { name: "Advanced Search & Analytics", Icon: Search, variant: "accent" },
+  { name: "Automated Data Reduction", Icon: Filter, variant: "accent" },
+  { name: "Visual Relationship Mapping", Icon: GitBranch, variant: "accent" },
+  { name: "Secure Collaboration & Workflows", Icon: Lock, variant: "accent" },
+];
+const useCaseProblemIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Unclear Data Scope", Icon: Puzzle },
+  { name: "Inaccurate Cost & Timelines", Icon: Timer },
+  { name: "Hidden Risk & Privileged Content", Icon: EyeOff },
+  { name: "Data Overload", Icon: Database },
+  { name: "Fragmented Data Sources", Icon: Layers },
+  { name: "Defensibility & Chain of Custody", Icon: Shield },
+  { name: "Slow, Risky Manual Redactions", Icon: FileWarning },
+  { name: "Deadlines and Compliance Penalties", Icon: Clock },
+  { name: "Cross-Department Delays", Icon: Workflow },
+  { name: "Unclear Custodians", Icon: Users },
+  { name: "Manual Notices & Follow-Ups", Icon: ClipboardList },
+  { name: "No Acknowledgment Visibility", Icon: LightbulbOff },
+];
+
+const foiaFeatureIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Centralized FOIA Intake & Tracking", Icon: FileText },
+  { name: "Powerful Search Across All Data Sources", Icon: Search },
+  { name: "Cross-Department Collaboration", Icon: Users },
+  { name: "Scalable for High Volume", Icon: Layers },
+];
+
+const legalHoldFeatureIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Centralized Legal Hold Coordination", Icon: FileText },
+  { name: "Defensible Audit Trails", Icon: Shield },
+  { name: "Scalable Cross-Department Workflows", Icon: Users },
+  { name: "Reduced Over-Preservation & Cost", Icon: CircleDollarSign },
+];
+
+const investigationsFeatureIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Advanced Search & Analytics", Icon: Search },
+  { name: "Automated Data Reduction", Icon: Filter },
+  { name: "Visual Relationship Mapping", Icon: GitBranch },
+  { name: "Secure Collaboration & Workflows", Icon: Lock },
+];
+
+const ecaFeatureIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Intelligent Data Reduction", Icon: Workflow },
+  { name: "Advanced Search & Pattern Insights", Icon: Search },
+  { name: "Unified Workflows & Collaboration", Icon: Users },
+  { name: "Predictable eDiscovery Costs", Icon: CircleDollarSign },
 ];
 
 const Icons = () => {
@@ -683,6 +747,126 @@ const Icons = () => {
     setTimeout(() => URL.revokeObjectURL(url), 1500);
   };
 
+  const handleDownloadInvestigationsPage = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    investigationsPageIcons.forEach((item) => {
+      const hex = palette[item.variant];
+      const svg = buildTintedSvg(item.Icon, hex);
+      const name = `${slugify(item.name)}.svg`;
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color={hex} strokeWidth={2} />);
+      zip.file(name, finalSvg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-investigations-page-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+  const handleDownloadFoiaFeatures = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    foiaFeatureIcons.forEach((item) => {
+      const hex = palette.accent;
+      const svg = buildTintedSvg(item.Icon, hex);
+      const name = `${slugify(item.name)}.svg`;
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color={hex} strokeWidth={2} />);
+      zip.file(name, finalSvg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-foia-feature-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+  const handleDownloadLegalHoldFeatures = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    legalHoldFeatureIcons.forEach((item) => {
+      const hex = palette.accent;
+      const svg = buildTintedSvg(item.Icon, hex);
+      const name = `${slugify(item.name)}.svg`;
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color={hex} strokeWidth={2} />);
+      zip.file(name, finalSvg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-legal-hold-feature-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+  const handleDownloadInvestigationsFeatures = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    investigationsFeatureIcons.forEach((item) => {
+      const hex = palette.accent;
+      const svg = buildTintedSvg(item.Icon, hex);
+      const name = `${slugify(item.name)}.svg`;
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color={hex} strokeWidth={2} />);
+      zip.file(name, finalSvg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-investigations-feature-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+  const handleDownloadEcaFeatures = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    ecaFeatureIcons.forEach((item) => {
+      const hex = palette.accent;
+      const svg = buildTintedSvg(item.Icon, hex);
+      const name = `${slugify(item.name)}.svg`;
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color={hex} strokeWidth={2} />);
+      zip.file(name, finalSvg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-eca-feature-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+  const handleDownloadUseCaseProblem = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    useCaseProblemIcons.forEach((item) => {
+      const svg = buildNavySvg(item.Icon);
+      const name = `${slugify(item.name)}.svg`;
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color="#0b1c3f" strokeWidth={2} />);
+      zip.file(name, finalSvg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-use-case-problem-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -774,6 +958,176 @@ const Icons = () => {
         </div>
       </section>
 
+      <section id="investigations-icons" className="py-14 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Investigations Page Icons</h2>
+            <p className="text-muted-foreground">Icons used on the Investigations page with tinted pill backgrounds (same as page)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadInvestigationsPage} className="bg-[#3DC47E] hover:bg-[#33B471] text-white gap-2">
+                <Download className="w-4 h-4" />
+                Download Investigations Page Icons
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {investigationsPageIcons.map((item, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{item.name}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4">
+                    <div className={`w-16 h-16 rounded-xl ${item.variant === "destructive" ? "bg-destructive/10 border border-destructive/20" : "bg-accent/10 border border-accent/20"} flex items-center justify-center`}>
+                      <item.Icon className={`w-10 h-10 ${item.variant === "destructive" ? "text-destructive" : "text-accent"}`} />
+                    </div>
+                    <div className="flex-1" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="foia-feature-icons" className="py-14 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">FOIA Use Case Feature Icons</h2>
+            <p className="text-muted-foreground">Feature icons used on the FOIA use case page (accent tinted)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadFoiaFeatures} className="bg-[#3DC47E] hover:bg-[#33B471] text-white gap-2">
+                <Download className="w-4 h-4" />
+                Download FOIA Feature Icons
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {foiaFeatureIcons.map((item, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{item.name}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl bg-accent flex items-center justify-center">
+                      <item.Icon className="w-10 h-10 text-white" />
+                    </div>
+                    <div className="flex-1" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="legal-hold-feature-icons" className="py-14 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Legal Hold Use Case Feature Icons</h2>
+            <p className="text-muted-foreground">Feature icons used on the Legal Hold use case page (accent tinted)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadLegalHoldFeatures} className="bg-[#3DC47E] hover:bg-[#33B471] text-white gap-2">
+                <Download className="w-4 h-4" />
+                Download Legal Hold Feature Icons
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {legalHoldFeatureIcons.map((item, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{item.name}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl bg-accent flex items-center justify-center">
+                      <item.Icon className="w-10 h-10 text-white" />
+                    </div>
+                    <div className="flex-1" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="investigations-feature-icons" className="py-14 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Investigations Use Case Feature Icons</h2>
+            <p className="text-muted-foreground">Feature icons used on the Investigations use case page (accent tinted)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadInvestigationsFeatures} className="bg-[#3DC47E] hover:bg-[#33B471] text-white gap-2">
+                <Download className="w-4 h-4" />
+                Download Investigations Feature Icons
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {investigationsFeatureIcons.map((item, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{item.name}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl bg-accent flex items-center justify-center">
+                      <item.Icon className="w-10 h-10 text-white" />
+                    </div>
+                    <div className="flex-1" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="eca-feature-icons" className="py-14 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">ECA Use Case Feature Icons</h2>
+            <p className="text-muted-foreground">Feature icons used on the ECA use case page (accent tinted)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadEcaFeatures} className="bg-[#3DC47E] hover:bg-[#33B471] text-white gap-2">
+                <Download className="w-4 h-4" />
+                Download ECA Feature Icons
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {ecaFeatureIcons.map((item, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{item.name}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl bg-accent flex items-center justify-center">
+                      <item.Icon className="w-10 h-10 text-white" />
+                    </div>
+                    <div className="flex-1" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="eca-industry-icons" className="py-12 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
@@ -801,6 +1155,35 @@ const Icons = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="use-case-problem-icons" className="py-12 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Use Case Problem</h2>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadUseCaseProblem} variant="outline" className="gap-2">
+                <Download className="w-4 h-4" />
+                Download Use Case Problem Icons (ZIP)
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            {useCaseProblemIcons.map((item, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                <CardHeader>
+                  <CardTitle className="text-lg">{item.name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4">
+                    <item.Icon className="w-10 h-10 text-[#0b1c3f]" />
+                    <div className="flex-1" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>

@@ -261,7 +261,7 @@ const VenioLegalHold = () => {
       </section>
 
       {/* Features Section - Scroll Interactive Accordion */}
-      <ScrollFeatureAccordion />
+      <ScrollFeatureAccordion accentAlways />
 
       {/* Case Studies Section */}
       <CaseStudiesSection />

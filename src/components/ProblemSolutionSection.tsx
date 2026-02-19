@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, Workflow, Anchor, CircleDollarSign } from "lucide-react";
+import { ArrowRight, ArrowLeft, Workflow, Anchor, CircleDollarSign, Search, Shield, Database } from "lucide-react";
 
 type IndustryId = "law-firm" | "legal-service-provider" | "corporate" | "government";
 type ProblemId = "data-overload" | "hard-to-process-data" | "poor-early-case-insight" | "inconsistent-legal-holds" | "slow-review" | "manual-workflows" | "tool-fragmentation" | "high-costs" | "security-risks";
@@ -215,7 +215,26 @@ const defaultResources = [
   },
 ];
 
-const ProblemSolutionSection = ({ variant = "interactive" }: { variant?: "interactive" | "cards" }) => {
+type CardItem = {
+  icon: React.ElementType;
+  title: string;
+  realityLabel: string;
+  reality: string;
+  withLabel: string;
+  withText: string;
+};
+
+const ProblemSolutionSection = ({
+  variant = "interactive",
+  title,
+  subtitle,
+  cards,
+}: {
+  variant?: "interactive" | "cards";
+  title?: string;
+  subtitle?: string;
+  cards?: CardItem[];
+}) => {
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryId | null>(null);
   const [selectedProblem, setSelectedProblem] = useState<ProblemId | null>(null);
 
@@ -234,7 +253,7 @@ const ProblemSolutionSection = ({ variant = "interactive" }: { variant?: "intera
   };
 
   if (variant === "cards") {
-    const cards = [
+    const cardsData: CardItem[] = cards ?? [
       {
         icon: Workflow,
         title: "Siloed workflows",
@@ -264,11 +283,11 @@ const ProblemSolutionSection = ({ variant = "interactive" }: { variant?: "intera
       <section id="problem" className="py-24 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">What Challenge Are You Facing?</h2>
-            <p className="text-lg text-muted-foreground">The reality and how Venio addresses it</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-3">{title ?? "What Challenge Are You Facing?"}</h2>
+            <p className="text-lg text-muted-foreground">{subtitle ?? "The reality and how Venio addresses it"}</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {cards.map((c, i) => (
+            {cardsData.map((c, i) => (
               <div
                 key={i}
                 className="group relative rounded-3xl bg-white/95 border border-border/40 shadow-sm hover:shadow-[0_12px_28px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1"
@@ -277,8 +296,8 @@ const ProblemSolutionSection = ({ variant = "interactive" }: { variant?: "intera
                 <div className="absolute top-0 left-0 w-full h-14 rounded-t-3xl bg-gradient-to-b from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative p-8 flex h-full flex-col">
                   <div className="flex items-center gap-3 mb-5">
-                    <div className="w-12 h-12 rounded-2xl bg-destructive/10 border border-destructive/20 flex items-center justify-center">
-                      <c.icon className="h-6 w-6 text-destructive" />
+                    <div className="w-12 h-12 aspect-square rounded-xl bg-destructive/10 border border-destructive/20 grid place-items-center">
+                      <c.icon className="h-6 w-6 text-destructive" strokeWidth={2} />
                     </div>
                     <h3 className="text-xl font-semibold leading-tight">{c.title}</h3>
                   </div>

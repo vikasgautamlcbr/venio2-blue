@@ -3,14 +3,14 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import CTABanner from "@/components/CTABanner";
 import ProblemSolutionSection from "@/components/ProblemSolutionSection";
+import CTABanner from "@/components/CTABanner";
 import SecuritySection from "@/components/SecuritySection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import { ScrollFeatureAccordion } from "@/components/ScrollFeatureAccordion";
 import { DataPointsSection } from "@/components/DataPointsSection";
-import { Brain, Shield, Cloud, Server, Workflow, FileText, Users, Briefcase, Landmark, ArrowRight, Building, Layers, Anchor, CircleDollarSign, Search, Database } from "lucide-react";
+import { Shield, Search, Database, ArrowRight, Cloud, Server, Layers, FileText, Users, Briefcase, Landmark, Workflow, Filter, GitBranch, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -24,11 +24,10 @@ import haugLogo from "@/assets/clients/haug-partners-new.webp";
 import nixonLogo from "@/assets/clients/nixon-peabody-new.webp";
 import proteusLogo from "@/assets/clients/proteus-new.webp";
 
-const UseCaseECA = () => {
+const UseCaseInvestigations = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-
   const [industry, setIndustry] = useState<string>("Law Firms");
   const palette = { accent: "#3DC47E", destructive: "#EF4444" };
   const slugify = (s: string) =>
@@ -56,19 +55,15 @@ const UseCaseECA = () => {
     }
   };
   const pageIcons: { name: string; Icon: LucideIcon; variant: "accent" | "destructive" }[] = [
-    { name: "ECA Visual", Icon: FileText, variant: "accent" },
+    { name: "Investigations Visual", Icon: Search, variant: "accent" },
     { name: "Law Firms", Icon: Briefcase, variant: "accent" },
-    { name: "Corporations", Icon: Building, variant: "accent" },
+    { name: "Corporations", Icon: Landmark, variant: "accent" },
     { name: "Service Providers", Icon: Users, variant: "accent" },
-    { name: "Government", Icon: Landmark, variant: "accent" },
     { name: "Cloud eDiscovery", Icon: Cloud, variant: "accent" },
     { name: "On-Premises eDiscovery", Icon: Server, variant: "accent" },
     { name: "Hybrid eDiscovery", Icon: Layers, variant: "accent" },
-    { name: "Workflow", Icon: Workflow, variant: "destructive" },
-    { name: "Analytics", Icon: Brain, variant: "accent" },
-    { name: "Security", Icon: Shield, variant: "accent" },
-    { name: "Unpredictable Discovery Costs", Icon: CircleDollarSign, variant: "destructive" },
-    { name: "Heavy Vendor Dependency", Icon: Anchor, variant: "destructive" },
+    { name: "Risk", Icon: Shield, variant: "destructive" },
+    { name: "Evidence", Icon: Database, variant: "destructive" },
   ];
   const handleDownloadPageIcons = async () => {
     const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
@@ -83,7 +78,7 @@ const UseCaseECA = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "venio-eca-page-icons.svg.zip";
+    a.download = "venio-investigations-icons.svg.zip";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -93,9 +88,9 @@ const UseCaseECA = () => {
     const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
     const zip = new JSZip();
     [
-      { name: "Unclear Data Scope", Icon: Database },
-      { name: "Inaccurate Cost & Timelines", Icon: CircleDollarSign },
-      { name: "Hidden Risk & Privileged Content", Icon: Shield },
+      { name: "Fragmented Evidence Sources", Icon: Database },
+      { name: "Slow Triage & Signal Discovery", Icon: Search },
+      { name: "Risk & Access Control", Icon: Shield },
     ].forEach(({ name, Icon }) => {
       const svg = buildTintedSvg(Icon, palette.destructive);
       const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<Icon size={64} color={palette.destructive} strokeWidth={2} />);
@@ -105,7 +100,35 @@ const UseCaseECA = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "venio-visibility-gap-icons.svg.zip";
+    a.download = "venio-investigations-gap-icons.svg.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+  const handleDownloadCoreSevenIcons = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    const items: { name: string; Icon: LucideIcon; variant: "accent" | "destructive" }[] = [
+      { name: "Data Overload", Icon: Database, variant: "destructive" },
+      { name: "Fragmented Data Sources", Icon: Layers, variant: "destructive" },
+      { name: "Defensibility & Chain of Custody", Icon: Shield, variant: "destructive" },
+      { name: "Advanced Search & Analytics", Icon: Search, variant: "accent" },
+      { name: "Automated Data Reduction", Icon: Filter, variant: "accent" },
+      { name: "Visual Relationship Mapping", Icon: GitBranch, variant: "accent" },
+      { name: "Secure Collaboration & Workflows", Icon: Lock, variant: "accent" },
+    ];
+    items.forEach(({ name, Icon, variant }) => {
+      const hex = palette[variant];
+      const svg = buildTintedSvg(Icon, hex);
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<Icon size={64} color={hex} strokeWidth={2} />);
+      zip.file(`${slugify(name)}.svg`, finalSvg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-investigations-core-7-icons.svg.zip";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -113,9 +136,9 @@ const UseCaseECA = () => {
   };
   const industries = [
     { key: "Law Firms", icon: Briefcase, title: "Law Firms", desc: "Matter assessment to guide strategy and budgets" },
-    { key: "Corporations", icon: Building, title: "Corporations", desc: "Control scope and reduce external review volume" },
+    { key: "Corporations", icon: Landmark, title: "Corporations", desc: "Control scope and reduce external review volume" },
     { key: "Service Providers", icon: Users, title: "Service Providers", desc: "Deliver rapid insight and predictable outcomes" },
-    { key: "Government", icon: Landmark, title: "Government", desc: "Early visibility for investigations and records" },
+    { key: "Government", icon: FileText, title: "Government", desc: "Early visibility for investigations and records" },
   ];
   const rolesByIndustry: Record<string, { role: string; care: string }[]> = {
     "Law Firms": [
@@ -145,6 +168,7 @@ const UseCaseECA = () => {
     "Service Providers": "/for-service-providers",
     "Government": "/for-government",
   };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -155,22 +179,23 @@ const UseCaseECA = () => {
           <div className="absolute bottom-32 right-10 w-[500px] h-[500px] bg-accent/25 rounded-full blur-3xl float-delayed"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute top-1/3 left-20 w-12 h-12 bg-secondary/20 rounded-full animate-float"></div>
-          <div className="absolute top-16 right-24 w-28 h-28 bg-secondary/25 rounded-full blur-xl animate-float"></div>
+          <div className="absolute top-24 right-24 w-32 h-32 bg-secondary/25 rounded-full blur-2xl animate-float"></div>
           <div className="absolute top-[55%] right-40 w-56 h-56 bg-accent/20 rounded-full blur-3xl float-delayed"></div>
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/50 to-primary/80"></div>
+
         <div className="container mx-auto max-w-7xl px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 animate-fade-in">
               <div className="inline-flex items-center gap-2 glass-dark px-6 py-3 rounded-full mb-2 pulse-glow animate-slide-up">
                 <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span className="text-white/90 text-sm font-medium">Early Case Assessment</span>
+                <span className="text-white/90 text-sm font-medium">Internal Investigations</span>
               </div>
               <h1 className="text-5xl lg:text-6xl font-heading font-bold text-white leading-tight">
-                Faster Clarity with ECA.
+                Rapid insight for investigations.
               </h1>
               <p className="text-xl text-white/90 leading-relaxed">
-                Analyze and cull data early to understand scope, risk, and cost. Make faster strategic decisions with instant analytics, custodian insights, and data reduction.
+                Centralize evidence, accelerate triage, and reduce risk with unified search, analytics, and governance.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105">
@@ -179,50 +204,16 @@ const UseCaseECA = () => {
                 <Button asChild size="lg" variant="outline" className="border-white text-white bg-transparent hover:bg-white/10 px-8 py-3 text-lg transition-all duration-300 hover:scale-[1.03] hover:-translate-y-[2px] hover:shadow-xl hover:ring-1 ring-white/30">
                   <a href="/resources/Product_Brief-Venio_ECA.pdf" download>
                     <ArrowRight className="mr-2 h-5 w-5" />
-                    Download ECA Brief
+                    Download Brief
                   </a>
                 </Button>
               </div>
             </div>
             <div className="relative h-[400px] glass-dark rounded-2xl p-8 flex items-center justify-center animate-fade-in-scale">
               <div className="text-white/70 text-center">
-                <FileText className="h-24 w-24 mx-auto mb-4 text-secondary" />
-                <p className="text-sm">ECA Analytics Visual</p>
+                <Search className="h-24 w-24 mx-auto mb-4 text-secondary" />
+                <p className="text-sm">Investigation Analytics Visual</p>
               </div>
-            </div>
-          </div>
-        </div>
-        {/* End-to-end logo ribbon inside hero */}
-        <div className="absolute bottom-0 left-0 right-0 z-10">
-          <div className="relative overflow-hidden py-12 md:py-14">
-            <div className="text-center mb-8 md:mb-10">
-              <p className="text-white/80 text-sm">
-                <span className="border-b-2 border-accent pb-1">Trusted by leading organizations</span>
-              </p>
-            </div>
-            <div className="logo-ticker-inner flex gap-16 sm:gap-20 md:gap-24 animate-logo-scroll">
-              {[
-                { src: amentumLogo, alt: "Amentum" },
-                { src: arrayLogo, alt: "Array" },
-                { src: cdsLogo, alt: "CDS" },
-                { src: consilioLogo, alt: "Consilio" },
-                { src: eparioLogo, alt: "Epario" },
-                { src: haugLogo, alt: "Haug Partners" },
-                { src: nixonLogo, alt: "Nixon Peabody" },
-                { src: proteusLogo, alt: "Proteus" },
-                { src: amentumLogo, alt: "Amentum" },
-                { src: arrayLogo, alt: "Array" },
-                { src: cdsLogo, alt: "CDS" },
-                { src: consilioLogo, alt: "Consilio" },
-                { src: eparioLogo, alt: "Epario" },
-                { src: haugLogo, alt: "Haug Partners" },
-                { src: nixonLogo, alt: "Nixon Peabody" },
-                { src: proteusLogo, alt: "Proteus" },
-              ].map((logo, index) => (
-                <div key={index} className="flex-shrink-0 flex items-center justify-center min-w-[160px] md:min-w-[180px] transition-transform duration-200 hover:scale-110">
-                  <img src={logo.src} alt={logo.alt} style={{ height: '36px', filter: 'brightness(0) invert(1)' }} className="w-auto object-contain opacity-90" />
-                </div>
-              ))}
             </div>
           </div>
         </div>
@@ -230,35 +221,61 @@ const UseCaseECA = () => {
 
       <ProblemSolutionSection
         variant="cards"
-        title="The Visibility Gap in ECA eDiscovery"
-        subtitle="Lack of reliable early case assessment tools leads to guesswork in budgeting, timelines, and risk planning."
+        title="Why Investigations Get Complicated Fast"
+        subtitle="From data overload to defensibility gaps, modern eDiscovery investigations demand more than basic search tools."
         cards={[
           {
             icon: Database,
-            title: "Unclear Data Scope",
+            title: "Data Overload",
             realityLabel: "- THE REALITY",
-            reality: "Teams don’t know what data exists or where it lives, leading to over‑collection and wasted budget.",
+            reality: "Huge volumes of emails, chats, and files make it hard to spot what matters.",
             withLabel: "- WITH VENIO",
-            withText: "ECA eDiscovery analytics map data scope before collection.",
+            withText: "Advanced search and analytics quickly surface relevant evidence in eDiscovery investigations.",
           },
           {
-            icon: CircleDollarSign,
-            title: "Inaccurate Cost & Timelines",
+            icon: Layers,
+            title: "Fragmented Data Sources",
             realityLabel: "- THE REALITY",
-            reality: "Lack of early metrics makes budgets and deadlines unreliable guesswork.",
+            reality: "Evidence lives across multiple systems and platforms, slowing collection.",
             withLabel: "- WITH VENIO",
-            withText: "Real‑time analytics and volume estimates provide predictable cost and timeline estimates.",
+            withText: "Centralized investigation tools bring all data into one searchable workspace.",
           },
           {
             icon: Shield,
-            title: "Hidden Risk & Privileged Content",
+            title: "Defensibility & Chain of Custody",
             realityLabel: "- THE REALITY",
-            reality: "Sensitive or privileged data often surfaces too late, increasing legal exposure.",
+            reality: "Untracked actions can undermine investigation outcomes.",
             withLabel: "- WITH VENIO",
-            withText: "Automated risk and privilege detection identify exposure early.",
+            withText: "Full audit trails ensure eDiscovery for internal investigations remains transparent and defensible.",
           },
         ]}
       />
+
+      <section className="absolute bottom-0 left-0 right-0 z-10">
+        <div className="relative overflow-hidden py-12 md:py-14">
+          <div className="text-center mb-8 md:mb-10">
+            <p className="text-white/80 text-sm">
+              <span className="border-b-2 border-accent pb-1">Trusted by leading organizations</span>
+            </p>
+          </div>
+          <div className="logo-ticker-inner flex gap-16 sm:gap-20 md:gap-24 animate-logo-scroll">
+            {[
+              { src: amentumLogo, alt: "Amentum" },
+              { src: arrayLogo, alt: "Array" },
+              { src: cdsLogo, alt: "CDS" },
+              { src: consilioLogo, alt: "Consilio" },
+              { src: eparioLogo, alt: "Epario" },
+              { src: haugLogo, alt: "Haug Partners" },
+              { src: nixonLogo, alt: "Nixon Peabody" },
+              { src: proteusLogo, alt: "Proteus" },
+            ].map((logo, index) => (
+              <div key={index} className="flex-shrink-0 flex items-center justify-center min-w-[160px] md:min-w-[180px] transition-transform duration-200 hover:scale-110">
+                <img src={logo.src} alt={logo.alt} style={{ height: '36px', filter: 'brightness(0) invert(1)' }} className="w-auto object-contain opacity-90" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section id="audience" className="py-24 px-6 bg-muted/30">
         <div className="container mx-auto max-w-7xl">
@@ -330,36 +347,37 @@ const UseCaseECA = () => {
       </section>
 
       <ScrollFeatureAccordion
-        title="Clarity Before Collection"
-        subtitle="Use ECA eDiscovery insights to understand scope, risk, and cost before review begins."
+        title="From First Clue to Final Conclusion"
+        subtitle="Capabilities designed to accelerate legal investigations while maintaining full control and visibility."
+        accentAlways
         features={[
           {
-            icon: Workflow,
-            title: "Intelligent Data Reduction",
-            description: "Cull duplicates and irrelevant files early through efficient ECA eDiscovery workflows, lowering downstream review effort.",
-            details: [],
-            imagePlaceholder: "ECA Data Reduction",
-          },
-          {
             icon: Search,
-            title: "Advanced Search & Pattern Insights",
-            description: "Reveal trends, keyword clusters, and communication patterns using powerful early case assessment tools.",
+            title: "Advanced Search & Analytics",
+            description: "Surface key evidence quickly with intelligent filtering and pattern detection in our ediscovery investigation software.",
             details: [],
-            imagePlaceholder: "ECA Search & Insights",
+            imagePlaceholder: "Search & Analytics",
           },
           {
-            icon: Users,
-            title: "Unified Workflows & Collaboration",
-            description: "Manage collection, analysis, and decision-making in one secure ECA software platform built for scalable eDiscovery.",
+            icon: Filter,
+            title: "Automated Data Reduction",
+            description: "Cull duplicates and irrelevant files early to keep legal investigations focused and efficient.",
             details: [],
-            imagePlaceholder: "ECA Collaboration",
+            imagePlaceholder: "Data Reduction",
           },
           {
-            icon: CircleDollarSign,
-            title: "Predictable eDiscovery Costs",
-            description: "Use early case assessment analytics and ECA software to forecast review volume and budgets early, not guesswork.",
+            icon: GitBranch,
+            title: "Visual Relationship Mapping",
+            description: "Reveal communication patterns, timelines, and hidden connections critical to ediscovery for internal investigations.",
             details: [],
-            imagePlaceholder: "ECA Cost Forecasts",
+            imagePlaceholder: "Relationships",
+          },
+          {
+            icon: Lock,
+            title: "Secure Collaboration & Workflows",
+            description: "Assign roles, manage permissions, and track activity so every investigation stays controlled and defensible.",
+            details: [],
+            imagePlaceholder: "Collaboration",
           },
         ]}
       />
@@ -374,21 +392,9 @@ const UseCaseECA = () => {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { 
-                icon: Cloud, 
-                title: "Cloud eDiscovery", 
-                desc: "Fast, scalable deployment for matters requiring speed and flexibility across teams."
-              },
-              { 
-                icon: Server, 
-                title: "On‑Premises eDiscovery", 
-                desc: "Maximum control for strict governance and regulatory requirements on your infrastructure."
-              },
-              { 
-                icon: Layers, 
-                title: "Hybrid eDiscovery", 
-                desc: "Balanced approach: keep sensitive data on‑prem while leveraging cloud agility per matter."
-              },
+              { icon: Cloud, title: "Cloud eDiscovery", desc: "Fast, scalable deployment for matters requiring speed and flexibility across teams." },
+              { icon: Server, title: "On‑Premises eDiscovery", desc: "Maximum control for strict governance and regulatory requirements on your infrastructure." },
+              { icon: Layers, title: "Hybrid eDiscovery", desc: "Balanced approach: keep sensitive data on‑prem while leveraging cloud agility per matter." },
             ].map((item, idx) => (
               <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 text-center">
                 <CardContent className="p-10">
@@ -398,9 +404,7 @@ const UseCaseECA = () => {
                   <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
                   <p className="text-sm text-muted-foreground mb-6 max-w-[28rem] mx-auto">{item.desc}</p>
                   <Button asChild size="sm" variant="outline" className="rounded-full px-5">
-                    <Link to="/book-a-demo">
-                      Explore {item.title.split(" ")[0]}
-                    </Link>
+                    <Link to="/book-a-demo">Explore {item.title.split(" ")[0]}</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -423,19 +427,15 @@ const UseCaseECA = () => {
             <p className="text-muted-foreground">Get all icons used on this page as SVG with backgrounds</p>
           </div>
           <div className="flex items-center justify-center gap-4">
-            <Button onClick={handleDownloadPageIcons} size="lg" className="bg-[#3DC47E] hover:bg-[#33B471] text-white">
-              Download All Icons (SVG)
-            </Button>
-            <Button onClick={handleDownloadVisibilityGapIcons} size="lg" className="bg-[#EF4444] hover:bg-[#DC2626] text-white">
-              Download Visibility Gap Icons (SVG)
-            </Button>
+            <Button onClick={handleDownloadPageIcons} size="lg" className="bg-[#3DC47E] hover:bg-[#33B471] text-white">Download All Icons (SVG)</Button>
+            <Button onClick={handleDownloadVisibilityGapIcons} size="lg" className="bg-[#EF4444] hover:bg-[#DC2626] text-white">Download Investigation Gap Icons (SVG)</Button>
+            <Button onClick={handleDownloadCoreSevenIcons} size="lg" className="bg-primary hover:bg-primary/90 text-white">Download Core 7 Icons (SVG)</Button>
             <Button asChild variant="outline" size="lg">
               <Link to="/icons">Browse Icons Library</Link>
             </Button>
           </div>
         </div>
       </section>
-
       <Footer />
       <style>{`
         @keyframes logo-scroll {
@@ -450,4 +450,4 @@ const UseCaseECA = () => {
   );
 };
 
-export default UseCaseECA;
+export default UseCaseInvestigations;

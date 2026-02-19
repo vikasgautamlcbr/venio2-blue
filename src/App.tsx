@@ -9,6 +9,9 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const VenioLegalHold = lazy(() => import("./pages/VenioLegalHold"));
 const VenioEDiscovery = lazy(() => import("./pages/VenioEDiscovery"));
 const UseCaseECA = lazy(() => import("./pages/UseCaseECA"));
+const UseCaseInvestigations = lazy(() => import("./pages/UseCaseInvestigations"));
+const UseCaseFOIA = lazy(() => import("./pages/UseCaseFOIA"));
+const UseCaseLegalHold = lazy(() => import("./pages/UseCaseLegalHold"));
 const LawFirmSolutions = lazy(() => import("./pages/LawFirmSolutions"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const Resources = lazy(() => import("./pages/Resources"));
@@ -58,6 +61,9 @@ const App = () => (
           <Route path="/venio-legal-hold" element={<VenioLegalHold />} />
           <Route path="/venio-ediscovery" element={<VenioEDiscovery />} />
           <Route path="/solutions/use-cases/eca" element={<UseCaseECA />} />
+          <Route path="/solutions/use-cases/investigations" element={<UseCaseInvestigations />} />
+          <Route path="/solutions/use-cases/foia" element={<UseCaseFOIA />} />
+          <Route path="/solutions/use-cases/legal-hold" element={<UseCaseLegalHold />} />
           <Route path="/law-firm-solutions" element={<LawFirmSolutions />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/resources" element={<Resources />} />

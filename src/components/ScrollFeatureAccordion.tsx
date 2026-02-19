@@ -89,7 +89,9 @@ const features: Feature[] = [
 export const ScrollFeatureAccordion = ({
   title = "Complete Legal Hold Platform",
   subtitle = "Everything you need to manage legal holds efficiently and defensibly",
-}: { title?: string; subtitle?: string }) => {
+  features: override,
+  accentAlways = false,
+}: { title?: string; subtitle?: string; features?: Feature[]; accentAlways?: boolean }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -127,7 +129,7 @@ export const ScrollFeatureAccordion = ({
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left side - Accordion Items */}
           <div className="space-y-3" ref={containerRef} id="features-list">
-            {features.map((feature, index) => {
+            {(override ?? features).map((feature, index) => {
               const Icon = feature.icon;
               const isActive = activeIndex === index;
 
@@ -159,7 +161,9 @@ export const ScrollFeatureAccordion = ({
                             "rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-700",
                             isActive
                               ? "w-16 h-16 bg-accent text-white scale-110 shadow-lg shadow-accent/50"
-                              : "w-12 h-12 bg-secondary/10 text-secondary/70"
+                              : accentAlways
+                                ? "w-12 h-12 bg-accent text-white"
+                                : "w-12 h-12 bg-secondary/10 text-secondary/70"
                           )}
                         >
                           <Icon className={cn(
@@ -200,7 +204,7 @@ export const ScrollFeatureAccordion = ({
           {/* Right side - Image Placeholder (sticky) */}
           <div className="lg:sticky lg:top-32 hidden lg:block">
             <div ref={imageContainerRef} className="relative">
-              {features.map((feature, index) => (
+              {(override ?? features).map((feature, index) => (
                 <div
                   key={index}
                   className={cn(

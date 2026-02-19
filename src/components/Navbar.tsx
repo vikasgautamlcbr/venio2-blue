@@ -109,9 +109,9 @@ const Navbar = () => {
       name: "By Use Case",
       items: [
         { label: "ECA (Early Case Assessment)", link: "/solutions/use-cases/eca", icon: Brain, desc: "Analyze data early to assess case viability" },
-        { label: "Document Review Workflows", link: "#", icon: Workflow, desc: "Streamline review with automated workflows" },
-        { label: "Internal Investigations", link: "#", icon: Shield, desc: "Conduct rapid internal data probes" },
-        { label: "FOIA Requests", link: "#", icon: FileText, desc: "Efficiently handle freedom of information requests" },
+        { label: "Legal Hold Management", link: "/solutions/use-cases/legal-hold", icon: Shield, desc: "Automate notices, acknowledgements, and tracking" },
+        { label: "Internal Investigations", link: "/solutions/use-cases/investigations", icon: Search, desc: "Conduct rapid internal data probes" },
+        { label: "FOIA Requests", link: "/solutions/use-cases/foia", icon: FileText, desc: "Efficiently handle freedom of information requests" },
       ],
     },
     {
