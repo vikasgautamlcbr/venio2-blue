@@ -771,11 +771,9 @@ const Icons = () => {
     const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
     const zip = new JSZip();
     foiaFeatureIcons.forEach((item) => {
-      const hex = palette.accent;
-      const svg = buildTintedSvg(item.Icon, hex);
+      const svg = buildSvg(item.Icon);
       const name = `${slugify(item.name)}.svg`;
-      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color={hex} strokeWidth={2} />);
-      zip.file(name, finalSvg);
+      zip.file(name, svg);
     });
     const blob = await zip.generateAsync({ type: "blob" });
     const url = URL.createObjectURL(blob);
@@ -791,11 +789,9 @@ const Icons = () => {
     const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
     const zip = new JSZip();
     legalHoldFeatureIcons.forEach((item) => {
-      const hex = palette.accent;
-      const svg = buildTintedSvg(item.Icon, hex);
+      const svg = buildSvg(item.Icon);
       const name = `${slugify(item.name)}.svg`;
-      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color={hex} strokeWidth={2} />);
-      zip.file(name, finalSvg);
+      zip.file(name, svg);
     });
     const blob = await zip.generateAsync({ type: "blob" });
     const url = URL.createObjectURL(blob);
@@ -811,11 +807,9 @@ const Icons = () => {
     const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
     const zip = new JSZip();
     investigationsFeatureIcons.forEach((item) => {
-      const hex = palette.accent;
-      const svg = buildTintedSvg(item.Icon, hex);
+      const svg = buildSvg(item.Icon);
       const name = `${slugify(item.name)}.svg`;
-      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color={hex} strokeWidth={2} />);
-      zip.file(name, finalSvg);
+      zip.file(name, svg);
     });
     const blob = await zip.generateAsync({ type: "blob" });
     const url = URL.createObjectURL(blob);
@@ -831,11 +825,9 @@ const Icons = () => {
     const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
     const zip = new JSZip();
     ecaFeatureIcons.forEach((item) => {
-      const hex = palette.accent;
-      const svg = buildTintedSvg(item.Icon, hex);
+      const svg = buildSvg(item.Icon);
       const name = `${slugify(item.name)}.svg`;
-      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color={hex} strokeWidth={2} />);
-      zip.file(name, finalSvg);
+      zip.file(name, svg);
     });
     const blob = await zip.generateAsync({ type: "blob" });
     const url = URL.createObjectURL(blob);
