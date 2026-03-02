@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award, Filter, Hash, File } from "lucide-react";
+import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award, Filter, Hash, File, Brain, Tag } from "lucide-react";
 import type { LucideIcon, LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
 import { renderToStaticMarkup } from "react-dom/server";
