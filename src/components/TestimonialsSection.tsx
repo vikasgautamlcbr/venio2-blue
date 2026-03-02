@@ -18,9 +18,10 @@ import proteusLogo from "@/assets/clients/proteus-new.webp";
 
 interface TestimonialsSectionProps {
   showLogoTrail?: boolean;
+  title?: string;
 }
 
-const TestimonialsSection = ({ showLogoTrail = true }: TestimonialsSectionProps) => {
+const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectionProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [api2, setApi2] = useState<CarouselApi>();
@@ -97,7 +98,7 @@ const TestimonialsSection = ({ showLogoTrail = true }: TestimonialsSectionProps)
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="text-center mb-12 max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-              Trusted by Leading Legal Teams Worldwide
+              {title ?? "Trusted by Leading Legal Teams Worldwide"}
             </h2>
           </div>
 

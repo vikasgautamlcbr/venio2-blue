@@ -4,18 +4,13 @@ import { ScrollFeatureAccordion } from "@/components/ScrollFeatureAccordion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import {
-  FileText, 
-  Shield, 
-  Clock, 
-  Users, 
-  CheckCircle, 
-  Building2, 
-  Briefcase, 
-  Landmark, 
-  Building,
+  FileText,
+  Shield,
+  Clock,
+  Users,
+  CheckCircle,
   Download,
   Play,
-  ChevronRight,
   Sparkles,
   ArrowRight,
   BarChart3
@@ -31,11 +26,11 @@ import { useState, useEffect } from "react";
 
 const sections = [
   { id: "hero", label: "Overview" },
-  { id: "data", label: "Impact" },
+  { id: "data", label: "Metrics" },
   { id: "demo", label: "Demo" },
   { id: "features", label: "Features" },
   { id: "case-studies", label: "Case Studies" },
-  { id: "download", label: "Resources" },
+  { id: "download", label: "Product Brief" },
 ];
 
 const VenioLegalHold = () => {
@@ -49,7 +44,7 @@ const VenioLegalHold = () => {
   }, []);
   useEffect(() => {
     const title = "Venio Legal Hold - Venio Systems";
-    const description = "Modernizing legal hold with automated workflows, defensible tracking, and enterprise-grade compliance.";
+    const description = "Replace spreadsheets and email chains with structured, auditable preservation built to withstand scrutiny.";
     document.title = title;
     let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
     if (meta) {
@@ -128,30 +123,20 @@ const VenioLegalHold = () => {
               {/* Floating Badge */}
               <div className="inline-flex items-center gap-2 glass-dark px-6 py-3 rounded-full mb-2 pulse-glow animate-slide-up">
                 <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span className="text-white/90 text-sm font-medium">Automated Legal Hold Solution</span>
+                <span className="text-white/90 text-sm font-medium">Legal Hold</span>
               </div>
               
               <h1 className="text-5xl lg:text-6xl font-heading font-bold text-white leading-tight">
-                Automated, Defensible Legal Holds—
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-secondary to-accent animate-shimmer">
-                  Done Right
-                </span>
+                Legal Hold That Survives Court.
               </h1>
               <p className="text-xl text-white/90 leading-relaxed">
-                Streamline notices, confirmations, and compliance with a modern automated legal hold solution built for speed and accuracy.
+                Replace spreadsheets and email chains with structured, auditable preservation built to withstand scrutiny.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button 
-                  onClick={handleDemoAccess}
-                  className="btn btn-primary text-lg px-8 py-3 group"
-                >
-                  <Play className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  Try Interactive Demo
-                </button>
-                <button className="btn btn-secondary text-lg px-8 py-3 group">
-                  <Download className="mr-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
-                  Download Product Brief
-                </button>
+                <Button onClick={handleDemoAccess} size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105">
+                  <Play className="mr-2 h-5 w-5" />
+                  See How it Works
+                </Button>
               </div>
             </div>
             <div className="relative h-[400px] glass-dark rounded-2xl p-8 flex items-center justify-center animate-fade-in-scale">
@@ -164,8 +149,33 @@ const VenioLegalHold = () => {
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <BenefitsSection />
+      <section id="benefits" className="py-24 px-6 bg-muted/30">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-2">Turn Preservation Into a Position of Strength</h2>
+            <p className="text-lg text-muted-foreground">When legal hold is structured, enforced, and documented, litigation risk drops. Venio gives you the control others leave to chance.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: Shield, title: "Sanctions Risk, Reduced", desc: "Eliminate manual tracking and undocumented follow-ups that expose your organization to scrutiny." },
+              { icon: FileText, title: "Defensible Audit Trails", desc: "Document every notice, reminder, and custodian action with full, court-ready records you can trust." },
+              { icon: Users, title: "Scalable Cross-Department Workflows", desc: "Align legal, IT, and business teams with repeatable, enterprise-grade processes that scale with your caseloads." },
+              { icon: BarChart3, title: "Reduced Over-Preservation & Cost", desc: "Target only the custodians and data that matter, reducing storage, review effort, and operational overhead." },
+              { icon: FileText, title: "Centralized Legal Hold Coordination", desc: "Manage every legal hold from a single workspace, no scattered emails, no spreadsheets, complete accountability." },
+            ].map((item, idx) => (
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-6">
+                    <item.icon className="h-7 w-7 text-secondary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Data Points Section */}
       <section id="data" className="py-24 relative overflow-hidden">
@@ -175,10 +185,8 @@ const VenioLegalHold = () => {
         
         <div className="container mx-auto px-6 relative z-10 max-w-6xl">
           <div className="text-center mb-12 max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold mb-4">Measurable Impact</h2>
-            <p className="text-lg text-muted-foreground">
-              See how Venio Legal Hold transforms legal operations with proven results
-            </p>
+            <h2 className="text-4xl font-bold mb-4">Numbers That Tell the Story</h2>
+            <p className="text-lg text-muted-foreground">Track turnaround time, workload reduction, and accuracy improvements in one clear view.</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -218,9 +226,9 @@ const VenioLegalHold = () => {
       <section id="demo" className="py-24 px-6 bg-muted/30">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold mb-4">Experience It Live</h2>
+            <h2 className="text-4xl font-heading font-bold mb-4">Don’t Just Read About It. See It.</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Walk through the complete legal hold workflow from creation to release
+              Experience how Venio enforces, tracks, and documents every hold all in real time.
             </p>
           </div>
           
@@ -260,8 +268,40 @@ const VenioLegalHold = () => {
         </div>
       </section>
 
-      {/* Features Section - Scroll Interactive Accordion */}
-      <ScrollFeatureAccordion accentAlways />
+      <ScrollFeatureAccordion
+        title="Preservation, With Accountability Built In."
+        subtitle="Core capabilities designed to eliminate preservation gaps and withstand judicial scrutiny."
+        features={[
+          {
+            icon: FileText,
+            title: "Automated Notifications & Escalations",
+            description: "Send hold notices, schedule reminders, and escalate non-acknowledgments automatically.",
+            details: [],
+            imagePlaceholder: "Notifications & Escalations",
+          },
+          {
+            icon: Users,
+            title: "Custodian Acknowledgment Tracking",
+            description: "Real-time visibility into who has acknowledged, who hasn’t, and who is non-compliant.",
+            details: [],
+            imagePlaceholder: "Acknowledgments",
+          },
+          {
+            icon: FileText,
+            title: "Centralized Hold Management",
+            description: "Create, issue, modify, and release legal holds from a single dashboard across all matters.",
+            details: [],
+            imagePlaceholder: "Hold Management",
+          },
+          {
+            icon: FileText,
+            title: "Notification & Questionnaire Templates",
+            description: "Standardized, customizable templates for hold notices and custodian responses.",
+            details: [],
+            imagePlaceholder: "Templates",
+          },
+        ]}
+      />
 
       {/* Case Studies Section */}
       <CaseStudiesSection />
@@ -325,21 +365,20 @@ const VenioLegalHold = () => {
                   </div>
                   
                   <h2 className="text-3xl md:text-4xl font-heading font-bold leading-tight">
-                    Get the Complete
-                    <span className="text-accent"> Product Brief</span>
+                    Venio Legal Hold Product Brief
                   </h2>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    Download our comprehensive 24-page guide with everything you need to evaluate Venio Legal Hold for your organization.
+                    A concise guide outlining how structured, automated preservation reduces litigation risk and strengthens defensibility across your organization.
                   </p>
                 </div>
 
                 {/* What's Inside */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
+                    { icon: FileText, text: "Legal Hold Process Overview" },
                     { icon: CheckCircle, text: "Complete feature breakdown" },
-                    { icon: Shield, text: "Security & compliance" },
                     { icon: Users, text: "Deployment options" },
-                    { icon: BarChart3, text: "ROI analysis & pricing" },
+                    { icon: BarChart3, text: "Cost & Risk Reduction Impact" },
                   ].map((item, i) => (
                     <div
                       key={i}
@@ -353,17 +392,14 @@ const VenioLegalHold = () => {
                   ))}
                 </div>
 
-                {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <button className="btn h-14 px-8 text-lg group flex-1 inline-flex items-center justify-center bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-lg">
-                    <Download className="mr-2 h-5 w-5" />
-                    Download Now
-                  </button>
                   <Button asChild className="bg-accent hover:bg-accent/90 text-white font-semibold h-14 px-8 rounded-lg shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105 whitespace-nowrap text-lg flex-1 flex items-center">
-                    <Link to="/book-a-demo">
-                      Book a Demo
-                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                    <a href="/resources/Product_Brief-Venio_Legal_Hold.pdf" download>
+                      Download Now
+                    </a>
+                  </Button>
+                  <Button asChild variant="outline" className="h-14 px-8 text-lg flex-1">
+                    <Link to="/book-a-demo">Book a Demo</Link>
                   </Button>
                 </div>
 
@@ -374,8 +410,17 @@ const VenioLegalHold = () => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <CTABanner />
+      <section id="cta" className="py-24 bg-gradient-to-b from-white to-muted">
+        <div className="container mx-auto px-6 max-w-5xl text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Don’t Wait for Preservation to Be Questioned.</h2>
+          <p className="text-lg text-muted-foreground mb-8">Strengthen your legal hold process before it becomes a liability.</p>
+          <div className="flex justify-center gap-4">
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-6">
+              <Link to="/book-a-demo">Book a Demo</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       <Footer />
       

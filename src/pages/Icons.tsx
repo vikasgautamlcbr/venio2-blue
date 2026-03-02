@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award, Filter } from "lucide-react";
+import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award, Filter, Hash, File } from "lucide-react";
 import type { LucideIcon, LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -582,10 +582,10 @@ const foiaFeatureIcons: { name: string; Icon: LucideIcon }[] = [
 ];
 
 const legalHoldFeatureIcons: { name: string; Icon: LucideIcon }[] = [
-  { name: "Centralized Legal Hold Coordination", Icon: FileText },
-  { name: "Defensible Audit Trails", Icon: Shield },
-  { name: "Scalable Cross-Department Workflows", Icon: Users },
-  { name: "Reduced Over-Preservation & Cost", Icon: CircleDollarSign },
+  { name: "Automated Notifications & Escalations", Icon: FileText },
+  { name: "Custodian Acknowledgment Tracking", Icon: Users },
+  { name: "Centralized Hold Management", Icon: FileText },
+  { name: "Notification & Questionnaire Templates", Icon: FileText },
 ];
 
 const investigationsFeatureIcons: { name: string; Icon: LucideIcon }[] = [
@@ -600,6 +600,20 @@ const ecaFeatureIcons: { name: string; Icon: LucideIcon }[] = [
   { name: "Advanced Search & Pattern Insights", Icon: Search },
   { name: "Unified Workflows & Collaboration", Icon: Users },
   { name: "Predictable eDiscovery Costs", Icon: CircleDollarSign },
+];
+
+const reviewFeatureIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "AI-Powered Prioritization", Icon: Brain },
+  { name: "Smart Tagging & Coding Panels", Icon: Tag },
+  { name: "In-Line Redactions", Icon: EyeOff },
+  { name: "Integrated QC & Reviewer Audits", Icon: FileCheck },
+];
+
+const productionFeatureIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Bates Stamping & Slipsheets", Icon: Hash },
+  { name: "Format Conversion", Icon: File },
+  { name: "Load File Generation", Icon: Database },
+  { name: "Redaction Management", Icon: EyeOff },
 ];
 
 const Icons = () => {
@@ -839,6 +853,42 @@ const Icons = () => {
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(url), 1500);
   };
+  const handleDownloadReviewFeatures = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    reviewFeatureIcons.forEach((item) => {
+      const svg = buildSvg(item.Icon);
+      const name = `${slugify(item.name)}.svg`;
+      zip.file(name, svg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-review-feature-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+  const handleDownloadProductionFeatures = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    productionFeatureIcons.forEach((item) => {
+      const svg = buildSvg(item.Icon);
+      const name = `${slugify(item.name)}.svg`;
+      zip.file(name, svg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-production-feature-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
   const handleDownloadUseCaseProblem = async () => {
     const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
     const zip = new JSZip();
@@ -1022,7 +1072,7 @@ const Icons = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
             <h2 className="text-2xl font-bold">Legal Hold Use Case Feature Icons</h2>
-            <p className="text-muted-foreground">Feature icons used on the Legal Hold use case page (accent tinted)</p>
+            <p className="text-muted-foreground">Feature icons used on the Legal Hold page (emerald filled)</p>
             <div className="mt-4 flex justify-end">
               <Button onClick={handleDownloadLegalHoldFeatures} className="bg-[#3DC47E] hover:bg-[#33B471] text-white gap-2">
                 <Download className="w-4 h-4" />
@@ -1090,7 +1140,7 @@ const Icons = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">
             <h2 className="text-2xl font-bold">ECA Use Case Feature Icons</h2>
-            <p className="text-muted-foreground">Feature icons used on the ECA use case page (accent tinted)</p>
+            <p className="text-muted-foreground">Feature icons used on the ECA page (emerald filled)</p>
             <div className="mt-4 flex justify-end">
               <Button onClick={handleDownloadEcaFeatures} className="bg-[#3DC47E] hover:bg-[#33B471] text-white gap-2">
                 <Download className="w-4 h-4" />
@@ -1100,6 +1150,74 @@ const Icons = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {ecaFeatureIcons.map((item, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{item.name}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl bg-accent flex items-center justify-center">
+                      <item.Icon className="w-10 h-10 text-white" />
+                    </div>
+                    <div className="flex-1" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="review-feature-icons" className="py-14 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Review Feature Icons</h2>
+            <p className="text-muted-foreground">Feature icons used on the Venio Review page (emerald filled)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadReviewFeatures} className="bg-[#3DC47E] hover:bg-[#33B471] text-white gap-2">
+                <Download className="w-4 h-4" />
+                Download Review Feature Icons
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {reviewFeatureIcons.map((item, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{item.name}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl bg-accent flex items-center justify-center">
+                      <item.Icon className="w-10 h-10 text-white" />
+                    </div>
+                    <div className="flex-1" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="production-feature-icons" className="py-14 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Production Feature Icons</h2>
+            <p className="text-muted-foreground">Feature icons used on the Venio Production page (emerald filled)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadProductionFeatures} className="bg-[#3DC47E] hover:bg-[#33B471] text-white gap-2">
+                <Download className="w-4 h-4" />
+                Download Production Feature Icons
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {productionFeatureIcons.map((item, idx) => (
               <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
                 <CardHeader>
                   <div className="flex items-center justify-between">

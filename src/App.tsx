@@ -8,6 +8,9 @@ const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const VenioLegalHold = lazy(() => import("./pages/VenioLegalHold"));
 const VenioEDiscovery = lazy(() => import("./pages/VenioEDiscovery"));
+const VenioReview = lazy(() => import("./pages/VenioReview"));
+const VenioECA = lazy(() => import("./pages/VenioECA"));
+const VenioProduction = lazy(() => import("./pages/VenioProduction"));
 const UseCaseECA = lazy(() => import("./pages/UseCaseECA"));
 const UseCaseInvestigations = lazy(() => import("./pages/UseCaseInvestigations"));
 const UseCaseFOIA = lazy(() => import("./pages/UseCaseFOIA"));
@@ -60,6 +63,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/venio-legal-hold" element={<VenioLegalHold />} />
           <Route path="/venio-ediscovery" element={<VenioEDiscovery />} />
+          <Route path="/venio-eca" element={<VenioECA />} />
+          <Route path="/venio-production" element={<VenioProduction />} />
+          <Route path="/venio-review" element={<VenioReview />} />
           <Route path="/solutions/use-cases/eca" element={<UseCaseECA />} />
           <Route path="/solutions/use-cases/investigations" element={<UseCaseInvestigations />} />
           <Route path="/solutions/use-cases/foia" element={<UseCaseFOIA />} />
