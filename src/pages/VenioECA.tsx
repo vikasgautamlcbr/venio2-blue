@@ -10,6 +10,8 @@ import CaseStudiesSection from "@/components/CaseStudiesSection";
 import SecuritySection from "@/components/SecuritySection";
 import { Play, FileText, Shield, Brain, Search, Filter, Layers, Database, DollarSign, BarChart3, Gauge, Users } from "lucide-react";
 import { useEffect, useState } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import type { LucideIcon } from "lucide-react";
 
 const sections = [
   { id: "hero", label: "Overview" },
@@ -74,6 +76,45 @@ const VenioECA = () => {
       setIsDemoUnlocked(true);
     }
     window.open("https://demo.venio.com/eca", "_blank");
+  };
+  const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const buildSvg = (IconComp: LucideIcon) => {
+    const rawInner = renderToStaticMarkup(<IconComp size={32} color="#ffffff" strokeWidth={2} />);
+    const sanitizedInner = rawInner.replace(/stroke="currentColor"/g, 'stroke="#ffffff"').replace('<svg ', '<svg x="16" y="16" ');
+    const outer = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` + `<rect width="64" height="64" fill="#3DC47E" rx="12"/>` + `${sanitizedInner}` + `</svg>`;
+    return outer;
+  };
+  const isValidSvg = (svg: string) => {
+    try {
+      const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+      return !doc.querySelector("parsererror");
+    } catch {
+      return false;
+    }
+  };
+  const ecaFeatureIcons: { name: string; Icon: LucideIcon }[] = [
+    { name: "Data Collection & Indexing", Icon: Database },
+    { name: "Smart Pre-Processing", Icon: Filter },
+    { name: "Keyword & Metadata Search", Icon: Search },
+    { name: "Concept-Based Clustering", Icon: Layers },
+  ];
+  const handleDownloadEcaIcons = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    ecaFeatureIcons.forEach(({ name, Icon }) => {
+      const svg = buildSvg(Icon);
+      const final = isValidSvg(svg) ? svg : renderToStaticMarkup(<Icon size={64} color="#ffffff" strokeWidth={2} />);
+      zip.file(`${slugify(name)}.svg`, final);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-eca-feature-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
   };
 
   return (
@@ -314,6 +355,23 @@ const VenioECA = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="icons-download" className="py-24 px-6 bg-muted/20">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-2">Download Page Icons</h2>
+            <p className="text-muted-foreground">Get emerald‑green filled feature icons used on this page or browse the full library</p>
+          </div>
+          <div className="flex items-center justify-center gap-4">
+            <Button onClick={handleDownloadEcaIcons} size="lg" className="bg-[#3DC47E] hover:bg-[#33B471] text-white">
+              Download ECA Feature Icons (SVG)
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/icons">Browse Icons Library</Link>
+            </Button>
           </div>
         </div>
       </section>

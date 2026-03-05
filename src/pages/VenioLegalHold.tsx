@@ -9,6 +9,10 @@ import {
   Clock,
   Users,
   CheckCircle,
+  UserCheck,
+  ClipboardList,
+  Timer,
+  LayoutDashboard,
   Download,
   Play,
   Sparkles,
@@ -23,6 +27,8 @@ import { DemoGateDialog } from "@/components/DemoGateDialog";
 import BookDemoDialog from "@/components/BookDemoDialog";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import { useState, useEffect } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import type { LucideIcon } from "lucide-react";
 
 const sections = [
   { id: "hero", label: "Overview" },
@@ -96,6 +102,45 @@ const VenioLegalHold = () => {
     // Open demo after successful form submission
     window.open('https://demo.venio.com', '_blank');
   };
+  const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const buildSvg = (IconComp: LucideIcon) => {
+    const rawInner = renderToStaticMarkup(<IconComp size={32} color="#ffffff" strokeWidth={2} />);
+    const sanitizedInner = rawInner.replace(/stroke="currentColor"/g, 'stroke="#ffffff"').replace('<svg ', '<svg x="16" y="16" ');
+    const outer = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` + `<rect width="64" height="64" fill="#3DC47E" rx="12"/>` + `${sanitizedInner}` + `</svg>`;
+    return outer;
+  };
+  const isValidSvg = (svg: string) => {
+    try {
+      const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+      return !doc.querySelector("parsererror");
+    } catch {
+      return false;
+    }
+  };
+  const legalHoldFeatureIcons: { name: string; Icon: LucideIcon }[] = [
+    { name: "Automated Notifications & Escalations", Icon: Timer },
+    { name: "Custodian Acknowledgment Tracking", Icon: UserCheck },
+    { name: "Centralized Hold Management", Icon: LayoutDashboard },
+    { name: "Notification & Questionnaire Templates", Icon: FileText },
+  ];
+  const handleDownloadLegalHoldIcons = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    legalHoldFeatureIcons.forEach(({ name, Icon }) => {
+      const svg = buildSvg(Icon);
+      const final = isValidSvg(svg) ? svg : renderToStaticMarkup(<Icon size={64} color="#ffffff" strokeWidth={2} />);
+      zip.file(`${slugify(name)}.svg`, final);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-legal-hold-feature-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
 
   return (
     <div className="min-h-screen">
@@ -145,6 +190,23 @@ const VenioLegalHold = () => {
                 <p className="text-sm">Product Dashboard Visual</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="icons-download" className="py-24 px-6 bg-muted/20">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-2">Download Page Icons</h2>
+            <p className="text-muted-foreground">Get emerald‑green filled feature icons used on this page or browse the full library</p>
+          </div>
+          <div className="flex items-center justify-center gap-4">
+            <Button onClick={handleDownloadLegalHoldIcons} size="lg" className="bg-[#3DC47E] hover:bg-[#33B471] text-white">
+              Download Legal Hold Feature Icons (SVG)
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/icons">Browse Icons Library</Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -269,25 +331,26 @@ const VenioLegalHold = () => {
       </section>
 
       <ScrollFeatureAccordion
+        accentAlways
         title="Preservation, With Accountability Built In."
         subtitle="Core capabilities designed to eliminate preservation gaps and withstand judicial scrutiny."
         features={[
           {
-            icon: FileText,
+            icon: Timer,
             title: "Automated Notifications & Escalations",
             description: "Send hold notices, schedule reminders, and escalate non-acknowledgments automatically.",
             details: [],
             imagePlaceholder: "Notifications & Escalations",
           },
           {
-            icon: Users,
+            icon: UserCheck,
             title: "Custodian Acknowledgment Tracking",
             description: "Real-time visibility into who has acknowledged, who hasn’t, and who is non-compliant.",
             details: [],
             imagePlaceholder: "Acknowledgments",
           },
           {
-            icon: FileText,
+            icon: LayoutDashboard,
             title: "Centralized Hold Management",
             description: "Create, issue, modify, and release legal holds from a single dashboard across all matters.",
             details: [],

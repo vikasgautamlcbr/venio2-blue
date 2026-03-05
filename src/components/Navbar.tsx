@@ -227,17 +227,18 @@ const Navbar = () => {
       overviewTitle: "Venio eDiscovery Overview",
       overviewDesc: "The World's Fastest eDiscovery Engine",
       overviewLink: "/venio-ediscovery",
-      modules: [
-        { title: "Processing", desc: "Test and create web experiences that convert", icon: Server },
-        { title: "Venio ECA", desc: "Delight mobile app users with optimized experiences", icon: Brain },
-        { title: "Venio Review", desc: "Test complex features across any tech stack or device", icon: FileCheck },
-      ],
+      modules: [],
       features: [
         { label: "Social Media & Mobile", icon: MonitorSmartphone },
         { label: "A/V Transcription", icon: AudioLines },
         { label: "Automated Redaction", icon: Scissors },
         { label: "Continuous Active Learning", icon: Brain },
         { label: "Self-Service Uploads", icon: Upload },
+      ],
+      subitems: [
+        { label: "Venio Review", icon: FileCheck, link: "/venio-review" },
+        { label: "Venio ECA", icon: Brain, link: "/venio-eca" },
+        { label: "Venio Production", icon: FileText, link: "/venio-production" },
       ],
     },
     {
