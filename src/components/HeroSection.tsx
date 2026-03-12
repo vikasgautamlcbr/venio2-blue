@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles, Shield, Zap, Brain, Globe } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import endToEndPlatformVideo from "@/assets/resources/1-Motion-End-To-End.mp4";
 
 const HeroSection = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -11,7 +12,7 @@ const HeroSection = () => {
     {
       icon: Shield,
       title: "End-to-End Platform",
-      videoUrl: "/videos/venio-one.mp4"
+      videoUrl: endToEndPlatformVideo
     },
     {
       icon: Brain,
@@ -172,7 +173,7 @@ const HeroSection = () => {
             {/* Dashboard/Video Section */}
             <div className="relative max-w-6xl mx-auto px-4 pb-8">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 bg-white">
-                <div className="aspect-[16/10] bg-black">
+                <div className="aspect-video bg-black">
                   <video
                     key={activeTab}
                     ref={videoRef}
