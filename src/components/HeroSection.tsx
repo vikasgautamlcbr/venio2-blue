@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, Shield, Zap, Brain, Globe } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import endToEndPlatformVideo from "@/assets/resources/1-Motion-End-To-End.mp4";
+import flexibleDeploymentVideo from "@/assets/resources/3-Flexible Deployment.mp4";
 
 const HeroSection = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -22,8 +23,8 @@ const HeroSection = () => {
     },
     {
       icon: Zap,
-      title: "Hybrid Deployment",
-      videoUrl: "/videos/venio-legal-hold.mp4"
+      title: "Flexible Deployment",
+      videoUrl: flexibleDeploymentVideo
     },
     {
       icon: Globe,
