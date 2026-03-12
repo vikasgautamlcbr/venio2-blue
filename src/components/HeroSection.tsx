@@ -7,6 +7,7 @@ const HeroSection = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [videoProgress, setVideoProgress] = useState<number[]>([0, 0, 0, 0]);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const lastProgressUpdateRef = useRef<number>(0);
 
   const tabs = [
     {
@@ -59,7 +60,12 @@ const HeroSection = () => {
 
     const updateProgress = () => {
       if (videoRef.current) {
-        const percent = (videoRef.current.currentTime / videoRef.current.duration) * 100;
+        const now = performance.now();
+        if (now - lastProgressUpdateRef.current < 200) return;
+        lastProgressUpdateRef.current = now;
+        const duration = videoRef.current.duration;
+        if (!Number.isFinite(duration) || duration <= 0) return;
+        const percent = (videoRef.current.currentTime / duration) * 100;
         setVideoProgress(prev => {
           const updated = [...prev];
           updated[activeTab] = percent;
@@ -180,6 +186,7 @@ const HeroSection = () => {
                     src={tabs[activeTab].videoUrl}
                     className="w-full h-full object-cover"
                     onEnded={handleVideoEnd}
+                    preload="auto"
                     playsInline
                     muted
                     autoPlay
