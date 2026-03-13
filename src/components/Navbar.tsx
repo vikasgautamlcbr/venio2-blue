@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, ChevronRight, Search, Brain, FileCheck, Server, Workflow, MonitorSmartphone, AudioLines, Scissors, Upload, Shield, FileText, Clock, BookOpen, Video, Newspaper, Users, Building, Briefcase, Landmark, Cloud, BarChart3, FileSearch, FileOutput } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Search, Brain, FileCheck, Server, Workflow, MonitorSmartphone, AudioLines, Scissors, Upload, Shield, FileText, Clock, BookOpen, Video, Newspaper, Users, Building, Briefcase, Landmark, Cloud, BarChart3, FileSearch, FileOutput, UserCheck, LayoutDashboard, Timer } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import venioLogo from "@/assets/venio-logo.svg";
@@ -248,9 +248,9 @@ const Navbar = () => {
       overviewDesc: "Set up defensible holds, automate reminders, track acknowledgements",
       overviewLink: "/venio-legal-hold",
       modules: [
-        { title: "Create & Launch", desc: "Set up holds in minutes", icon: Workflow },
-        { title: "Track Custodians", desc: "Real-time status monitoring", icon: FileCheck },
-        { title: "Audit & Release", desc: "Complete defensibility", icon: Shield },
+        { title: "Custodian Acknowledgement Tracking", desc: "Track acknowledgements and follow-ups", icon: UserCheck },
+        { title: "Custodian Management Dashboard", desc: "Centralized hold status at a glance", icon: LayoutDashboard },
+        { title: "Automated Reminders & Escalations", desc: "Keep holds on track automatically", icon: Timer },
       ],
       features: [
         { label: "Acknowledgement Tracking", icon: FileCheck },
