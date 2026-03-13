@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, ChevronRight, Search, Brain, FileCheck, Server, Workflow, MonitorSmartphone, AudioLines, Scissors, Upload, Shield, FileText, Clock, BookOpen, Video, Newspaper, Users, Building, Briefcase, Landmark, Cloud, BarChart3 } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Search, Brain, FileCheck, Server, Workflow, MonitorSmartphone, AudioLines, Scissors, Upload, Shield, FileText, Clock, BookOpen, Video, Newspaper, Users, Building, Briefcase, Landmark, Cloud, BarChart3, FileSearch, FileOutput } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import venioLogo from "@/assets/venio-logo.svg";
@@ -236,9 +236,9 @@ const Navbar = () => {
         { label: "Self-Service Uploads", icon: Upload },
       ],
       subitems: [
-        { label: "Venio Review", icon: FileCheck, link: "/venio-review" },
-        { label: "Venio ECA", icon: Brain, link: "/venio-eca" },
-        { label: "Venio Production", icon: FileText, link: "/venio-production" },
+        { label: "Venio Review", icon: FileSearch, link: "/venio-review" },
+        { label: "Venio ECA", icon: BarChart3, link: "/venio-eca" },
+        { label: "Venio Production", icon: FileOutput, link: "/venio-production" },
       ],
     },
     {
