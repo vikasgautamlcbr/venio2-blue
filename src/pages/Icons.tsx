@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award, Filter, Hash, File, Brain, Tag } from "lucide-react";
+import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, FileOutput, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award, Filter, Hash, File, Brain, Tag } from "lucide-react";
 import type { LucideIcon, LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -527,6 +527,15 @@ const moreIcons: { name: string; Icon: LucideIcon }[] = [
   { name: "No Acknowledgment Visibility", Icon: LightbulbOff },
 ];
 
+const navbarMenuIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Venio Review", Icon: FileSearch },
+  { name: "Venio ECA", Icon: BarChart3 },
+  { name: "Venio Production", Icon: FileOutput },
+  { name: "Custodian Acknowledgement Tracking", Icon: UserCheck },
+  { name: "Custodian Management Dashboard", Icon: LayoutDashboard },
+  { name: "Automated Reminders & Escalations", Icon: Timer },
+];
+
 const ecaPageIcons: { name: string; Icon: LucideIcon; variant: "accent" | "destructive" }[] = [
   { name: "ECA Visual", Icon: FileText, variant: "accent" },
   { name: "Law Firms", Icon: Briefcase, variant: "accent" },
@@ -909,6 +918,26 @@ const Icons = () => {
     setTimeout(() => URL.revokeObjectURL(url), 1500);
   };
 
+  const handleDownloadNavbarMenuIcons = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    navbarMenuIcons.forEach((item) => {
+      const svg = buildNavySvg(item.Icon);
+      const name = `${slugify(item.name)}.svg`;
+      const finalSvg = isValidSvg(svg) ? svg : renderToStaticMarkup(<item.Icon size={64} color="#0b1c3f" strokeWidth={2} />);
+      zip.file(name, finalSvg);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-navbar-menu-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -1282,6 +1311,36 @@ const Icons = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
             {useCaseProblemIcons.map((item, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                <CardHeader>
+                  <CardTitle className="text-lg">{item.name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4">
+                    <item.Icon className="w-10 h-10 text-[#0b1c3f]" />
+                    <div className="flex-1" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="navbar-menu-icons" className="py-12 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Navbar Menu Icons</h2>
+            <p className="text-muted-foreground">Icons currently used in the Products mega menu</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadNavbarMenuIcons} variant="outline" className="gap-2">
+                <Download className="w-4 h-4" />
+                Download Navbar Menu Icons (ZIP)
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            {navbarMenuIcons.map((item, idx) => (
               <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
                 <CardHeader>
                   <CardTitle className="text-lg">{item.name}</CardTitle>
