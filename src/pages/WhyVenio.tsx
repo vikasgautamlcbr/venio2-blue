@@ -43,6 +43,16 @@ import nixonPeabody from "@/assets/clients/nixon-peabody.webp";
 import proteus from "@/assets/clients/proteus.webp";
 import cds from "@/assets/clients/cds.webp";
 import epario from "@/assets/clients/epario.webp";
+import aiPoweredVideo from "@/assets/why-venio-assets/AI-Powered.mp4";
+import aiPoweredPoster from "@/assets/why-venio-assets/AI-Powered.png";
+import earlyCaseAssessmentImage from "@/assets/why-venio-assets/Early Case Assessment.png";
+import intuitiveInterfaceVideo from "@/assets/why-venio-assets/Intuitive Interface.mp4";
+import legalHoldAutomationImage from "@/assets/why-venio-assets/Legal Hold Automation.png";
+import onPremOrCloudFlexibilityVideo from "@/assets/why-venio-assets/On-Premises or Cloud Flexibility.mp4";
+import productionExportImage from "@/assets/why-venio-assets/Production & Export.png";
+import reducesStorageCostsVideo from "@/assets/why-venio-assets/Reduces Storage Costs.mp4";
+import secureIngestionImage from "@/assets/why-venio-assets/Secure Ingestion.png";
+import unifiedPlatformImage from "@/assets/why-venio-assets/Unified Platform.png";
 
 const sections = [
   { id: "hero", label: "Overview" },
@@ -258,12 +268,8 @@ const WhyVenio = () => {
               <div className="md:col-span-2 md:row-span-2">
                 <Card className="glass hover:shadow-2xl transition-all duration-300 h-full group overflow-hidden rounded-2xl">
                   <CardContent className="p-0 h-full flex flex-col">
-                    <div className="relative h-80 bg-gradient-to-br from-primary/20 via-accent/10 to-primary/20 overflow-hidden">
-                      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <Shield className="h-32 w-32 text-accent/30 group-hover:scale-110 transition-transform" />
-                      </div>
-                      <div className="absolute bottom-4 right-4 text-xs text-muted-foreground/50 font-mono">unified-workflow.gif</div>
+                    <div className="relative h-80 overflow-hidden">
+                      <img src={unifiedPlatformImage} alt="Unified Platform" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
                     </div>
                     <div className="p-8 flex-1 flex flex-col">
                       <h3 className="text-3xl font-bold mb-4">Unified End-to-End</h3>
@@ -277,10 +283,8 @@ const WhyVenio = () => {
 
               <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
                 <CardContent className="p-0">
-                  <div className="relative aspect-video bg-gradient-to-br from-accent/15 to-primary/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    <Brain className="h-16 w-16 text-accent/40 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">ai-acceleration.gif</div>
+                  <div className="relative aspect-video overflow-hidden rounded-t-2xl">
+                    <video className="absolute inset-0 h-full w-full object-cover" src={aiPoweredVideo} poster={aiPoweredPoster} muted loop playsInline autoPlay preload="metadata" />
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-3">AI-Powered Acceleration</h3>
@@ -291,10 +295,8 @@ const WhyVenio = () => {
 
               <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
                 <CardContent className="p-0">
-                  <div className="relative aspect-video bg-gradient-to-br from-blue-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    <Cloud className="h-16 w-16 text-blue-500/40 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">flexible-deployment.gif</div>
+                  <div className="relative aspect-video overflow-hidden rounded-t-2xl">
+                    <video className="absolute inset-0 h-full w-full object-cover" src={onPremOrCloudFlexibilityVideo} muted loop playsInline autoPlay preload="metadata" />
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-3">Flexible Deployment</h3>
@@ -305,10 +307,8 @@ const WhyVenio = () => {
 
               <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
                 <CardContent className="p-0">
-                  <div className="relative aspect-video bg-gradient-to-br from-green-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    <DollarSign className="h-16 w-16 text-green-500/40 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">cost-control.gif</div>
+                  <div className="relative aspect-video overflow-hidden rounded-t-2xl">
+                    <video className="absolute inset-0 h-full w-full object-cover" src={reducesStorageCostsVideo} muted loop playsInline autoPlay preload="metadata" />
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-3">Radical Cost Control</h3>
@@ -319,10 +319,8 @@ const WhyVenio = () => {
 
               <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
                 <CardContent className="p-0">
-                  <div className="relative aspect-video bg-gradient-to-br from-purple-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    <FileCheck className="h-16 w-16 text-purple-500/40 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">audit-trails.gif</div>
+                  <div className="relative aspect-video overflow-hidden rounded-t-2xl">
+                    <img src={legalHoldAutomationImage} alt="Defensible Process" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-3">Defensible Process</h3>
@@ -333,10 +331,8 @@ const WhyVenio = () => {
 
               <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
                 <CardContent className="p-0">
-                  <div className="relative aspect-video bg-gradient-to-br from-orange-500/15 to-accent/10 flex items-center justify-center overflow-hidden rounded-t-2xl">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    <Database className="h-16 w-16 text-orange-500/40 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 text-xs text-muted-foreground/50 font-mono">data-coverage.gif</div>
+                  <div className="relative aspect-video overflow-hidden rounded-t-2xl">
+                    <img src={secureIngestionImage} alt="Modern Data Coverage" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-3">Modern Data Coverage</h3>
@@ -533,9 +529,8 @@ const WhyVenio = () => {
                       
                       {/* Visual Element */}
                       <div className="md:col-span-4">
-                        <div className="aspect-video bg-gradient-to-br from-accent/20 to-primary/10 rounded-2xl border-2 border-accent/20 flex items-center justify-center relative overflow-hidden group-hover:border-accent/40 transition-all">
-                          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                          <Database className="h-20 w-20 text-accent/40 relative z-10 group-hover:scale-110 transition-transform" />
+                        <div className="aspect-video rounded-2xl relative overflow-hidden">
+                          <img src={secureIngestionImage} alt="Secure Data Ingestion" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
                         </div>
                       </div>
                     </div>
@@ -571,9 +566,8 @@ const WhyVenio = () => {
                       </div>
                       
                       <div className="md:col-span-4">
-                        <div className="aspect-video bg-gradient-to-br from-accent/20 to-primary/10 rounded-2xl border-2 border-accent/20 flex items-center justify-center relative overflow-hidden group-hover:border-accent/40 transition-all">
-                          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                          <Zap className="h-20 w-20 text-accent/40 relative z-10 group-hover:scale-110 transition-transform" />
+                        <div className="aspect-video rounded-2xl relative overflow-hidden">
+                          <img src={earlyCaseAssessmentImage} alt="Early Case Assessment" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
                         </div>
                       </div>
                     </div>
@@ -609,9 +603,8 @@ const WhyVenio = () => {
                       </div>
                       
                       <div className="md:col-span-4">
-                        <div className="aspect-video bg-gradient-to-br from-accent/20 to-primary/10 rounded-2xl border-2 border-accent/20 flex items-center justify-center relative overflow-hidden group-hover:border-accent/40 transition-all">
-                          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                          <Brain className="h-20 w-20 text-accent/40 relative z-10 group-hover:scale-110 transition-transform" />
+                        <div className="aspect-video rounded-2xl relative overflow-hidden">
+                          <img src={aiPoweredPoster} alt="AI-Powered Review" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
                         </div>
                       </div>
                     </div>
@@ -647,9 +640,8 @@ const WhyVenio = () => {
                       </div>
                       
                       <div className="md:col-span-4">
-                        <div className="aspect-video bg-gradient-to-br from-accent/20 to-primary/10 rounded-2xl border-2 border-accent/20 flex items-center justify-center relative overflow-hidden group-hover:border-accent/40 transition-all">
-                          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                          <FileCheck className="h-20 w-20 text-accent/40 relative z-10 group-hover:scale-110 transition-transform" />
+                        <div className="aspect-video rounded-2xl relative overflow-hidden">
+                          <img src={productionExportImage} alt="Production & Export" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
                         </div>
                       </div>
                     </div>
@@ -685,9 +677,8 @@ const WhyVenio = () => {
                       </div>
                       
                       <div className="md:col-span-4">
-                        <div className="aspect-video bg-gradient-to-br from-accent/20 to-primary/10 rounded-2xl border-2 border-accent/20 flex items-center justify-center relative overflow-hidden group-hover:border-accent/40 transition-all">
-                          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                          <Shield className="h-20 w-20 text-accent/40 relative z-10 group-hover:scale-110 transition-transform" />
+                        <div className="aspect-video rounded-2xl relative overflow-hidden">
+                          <img src={legalHoldAutomationImage} alt="Legal Hold Automation" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
                         </div>
                       </div>
                     </div>
@@ -706,41 +697,6 @@ const WhyVenio = () => {
                   <Play className="ml-2 h-5 w-5" />
                 </Button>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Integrations Section */}
-        <section className="py-20 px-6 bg-muted/30">
-          <div className="container mx-auto max-w-6xl">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Seamless Integrations</h2>
-              <p className="text-lg text-muted-foreground">
-                Connect with the tools and platforms your team already uses
-              </p>
-            </div>
-
-            <div className="flex items-center justify-center gap-12 flex-wrap px-8">
-              {[
-                { name: "Microsoft 365", icon: "M365" },
-                { name: "Google Workspace", icon: "GWS" },
-                { name: "Slack", icon: "SLACK" },
-                { name: "Microsoft Teams", icon: "TEAMS" },
-                { name: "AWS", icon: "AWS" },
-                { name: "Azure", icon: "AZURE" },
-                { name: "Box", icon: "BOX" },
-                { name: "Dropbox", icon: "DBXPX" },
-              ].map((integration, index) => (
-                <div
-                  key={index}
-                  className="group transition-all duration-300 hover:scale-110"
-                  title={integration.name}
-                >
-                  <div className="w-16 h-16 rounded-lg bg-white shadow-md flex items-center justify-center text-xs font-bold text-primary group-hover:shadow-xl transition-shadow">
-                    {integration.icon}
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </section>
