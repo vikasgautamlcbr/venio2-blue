@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import SecuritySection from "@/components/SecuritySection";
+import CTABanner from "@/components/CTABanner";
 import {
   Play,
   FileText,
@@ -25,6 +26,16 @@ import {
 import { useEffect, useState } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { LucideIcon } from "lucide-react";
+import reviewHeroImage from "@/assets/hero images/review.png";
+import costEfficientVideo from "@/assets/videos/Review Benefits/Cost Efficient.mp4";
+import enterpriseGradeSecurityVideo from "@/assets/videos/Review Benefits/Enterprise-Grade Security.mp4";
+import fastAdvancedSearchVideo from "@/assets/videos/Review Benefits/Fast & Advanced Search Capabilities.mp4";
+import reducedReviewVolumeVideo from "@/assets/videos/Review Benefits/Reduced Review Volume.mp4";
+import strongerCaseReadinessVideo from "@/assets/videos/Review Benefits/Stronger Case Readiness.mp4";
+import reviewFeatureVideo1 from "@/assets/features/Review/1.mp4";
+import reviewFeatureVideo2 from "@/assets/features/Review/2.mp4";
+import reviewFeatureVideo3 from "@/assets/features/Review/3.mp4";
+import reviewFeatureVideo4 from "@/assets/features/Review/4.mp4";
 
 const sections = [
   { id: "hero", label: "Overview" },
@@ -92,54 +103,13 @@ const VenioReview = () => {
     window.open("https://demo.venio.com/review", "_blank");
   };
 
-  const slugify = (s: string) =>
-    s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  const buildSvg = (IconComp: LucideIcon) => {
-    const rawInner = renderToStaticMarkup(
-      <IconComp size={32} color="#ffffff" strokeWidth={2} />
-    );
-    const sanitizedInner = rawInner
-      .replace(/stroke="currentColor"/g, 'stroke="#ffffff"')
-      .replace('<svg ', '<svg x="16" y="16" ');
-    const outer =
-      `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
-      `<rect width="64" height="64" fill="#3DC47E" rx="12"/>` +
-      `${sanitizedInner}` +
-      `</svg>`;
-    return outer;
-  };
-  const isValidSvg = (svg: string) => {
-    try {
-      const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
-      return !doc.querySelector("parsererror");
-    } catch {
-      return false;
-    }
-  };
-  const reviewFeatureIcons: { name: string; Icon: LucideIcon }[] = [
-    { name: "AI-Powered Prioritization", Icon: Brain },
-    { name: "Smart Tagging & Coding Panels", Icon: Tag },
-    { name: "In-Line Redactions", Icon: EyeOff },
-    { name: "Integrated QC & Reviewer Audits", Icon: FileCheck },
+  const reviewBenefits = [
+    { title: "Reduced Review Volume", desc: "Focus only on what matters. AI-driven prioritization and structured workflows eliminate over-review and unnecessary document passes.", videoSrc: reducedReviewVolumeVideo },
+    { title: "Cost Efficient", desc: "Lower cost per document reviewed with smarter workflows, reduced rework, and higher reviewer productivity.", videoSrc: costEfficientVideo },
+    { title: "Enterprise-Grade Security", desc: "Role-based access controls, full audit logs, and secure infrastructure protect sensitive case data at every stage.", videoSrc: enterpriseGradeSecurityVideo },
+    { title: "Fast & Advanced Search Capabilities", desc: "Locate critical documents instantly with powerful filtering, keyword logic, and structured search tools designed for large datasets.", videoSrc: fastAdvancedSearchVideo },
+    { title: "Stronger Case Readiness", desc: "Surface key evidence earlier, validate decisions with built-in QC, and enter negotiations with confidence.", videoSrc: strongerCaseReadinessVideo },
   ];
-  const handleDownloadReviewIcons = async () => {
-    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
-    const zip = new JSZip();
-    reviewFeatureIcons.forEach(({ name, Icon }) => {
-      const svg = buildSvg(Icon);
-      const final = isValidSvg(svg) ? svg : renderToStaticMarkup(<Icon size={64} color="#ffffff" strokeWidth={2} />);
-      zip.file(`${slugify(name)}.svg`, final);
-    });
-    const blob = await zip.generateAsync({ type: "blob" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "venio-review-feature-icons.zip";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
-  };
 
   return (
     <div className="min-h-screen">
@@ -176,11 +146,8 @@ const VenioReview = () => {
                 </Button>
               </div>
             </div>
-            <div className="relative h-[400px] glass-dark rounded-2xl p-8 flex items-center justify-center animate-fade-in-scale">
-              <div className="text-white/70 text-center">
-                <FileText className="h-24 w-24 mx-auto mb-4 text-secondary" />
-                <p className="text-sm">Structured Review Visual</p>
-              </div>
+            <div className="relative h-[400px] rounded-2xl flex items-center justify-center animate-fade-in-scale overflow-hidden bg-transparent">
+              <img src={reviewHeroImage} alt="Review Hero" className="h-full w-full object-contain" draggable={false} />
             </div>
           </div>
         </div>
@@ -192,21 +159,50 @@ const VenioReview = () => {
             <h2 className="text-4xl font-bold mb-2">Make Review Your Competitive Edge</h2>
             <p className="text-lg text-muted-foreground">Document review shouldn’t drain time and budget. With structured intelligence and full visibility, Venio turns review into a controlled, measurable advantage.</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: Brain, title: "Reduced Review Volume", desc: "Focus only on what matters. AI-driven prioritization and structured workflows eliminate over-review and unnecessary document passes." },
-              { icon: DollarSign, title: "Cost Efficient", desc: "Lower cost per document reviewed with smarter workflows, reduced rework, and higher reviewer productivity." },
-              { icon: Shield, title: "Enterprise-Grade Security", desc: "Role-based access controls, full audit logs, and secure infrastructure protect sensitive case data at every stage." },
-              { icon: Search, title: "Fast & Advanced Search Capabilities", desc: "Locate critical documents instantly with powerful filtering, keyword logic, and structured search tools designed for large datasets." },
-              { icon: FileCheck, title: "Stronger Case Readiness", desc: "Surface key evidence earlier, validate decisions with built-in QC, and enter negotiations with confidence." },
-            ].map((item, idx) => (
-              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-6">
-                    <item.icon className="h-7 w-7 text-secondary" />
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            {reviewBenefits.slice(0, 2).map((item, idx) => (
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-black/5">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={item.videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  <div className="p-7">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {reviewBenefits.slice(2).map((item, idx) => (
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-black/5">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={item.videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
+                  </div>
+                  <div className="p-7">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -258,31 +254,23 @@ const VenioReview = () => {
               Experience how Venio prioritizes, structures, and validates your review workflow — live.
             </p>
           </div>
-          <div className="max-w-5xl mx-auto space-y-8">
-            <div className="relative aspect-video glass rounded-2xl p-8 flex items-center justify-center group hover:shadow-2xl transition-all duration-300 cursor-pointer"
-              onClick={handleDemoAccess}
-            >
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Play className="h-12 w-12 text-secondary" />
-                </div>
-                <p className="text-muted-foreground text-lg font-medium">Interactive Review Demo</p>
-                <p className="text-sm text-muted-foreground mt-2">Click to explore structured workflows</p>
-              </div>
+          <div className="max-w-6xl mx-auto">
+            <div style={{ position: "relative", boxSizing: "content-box", maxHeight: "80svh", width: "100%", aspectRatio: "2.01", padding: "40px 0" }}>
+              <iframe
+                src="https://app.supademo.com/embed/cmmd9geyz0mavnr99bsv4nyv3?embed_v=2&utm_source=embed"
+                loading="lazy"
+                title="Smart eDiscovery Review Software | Legal Review Software - Venio"
+                allow="clipboard-write"
+                frameBorder={0}
+                allowFullScreen
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <section id="compliance" className="py-24 px-6">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-2">Compliance Built Into the Core</h2>
-            <p className="text-lg text-muted-foreground">End-to-end eDiscovery software designed with security, auditability, and regulatory defensibility at every layer.</p>
-          </div>
-        </div>
-      </section>
-      <SecuritySection />
+      <SecuritySection id="compliance" />
 
       <ScrollFeatureAccordion
         title="The End of Manual Review Drift"
@@ -294,6 +282,7 @@ const VenioReview = () => {
             description: "Automatically rank and surface the most relevant documents first, helping teams focus effort where it matters most.",
             details: [],
             imagePlaceholder: "AI Prioritization",
+            videoSrc: reviewFeatureVideo1,
           },
           {
             icon: Tag,
@@ -301,6 +290,7 @@ const VenioReview = () => {
             description: "Customizable, structured coding layouts that standardize issue tagging, privilege calls, and responsiveness decisions.",
             details: [],
             imagePlaceholder: "Tagging & Coding",
+            videoSrc: reviewFeatureVideo2,
           },
           {
             icon: EyeOff,
@@ -308,6 +298,7 @@ const VenioReview = () => {
             description: "Apply precise redactions directly within the review interface with full tracking and audit visibility.",
             details: [],
             imagePlaceholder: "Redactions",
+            videoSrc: reviewFeatureVideo3,
           },
           {
             icon: FileCheck,
@@ -315,6 +306,7 @@ const VenioReview = () => {
             description: "Run secondary review, sampling, and audit workflows inside the platform to ensure accuracy before production.",
             details: [],
             imagePlaceholder: "QC & Audits",
+            videoSrc: reviewFeatureVideo4,
           },
         ]}
       />
@@ -383,38 +375,11 @@ const VenioReview = () => {
         </div>
       </section>
 
-      <section id="icons-download" className="py-24 px-6 bg-muted/20">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-2">Download Page Icons</h2>
-            <p className="text-muted-foreground">Get emerald‑green filled icons used on this page or browse the full library</p>
-          </div>
-          <div className="flex items-center justify-center gap-4">
-            <Button onClick={handleDownloadReviewIcons} size="lg" className="bg-[#3DC47E] hover:bg-[#33B471] text-white">
-              Download Review Feature Icons (SVG)
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/icons">Browse Icons Library</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
       <section id="testimonials">
         <TestimonialsSection showLogoTrail title="Testimonials: Why Teams Are Unifying eDiscovery with Venio." />
       </section>
 
-      <section id="cta" className="py-24 bg-gradient-to-b from-white to-muted">
-        <div className="container mx-auto px-6 max-w-5xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Review Built for What’s at Stake.</h2>
-          <p className="text-lg text-muted-foreground mb-8">When the volume is high and the scrutiny is higher, Venio delivers speed, structure, and control.</p>
-          <div className="flex justify-center gap-4">
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-6">
-              <Link to="/book-a-demo">Book a Demo</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTABanner />
 
       <CaseStudiesSection />
       <Footer />

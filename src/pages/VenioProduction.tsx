@@ -8,8 +8,17 @@ import { Link } from "react-router-dom";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import SecuritySection from "@/components/SecuritySection";
+import CTABanner from "@/components/CTABanner";
 import { Play, FileText, Shield, Database, EyeOff, Hash, Settings, File, DollarSign, BarChart3, Gauge } from "lucide-react";
 import { useEffect, useState } from "react";
+import productionHeroImage from "@/assets/hero images/production.png";
+import defensibleDataIntegrityVideo from "@/assets/videos/Production Benefits/Defensible Data Integrity.mp4";
+import lowerOperationalOverheadVideo from "@/assets/videos/Production Benefits/Lower Operational Overhead.mp4";
+import noLastMinuteFireDrillsVideo from "@/assets/videos/Production Benefits/No Last-Minute Fire Drills.mp4";
+import reducesPrivilegeDisclosureRiskVideo from "@/assets/videos/Production Benefits/Reduces Privilege Disclosure Risk.mp4";
+import strengthensCredibilityVideo from "@/assets/videos/Production Benefits/Strengthens Credibility with Opposing Counsel.mp4";
+import productionFeatureVideo1 from "@/assets/features/Production/1.mp4";
+import productionFeatureVideo3 from "@/assets/features/Production/3.mp4";
 
 const sections = [
   { id: "hero", label: "Overview" },
@@ -110,11 +119,8 @@ const VenioProduction = () => {
                 </Button>
               </div>
             </div>
-            <div className="relative h-[400px] glass-dark rounded-2xl p-8 flex items-center justify-center animate-fade-in-scale">
-              <div className="text-white/70 text-center">
-                <FileText className="h-24 w-24 mx-auto mb-4 text-secondary" />
-                <p className="text-sm">Production Workflow Visual</p>
-              </div>
+            <div className="relative h-[400px] rounded-2xl flex items-center justify-center animate-fade-in-scale overflow-hidden bg-transparent">
+              <img src={productionHeroImage} alt="Production Hero" className="h-full w-full object-contain" draggable={false} />
             </div>
           </div>
         </div>
@@ -126,21 +132,57 @@ const VenioProduction = () => {
             <h2 className="text-4xl font-bold mb-2">Produce with Precision and Confidence</h2>
             <p className="text-lg text-muted-foreground">Manual production workflows create exposure. Venio replaces chaos with structured, validated, defensible output.</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
             {[
-              { icon: FileText, title: "Strengthens Credibility with Opposing Counsel", desc: "Deliver clean, compliant productions that minimize disputes and demonstrate disciplined discovery practices." },
-              { icon: Database, title: "Defensible Data Integrity", desc: "Preserve document structure and metadata through every conversion, export, and delivery step." },
-              { icon: EyeOff, title: "Reduces Privilege Disclosure Risk", desc: "Apply and validate redactions with structured controls that prevent accidental exposure." },
-              { icon: Settings, title: "No Last-Minute Fire Drills", desc: "Automate production workflows to eliminate manual errors and deadline-driven chaos." },
-              { icon: DollarSign, title: "Lower Operational Overhead", desc: "Reduce repetitive production tasks and rework to free teams for higher-value work." },
+              { title: "Strengthens Credibility with Opposing Counsel", desc: "Deliver clean, compliant productions that minimize disputes and demonstrate disciplined discovery practices.", videoSrc: strengthensCredibilityVideo },
+              { title: "Defensible Data Integrity", desc: "Preserve document structure and metadata through every conversion, export, and delivery step.", videoSrc: defensibleDataIntegrityVideo },
             ].map((item, idx) => (
-              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-6">
-                    <item.icon className="h-7 w-7 text-secondary" />
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-black/5">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={item.videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  <div className="p-7">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { title: "Reduces Privilege Disclosure Risk", desc: "Apply and validate redactions with structured controls that prevent accidental exposure.", videoSrc: reducesPrivilegeDisclosureRiskVideo },
+              { title: "No Last-Minute Fire Drills", desc: "Automate production workflows to eliminate manual errors and deadline-driven chaos.", videoSrc: noLastMinuteFireDrillsVideo },
+              { title: "Lower Operational Overhead", desc: "Reduce repetitive production tasks and rework to free teams for higher-value work.", videoSrc: lowerOperationalOverheadVideo },
+            ].map((item, idx) => (
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-black/5">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={item.videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
+                  </div>
+                  <div className="p-7">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -192,31 +234,23 @@ const VenioProduction = () => {
               Experience how Venio automates stamping, format conversion, and load file generation, reducing risk before delivery.
             </p>
           </div>
-          <div className="max-w-5xl mx-auto space-y-8">
-            <div className="relative aspect-video glass rounded-2xl p-8 flex items-center justify-center group hover:shadow-2xl transition-all duration-300 cursor-pointer"
-              onClick={handleDemoAccess}
-            >
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Play className="h-12 w-12 text-secondary" />
-                </div>
-                <p className="text-muted-foreground text-lg font-medium">Interactive Production Demo</p>
-                <p className="text-sm text-muted-foreground mt-2">Click to explore the production workflow</p>
-              </div>
+          <div className="max-w-6xl mx-auto">
+            <div style={{ position: "relative", boxSizing: "content-box", maxHeight: "80svh", width: "100%", aspectRatio: "2.01", padding: "40px 0" }}>
+              <iframe
+                src="https://app.supademo.com/embed/cmmeiwzre2v4rnr99mb3xthjb?embed_v=2&utm_source=embed"
+                loading="lazy"
+                title="Advanced Document Production Software | Venio Systems"
+                allow="clipboard-write"
+                frameBorder={0}
+                allowFullScreen
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <section id="compliance" className="py-24 px-6">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-2">Compliance Built Into the Core</h2>
-            <p className="text-lg text-muted-foreground">End-to-end eDiscovery software designed with security, auditability, and regulatory defensibility at every layer.</p>
-          </div>
-        </div>
-      </section>
-      <SecuritySection />
+      <SecuritySection id="compliance" />
 
       <ScrollFeatureAccordion
         title="Production Without Weak Links."
@@ -228,6 +262,7 @@ const VenioProduction = () => {
             description: "Automatically apply sequential Bates numbers and generate slipsheets for native files with full tracking and consistency.",
             details: [],
             imagePlaceholder: "Bates & Slipsheets",
+            videoSrc: productionFeatureVideo1,
           },
           {
             icon: File,
@@ -235,6 +270,7 @@ const VenioProduction = () => {
             description: "Convert documents into required production formats (PDF, TIFF, native) without compromising integrity or metadata.",
             details: [],
             imagePlaceholder: "Format Conversion",
+            videoSrc: productionFeatureVideo3,
           },
           {
             icon: Database,
@@ -242,6 +278,7 @@ const VenioProduction = () => {
             description: "Create and validate industry-standard load files (OPT, DAT, CSV) for seamless import into review platforms or opposing counsel systems.",
             details: [],
             imagePlaceholder: "Load Files",
+            videoSrc: productionFeatureVideo1,
           },
           {
             icon: EyeOff,
@@ -249,6 +286,7 @@ const VenioProduction = () => {
             description: "Apply, manage, and validate redactions with full audit visibility to prevent accidental disclosure.",
             details: [],
             imagePlaceholder: "Redactions",
+            videoSrc: productionFeatureVideo3,
           },
         ]}
       />
@@ -257,17 +295,7 @@ const VenioProduction = () => {
         <TestimonialsSection showLogoTrail title="Testimonials: Why Teams Are Unifying eDiscovery with Venio." />
       </section>
 
-      <section id="cta" className="py-24 bg-gradient-to-b from-white to-muted">
-        <div className="container mx-auto px-6 max-w-5xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Production That Protects Your Position.</h2>
-          <p className="text-lg text-muted-foreground mb-8">Deliver accurate, defensible productions without last-minute chaos or costly rework.</p>
-          <div className="flex justify-center gap-4">
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-6">
-              <Link to="/book-a-demo">Book a Demo</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTABanner />
 
       <CaseStudiesSection />
       <Footer />

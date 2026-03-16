@@ -1,99 +1,66 @@
-import { useState, useEffect } from "react";
-import { ChevronRight, Lock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
+import { useEffect, useRef, useState } from "react";
+import { ChevronRight } from "lucide-react";
 
 const demos = [
   {
     id: "legal-hold",
     title: "Venio Legal Hold",
     description: "Automate notices, reminders, and escalations to custodians with defensible tracking built in. Say goodbye to spreadsheets and hello to smart legal hold management with eDiscovery tools.",
-    embedUrl: "https://app.storylane.io/demo/pjaaebjnr9nb?embed=inline"
+    embedUrl: "https://app.supademo.com/embed/cmmelkd6v2zmwnr99x6s6tjpr?embed_v=2&utm_source=embed"
   },
   {
     id: "eca",
     title: "Venio ECA",
     description: "Analyze large datasets upfront to filter noise, reduce review volumes, and lower litigation spend. Make fast, informed decisions before the full review begins using advanced eDiscovery software.",
-    embedUrl: "https://app.storylane.io/demo/pjaaebjnr9nb?embed=inline"
+    embedUrl: "https://app.supademo.com/embed/cmmehii992ss6nr99pi748qcx?embed_v=2&utm_source=embed"
   },
   {
     id: "review",
     title: "Venio Review",
     description: "Streamline document tagging, redaction, and annotation in an intuitive review workspace. Built for precision, speed, and collaboration across legal teams with powerful eDiscovery review tools.",
-    embedUrl: "https://app.storylane.io/demo/pjaaebjnr9nb?embed=inline"
+    embedUrl: "https://app.supademo.com/embed/cmmd9geyz0mavnr99bsv4nyv3?embed_v=2&utm_source=embed"
   },
   {
     id: "production",
     title: "Venio Production",
     description: "Boost your review speed with AI that prioritizes key documents, learns from reviewer behavior, and flags risks automatically. Smart review, powered by intelligence, in a robust eDiscovery platform.",
-    embedUrl: "https://app.storylane.io/demo/pjaaebjnr9nb?embed=inline"
+    embedUrl: "https://app.supademo.com/embed/cmmeiwzre2v4rnr99mb3xthjb?embed_v=2&utm_source=embed"
   }
 ];
 
 const InteractiveDemosSection = () => {
   const [activeDemo, setActiveDemo] = useState(demos[0].id);
-  const [scriptLoaded, setScriptLoaded] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-
-  const personalEmailDomains = [
-    'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'aol.com',
-    'icloud.com', 'mail.com', 'protonmail.com', 'zoho.com', 'yandex.com',
-    'gmx.com', 'live.com', 'me.com', 'msn.com'
-  ];
-
-  const isWorkEmail = (email: string): boolean => {
-    const domain = email.split('@')[1]?.toLowerCase();
-    return domain && !personalEmailDomains.includes(domain);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!name.trim()) {
-      toast.error("Please enter your name");
-      return;
-    }
-    
-    if (!email.trim()) {
-      toast.error("Please enter your email");
-      return;
-    }
-    
-    if (!email.includes('@')) {
-      toast.error("Please enter a valid email address");
-      return;
-    }
-    
-    if (!isWorkEmail(email)) {
-      toast.error("Please use your work email address");
-      return;
-    }
-    
-    setIsUnlocked(true);
-    toast.success("Access granted! Enjoy the demo.");
-  };
+  const [displayedDemoId, setDisplayedDemoId] = useState(demos[0].id);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const swapTimeoutRef = useRef<number | null>(null);
+  const fadeInTimeoutRef = useRef<number | null>(null);
+  const transitionMs = 220;
 
   useEffect(() => {
-    // Load Storylane script
-    const script = document.createElement('script');
-    script.src = 'https://js.storylane.io/js/v2/storylane.js';
-    script.async = true;
-    script.onload = () => setScriptLoaded(true);
-    document.body.appendChild(script);
-
     return () => {
-      // Cleanup script on unmount
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
+      if (swapTimeoutRef.current) window.clearTimeout(swapTimeoutRef.current);
+      if (fadeInTimeoutRef.current) window.clearTimeout(fadeInTimeoutRef.current);
     };
   }, []);
 
-  const currentDemo = demos.find(demo => demo.id === activeDemo) || demos[0];
+  const handleSelectDemo = (id: string) => {
+    if (id === activeDemo) return;
+
+    setActiveDemo(id);
+    setIsTransitioning(true);
+
+    if (swapTimeoutRef.current) window.clearTimeout(swapTimeoutRef.current);
+    if (fadeInTimeoutRef.current) window.clearTimeout(fadeInTimeoutRef.current);
+
+    swapTimeoutRef.current = window.setTimeout(() => {
+      setDisplayedDemoId(id);
+      fadeInTimeoutRef.current = window.setTimeout(() => {
+        setIsTransitioning(false);
+      }, 30);
+    }, transitionMs);
+  };
+
+  const currentDemo = demos.find(demo => demo.id === displayedDemoId) || demos[0];
 
   return (
     <section id="interactive-demos" className="py-20 bg-background">
@@ -116,7 +83,7 @@ const InteractiveDemosSection = () => {
               {demos.map((demo) => (
                 <button
                   key={demo.id}
-                  onClick={() => setActiveDemo(demo.id)}
+                  onClick={() => handleSelectDemo(demo.id)}
                   className={`w-full text-left p-6 rounded-xl transition-all duration-500 ease-out border-2 ${
                     activeDemo === demo.id
                       ? 'border-venioGreen shadow-xl shadow-venioGreen/20 bg-gradient-to-br from-venioGreen/10 to-venioGreen/5 scale-[1.02] opacity-100'
@@ -148,103 +115,38 @@ const InteractiveDemosSection = () => {
               ))}
             </div>
 
-            {/* Right: Demo Embed or Gate Form */}
+            {/* Right: Demo Embed */}
             <div className="flex-1">
-              {!isUnlocked ? (
-                <div className="h-full min-h-full flex items-center justify-center rounded-xl border-2 border-primary/20 p-8 relative overflow-hidden gradient-animated">
-                  {/* Animated Background - Same as Hero */}
-                  <div className="absolute inset-0">
-                    <div className="absolute top-10 left-10 w-48 h-48 bg-secondary/30 rounded-full blur-3xl animate-float"></div>
-                    <div className="absolute bottom-10 right-10 w-64 h-64 bg-accent/25 rounded-full blur-3xl float-delayed"></div>
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-                    <div className="absolute top-1/3 left-10 w-8 h-8 bg-secondary/20 rounded-full animate-float"></div>
-                    <div className="absolute top-8 right-20 w-24 h-24 bg-secondary/25 rounded-full blur-2xl animate-float"></div>
-                    <div className="absolute top-[60%] right-28 w-40 h-40 bg-accent/20 rounded-full blur-3xl float-delayed"></div>
-                  </div>
-
-                  {/* Gradient Overlay with Transparency */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/40 to-primary/60 opacity-90"></div>
-
-                  <div className="max-w-md w-full space-y-6 relative z-10">
-                    <div className="text-center space-y-3">
-                      <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 mb-2">
-                        <Lock className="w-8 h-8 text-white" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-white">
-                        Unlock Interactive Demo
-                      </h3>
-                      <p className="text-white/80">
-                        Enter your details to experience {currentDemo.title}
-                      </p>
-                    </div>
-                    
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name" className="text-white">Full Name</Label>
-                        <Input
-                          id="name"
-                          type="text"
-                          placeholder="John Doe"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
-                        />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="email" className="text-white">Work Email</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="john@company.com"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
-                        />
-                        <p className="text-xs text-white/70">
-                          Please use your work email address
-                        </p>
-                      </div>
-                      
-                      <Button type="submit" className="w-full" size="lg">
-                        Access Demo
-                      </Button>
-                    </form>
-                  </div>
-                </div>
-              ) : (
-                <div 
-                  key={activeDemo}
-                  className="sl-embed" 
+              <div className="w-full">
+                <div
+                  key={displayedDemoId}
+                  className={`transition-opacity duration-300 ease-in-out motion-reduce:transition-none ${isTransitioning ? "opacity-0" : "opacity-100"}`}
                   style={{
                     position: 'relative',
-                    paddingBottom: 'calc(49.65% + 25px)',
+                    boxSizing: 'content-box',
+                    maxHeight: '80svh',
                     width: '100%',
-                    height: 0,
-                    transform: 'scale(1)'
+                    aspectRatio: '2.01',
+                    padding: '40px 0'
                   }}
                 >
                   <iframe
                     loading="lazy"
-                    className="sl-demo"
                     src={currentDemo.embedUrl}
-                    name="sl-embed"
-                    allow="fullscreen"
+                    title={`Interactive Demo - ${currentDemo.title}`}
+                    allow="clipboard-write"
+                    frameBorder={0}
                     allowFullScreen
                     style={{
                       position: 'absolute',
                       top: 0,
                       left: 0,
                       width: '100%',
-                      height: '100%',
-                      border: '1px solid rgba(63,95,172,0.35)',
-                      boxShadow: '0px 0px 18px rgba(26, 19, 72, 0.15)',
-                      borderRadius: '10px',
-                      boxSizing: 'border-box'
+                      height: '100%'
                     }}
                   />
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>

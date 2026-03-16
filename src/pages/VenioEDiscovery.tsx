@@ -29,6 +29,12 @@ import CaseStudiesSection from "@/components/CaseStudiesSection";
 import { useState, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { LucideIcon } from "lucide-react";
+import ediscoveryHeroImage from "@/assets/hero images/venio ediscovery.png";
+import adoptionWithoutFrictionVideo from "@/assets/videos/Venio eDiscovery Overview Benefits/Adoption Without Friction.mp4";
+import builtInDefensibilityVideo from "@/assets/videos/Venio eDiscovery Overview Benefits/Built-In Defensibility.mp4";
+import costDisciplineAtScaleVideo from "@/assets/videos/Venio eDiscovery Overview Benefits/Cost Discipline at Scale.mp4";
+import fasterFromStartToFinishVideo from "@/assets/videos/Venio eDiscovery Overview Benefits/Faster From Start to Finish.mp4";
+import flexibleDeploymentVideo from "@/assets/videos/Venio eDiscovery Overview Benefits/Flexible Deployment.mp4";
 
 const sections = [
   { id: "hero", label: "Overview" },
@@ -99,47 +105,6 @@ const VenioEDiscovery = () => {
     setIsDemoUnlocked(true);
     window.open('https://demo.venio.com', '_blank');
   };
-  const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  const buildSvg = (IconComp: LucideIcon) => {
-    const rawInner = renderToStaticMarkup(<IconComp size={32} color="#ffffff" strokeWidth={2} />);
-    const sanitizedInner = rawInner.replace(/stroke="currentColor"/g, 'stroke="#ffffff"').replace('<svg ', '<svg x="16" y="16" ');
-    const outer = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` + `<rect width="64" height="64" fill="#3DC47E" rx="12"/>` + `${sanitizedInner}` + `</svg>`;
-    return outer;
-  };
-  const isValidSvg = (svg: string) => {
-    try {
-      const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
-      return !doc.querySelector("parsererror");
-    } catch {
-      return false;
-    }
-  };
-  const ediscoveryFeatureIcons: { name: string; Icon: LucideIcon }[] = [
-    { name: "Processing Performance", Icon: Database },
-    { name: "Air-Gapped Deployment", Icon: Shield },
-    { name: "Single Database", Icon: Server },
-    { name: "Built-in AI", Icon: Brain },
-    { name: "Review Workflow", Icon: FileCheck },
-    { name: "Self-Service Uploads", Icon: Upload },
-  ];
-  const handleDownloadEDiscoveryIcons = async () => {
-    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
-    const zip = new JSZip();
-    ediscoveryFeatureIcons.forEach(({ name, Icon }) => {
-      const svg = buildSvg(Icon);
-      const final = isValidSvg(svg) ? svg : renderToStaticMarkup(<Icon size={64} color="#ffffff" strokeWidth={2} />);
-      zip.file(`${slugify(name)}.svg`, final);
-    });
-    const blob = await zip.generateAsync({ type: "blob" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "venio-ediscovery-feature-icons.zip";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
-  };
 
   return (
     <div className="min-h-screen">
@@ -187,18 +152,76 @@ const VenioEDiscovery = () => {
                 </button>
               </div>
             </div>
-            <div className="relative h-[400px] glass-dark rounded-2xl p-8 flex items-center justify-center animate-fade-in-scale">
-              <div className="text-white/70 text-center">
-                <FileText className="h-24 w-24 mx-auto mb-4 text-secondary" />
-                <p className="text-sm">Product Dashboard Visual</p>
-              </div>
+            <div className="relative h-[400px] rounded-2xl flex items-center justify-center animate-fade-in-scale overflow-hidden bg-transparent">
+              <img src={ediscoveryHeroImage} alt="Venio eDiscovery" className="h-full w-full object-contain" draggable={false} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <BenefitsSection title="Why Teams Choose Venio eDiscovery" />
+      <section id="benefits" className="py-24 px-6 bg-muted/30">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-2">Move Faster with Total Control</h2>
+            <p className="text-lg text-muted-foreground">End-to-end eDiscovery built for speed, defensibility, and predictable costs at scale.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            {[
+              { title: "Faster From Start to Finish", desc: "Process and review at enterprise scale with predictable performance from ingestion through production.", videoSrc: fasterFromStartToFinishVideo },
+              { title: "Cost Discipline at Scale", desc: "Reduce spend with early insight, streamlined workflows, and fewer handoffs across the lifecycle.", videoSrc: costDisciplineAtScaleVideo },
+            ].map((item, idx) => (
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-black/5">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={item.videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
+                  </div>
+                  <div className="p-7">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { title: "Built-In Defensibility", desc: "Maintain audit-ready workflows with chain of custody, consistent processing, and validated outputs.", videoSrc: builtInDefensibilityVideo },
+              { title: "Adoption Without Friction", desc: "Enable legal, IT, and service teams to move faster with intuitive workflows and shared visibility.", videoSrc: adoptionWithoutFrictionVideo },
+              { title: "Flexible Deployment", desc: "Deploy on-premises, cloud, or hybrid while keeping security, compliance, and performance consistent.", videoSrc: flexibleDeploymentVideo },
+            ].map((item, idx) => (
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-black/5">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={item.videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
+                  </div>
+                  <div className="p-7">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Measurable Impact */}
       <section id="data" className="py-24 relative overflow-hidden">
@@ -243,34 +266,17 @@ const VenioEDiscovery = () => {
               Explore the unified eDiscovery workflow across assessment, review, and production
             </p>
           </div>
-          <div className="max-w-5xl mx-auto space-y-8">
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                { icon: Brain, label: "Early Case Assessment", desc: "Cull and assess early" },
-                { icon: FileCheck, label: "Review", desc: "Tagging, redaction, AI" },
-                { icon: Upload, label: "Production", desc: "Export with precision" },
-              ].map((step, index) => (
-                <Card key={index} className="glass text-center hover:shadow-xl transition-all duration-300 border-border/50">
-                  <CardContent className="p-8 space-y-4">
-                    <div className="w-16 h-16 mx-auto rounded-full bg-secondary/10 flex items-center justify-center">
-                      <step.icon className="h-8 w-8 text-secondary" />
-                    </div>
-                    <h3 className="text-lg font-semibold">{step.label}</h3>
-                    <p className="text-sm text-muted-foreground">{step.desc}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            <div className="relative aspect-video glass rounded-2xl p-8 flex items-center justify-center group hover:shadow-2xl transition-all duration-300 cursor-pointer"
-              onClick={handleDemoAccess}
-            >
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Play className="h-12 w-12 text-secondary" />
-                </div>
-                <p className="text-muted-foreground text-lg font-medium">Interactive Product Demo</p>
-                <p className="text-sm text-muted-foreground mt-2">Click to explore the full workflow</p>
-              </div>
+          <div className="max-w-6xl mx-auto">
+            <div style={{ position: "relative", boxSizing: "content-box", maxHeight: "80svh", width: "100%", aspectRatio: "2.01", padding: "40px 0" }}>
+              <iframe
+                src="https://app.supademo.com/embed/cmmelkd6v2zmwnr99x6s6tjpr?embed_v=2&utm_source=embed"
+                loading="lazy"
+                title="End-to-End eDiscovery Software | Complete Legal Data Solutions"
+                allow="clipboard-write"
+                frameBorder={0}
+                allowFullScreen
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+              />
             </div>
           </div>
         </div>
@@ -378,22 +384,6 @@ const VenioEDiscovery = () => {
         open={isBookDemoDialogOpen} 
         onOpenChange={setIsBookDemoDialogOpen} 
       />
-      <section id="icons-download" className="py-24 px-6 bg-muted/20">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-2">Download Page Icons</h2>
-            <p className="text-muted-foreground">Get emerald‑green filled feature icons used on this page or browse the full library</p>
-          </div>
-          <div className="flex items-center justify-center gap-4">
-            <Button onClick={handleDownloadEDiscoveryIcons} size="lg" className="bg-[#3DC47E] hover:bg-[#33B471] text-white">
-              Download Overview Feature Icons (SVG)
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/icons">Browse Icons Library</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

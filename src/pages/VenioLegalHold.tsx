@@ -29,6 +29,16 @@ import CaseStudiesSection from "@/components/CaseStudiesSection";
 import { useState, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { LucideIcon } from "lucide-react";
+import legalHoldHeroImage from "@/assets/hero images/legal hold.png";
+import centralizedLegalHoldCoordinationVideo from "@/assets/videos/Legal Hold Benefits/Centralized Legal Hold Coordination.mp4";
+import defensibleAuditTrailsVideo from "@/assets/videos/Legal Hold Benefits/Defensible Audit Trails.mp4";
+import reducedOverPreservationCostVideo from "@/assets/videos/Legal Hold Benefits/Reduced Over-Preservation & Cost.mp4";
+import sanctionsRiskReducedVideo from "@/assets/videos/Legal Hold Benefits/Sanctions Risk, Reduced.mp4";
+import scalableCrossDepartmentWorkflowsVideo from "@/assets/videos/Legal Hold Benefits/Scalable Cross-Department Workflows.mp4";
+import legalHoldFeatureVideo1 from "@/assets/features/Legal Hold/1.mp4";
+import legalHoldFeatureVideo2 from "@/assets/features/Legal Hold/2.mp4";
+import legalHoldFeatureVideo3 from "@/assets/features/Legal Hold/3.mp4";
+import legalHoldFeatureVideo4 from "@/assets/features/Legal Hold/4.mp4";
 
 const sections = [
   { id: "hero", label: "Overview" },
@@ -102,45 +112,6 @@ const VenioLegalHold = () => {
     // Open demo after successful form submission
     window.open('https://demo.venio.com', '_blank');
   };
-  const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  const buildSvg = (IconComp: LucideIcon) => {
-    const rawInner = renderToStaticMarkup(<IconComp size={32} color="#ffffff" strokeWidth={2} />);
-    const sanitizedInner = rawInner.replace(/stroke="currentColor"/g, 'stroke="#ffffff"').replace('<svg ', '<svg x="16" y="16" ');
-    const outer = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` + `<rect width="64" height="64" fill="#3DC47E" rx="12"/>` + `${sanitizedInner}` + `</svg>`;
-    return outer;
-  };
-  const isValidSvg = (svg: string) => {
-    try {
-      const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
-      return !doc.querySelector("parsererror");
-    } catch {
-      return false;
-    }
-  };
-  const legalHoldFeatureIcons: { name: string; Icon: LucideIcon }[] = [
-    { name: "Automated Notifications & Escalations", Icon: Timer },
-    { name: "Custodian Acknowledgment Tracking", Icon: UserCheck },
-    { name: "Centralized Hold Management", Icon: LayoutDashboard },
-    { name: "Notification & Questionnaire Templates", Icon: FileText },
-  ];
-  const handleDownloadLegalHoldIcons = async () => {
-    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
-    const zip = new JSZip();
-    legalHoldFeatureIcons.forEach(({ name, Icon }) => {
-      const svg = buildSvg(Icon);
-      const final = isValidSvg(svg) ? svg : renderToStaticMarkup(<Icon size={64} color="#ffffff" strokeWidth={2} />);
-      zip.file(`${slugify(name)}.svg`, final);
-    });
-    const blob = await zip.generateAsync({ type: "blob" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "venio-legal-hold-feature-icons.zip";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
-  };
 
   return (
     <div className="min-h-screen">
@@ -184,29 +155,9 @@ const VenioLegalHold = () => {
                 </Button>
               </div>
             </div>
-            <div className="relative h-[400px] glass-dark rounded-2xl p-8 flex items-center justify-center animate-fade-in-scale">
-              <div className="text-white/70 text-center">
-                <FileText className="h-24 w-24 mx-auto mb-4 text-secondary" />
-                <p className="text-sm">Product Dashboard Visual</p>
-              </div>
+            <div className="relative h-[400px] rounded-2xl flex items-center justify-center animate-fade-in-scale overflow-hidden bg-transparent">
+              <img src={legalHoldHeroImage} alt="Legal Hold" className="h-full w-full object-contain" draggable={false} />
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="icons-download" className="py-24 px-6 bg-muted/20">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-2">Download Page Icons</h2>
-            <p className="text-muted-foreground">Get emerald‑green filled feature icons used on this page or browse the full library</p>
-          </div>
-          <div className="flex items-center justify-center gap-4">
-            <Button onClick={handleDownloadLegalHoldIcons} size="lg" className="bg-[#3DC47E] hover:bg-[#33B471] text-white">
-              Download Legal Hold Feature Icons (SVG)
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/icons">Browse Icons Library</Link>
-            </Button>
           </div>
         </div>
       </section>
@@ -217,21 +168,57 @@ const VenioLegalHold = () => {
             <h2 className="text-4xl font-bold mb-2">Turn Preservation Into a Position of Strength</h2>
             <p className="text-lg text-muted-foreground">When legal hold is structured, enforced, and documented, litigation risk drops. Venio gives you the control others leave to chance.</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
             {[
-              { icon: Shield, title: "Sanctions Risk, Reduced", desc: "Eliminate manual tracking and undocumented follow-ups that expose your organization to scrutiny." },
-              { icon: FileText, title: "Defensible Audit Trails", desc: "Document every notice, reminder, and custodian action with full, court-ready records you can trust." },
-              { icon: Users, title: "Scalable Cross-Department Workflows", desc: "Align legal, IT, and business teams with repeatable, enterprise-grade processes that scale with your caseloads." },
-              { icon: BarChart3, title: "Reduced Over-Preservation & Cost", desc: "Target only the custodians and data that matter, reducing storage, review effort, and operational overhead." },
-              { icon: FileText, title: "Centralized Legal Hold Coordination", desc: "Manage every legal hold from a single workspace, no scattered emails, no spreadsheets, complete accountability." },
+              { title: "Sanctions Risk, Reduced", desc: "Eliminate manual tracking and undocumented follow-ups that expose your organization to scrutiny.", videoSrc: sanctionsRiskReducedVideo },
+              { title: "Defensible Audit Trails", desc: "Document every notice, reminder, and custodian action with full, court-ready records you can trust.", videoSrc: defensibleAuditTrailsVideo },
             ].map((item, idx) => (
-              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-6">
-                    <item.icon className="h-7 w-7 text-secondary" />
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-black/5">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={item.videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  <div className="p-7">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { title: "Scalable Cross-Department Workflows", desc: "Align legal, IT, and business teams with repeatable, enterprise-grade processes that scale with your caseloads.", videoSrc: scalableCrossDepartmentWorkflowsVideo },
+              { title: "Reduced Over-Preservation & Cost", desc: "Target only the custodians and data that matter, reducing storage, review effort, and operational overhead.", videoSrc: reducedOverPreservationCostVideo },
+              { title: "Centralized Legal Hold Coordination", desc: "Manage every legal hold from a single workspace, no scattered emails, no spreadsheets, complete accountability.", videoSrc: centralizedLegalHoldCoordinationVideo },
+            ].map((item, idx) => (
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-black/5">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={item.videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
+                  </div>
+                  <div className="p-7">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -341,6 +328,7 @@ const VenioLegalHold = () => {
             description: "Send hold notices, schedule reminders, and escalate non-acknowledgments automatically.",
             details: [],
             imagePlaceholder: "Notifications & Escalations",
+            videoSrc: legalHoldFeatureVideo1,
           },
           {
             icon: UserCheck,
@@ -348,6 +336,7 @@ const VenioLegalHold = () => {
             description: "Real-time visibility into who has acknowledged, who hasn’t, and who is non-compliant.",
             details: [],
             imagePlaceholder: "Acknowledgments",
+            videoSrc: legalHoldFeatureVideo2,
           },
           {
             icon: LayoutDashboard,
@@ -355,6 +344,7 @@ const VenioLegalHold = () => {
             description: "Create, issue, modify, and release legal holds from a single dashboard across all matters.",
             details: [],
             imagePlaceholder: "Hold Management",
+            videoSrc: legalHoldFeatureVideo3,
           },
           {
             icon: FileText,
@@ -362,6 +352,7 @@ const VenioLegalHold = () => {
             description: "Standardized, customizable templates for hold notices and custodian responses.",
             details: [],
             imagePlaceholder: "Templates",
+            videoSrc: legalHoldFeatureVideo4,
           },
         ]}
       />
@@ -473,17 +464,7 @@ const VenioLegalHold = () => {
         </div>
       </section>
 
-      <section id="cta" className="py-24 bg-gradient-to-b from-white to-muted">
-        <div className="container mx-auto px-6 max-w-5xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Don’t Wait for Preservation to Be Questioned.</h2>
-          <p className="text-lg text-muted-foreground mb-8">Strengthen your legal hold process before it becomes a liability.</p>
-          <div className="flex justify-center gap-4">
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-6">
-              <Link to="/book-a-demo">Book a Demo</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTABanner />
 
       <Footer />
       

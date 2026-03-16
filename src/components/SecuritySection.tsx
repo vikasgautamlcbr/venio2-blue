@@ -1,7 +1,7 @@
 import { Shield, Lock, FileCheck, Award } from "lucide-react";
 import InteractiveBackground from "./InteractiveBackground";
 
-const SecuritySection = () => {
+const SecuritySection = ({ id = "security" }: { id?: string }) => {
   const badges = [
     {
       icon: Shield,
@@ -26,7 +26,7 @@ const SecuritySection = () => {
   ];
 
   return (
-    <section id="security" className="py-12 bg-white relative overflow-hidden">
+    <section id={id} className="py-12 bg-white relative overflow-hidden">
       <InteractiveBackground />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">

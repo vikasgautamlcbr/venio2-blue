@@ -9,6 +9,7 @@ interface Feature {
   description: string;
   details: string[];
   imagePlaceholder: string;
+  videoSrc?: string;
 }
 
 const features: Feature[] = [
@@ -214,31 +215,32 @@ export const ScrollFeatureAccordion = ({
                       : "opacity-0 scale-95 pointer-events-none"
                   )}
                 >
-                  <Card className="glass overflow-hidden border-2 border-accent/30 h-full">
+                  <Card className={cn("glass overflow-hidden h-full", feature.videoSrc ? "border-0" : "border-2 border-accent/30")}>
                     <CardContent className="p-0 h-full">
-                      <div className="h-full bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5 flex items-center justify-center relative overflow-hidden">
-                        {/* Animated background */}
-                        <div className="absolute inset-0">
-                          <div className="absolute top-10 left-10 w-32 h-32 bg-accent/20 rounded-full blur-3xl animate-pulse"></div>
-                          <div className="absolute bottom-10 right-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl animate-pulse delay-500"></div>
-                        </div>
-
-                        {/* Content */}
-                        <div className="relative z-10 text-center p-8">
-                          <div className="w-24 h-24 mx-auto mb-8 rounded-2xl bg-accent/10 flex items-center justify-center backdrop-blur border-2 border-accent/30">
-                            <feature.icon className="h-12 w-12 text-accent" />
+                      {feature.videoSrc ? (
+                        <video className="h-full w-full object-cover" src={feature.videoSrc} muted loop playsInline autoPlay preload="metadata" />
+                      ) : (
+                        <div className="h-full bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5 flex items-center justify-center relative overflow-hidden">
+                          <div className="absolute inset-0">
+                            <div className="absolute top-10 left-10 w-32 h-32 bg-accent/20 rounded-full blur-3xl animate-pulse"></div>
+                            <div className="absolute bottom-10 right-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl animate-pulse delay-500"></div>
                           </div>
-                          <p className="text-2xl font-semibold text-foreground mb-3">
-                            {feature.imagePlaceholder}
-                          </p>
-                          <p className="text-base text-muted-foreground">
-                            Product Screenshot Placeholder
-                          </p>
-                        </div>
 
-                        {/* Decorative grid */}
-                        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,.03)_1px,transparent_1px)] bg-[size:24px_24px] opacity-30"></div>
-                      </div>
+                          <div className="relative z-10 text-center p-8">
+                            <div className="w-24 h-24 mx-auto mb-8 rounded-2xl bg-accent/10 flex items-center justify-center backdrop-blur border-2 border-accent/30">
+                              <feature.icon className="h-12 w-12 text-accent" />
+                            </div>
+                            <p className="text-2xl font-semibold text-foreground mb-3">
+                              {feature.imagePlaceholder}
+                            </p>
+                            <p className="text-base text-muted-foreground">
+                              Product Screenshot Placeholder
+                            </p>
+                          </div>
+
+                          <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,.03)_1px,transparent_1px)] bg-[size:24px_24px] opacity-30"></div>
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 </div>

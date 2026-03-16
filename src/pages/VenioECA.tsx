@@ -8,10 +8,21 @@ import { Link } from "react-router-dom";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import SecuritySection from "@/components/SecuritySection";
+import CTABanner from "@/components/CTABanner";
 import { Play, FileText, Shield, Brain, Search, Filter, Layers, Database, DollarSign, BarChart3, Gauge, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { LucideIcon } from "lucide-react";
+import ecaHeroImage from "@/assets/hero images/Analysis.png";
+import advancedSearchPatternInsightsVideo from "@/assets/videos/ECA Benefits/Advanced Search & Pattern Insights.mp4";
+import costEfficientVideo from "@/assets/videos/ECA Benefits/Cost Efficient.mp4";
+import earlyRiskIdentificationVideo from "@/assets/videos/ECA Benefits/Early Risk Identification.mp4";
+import interactiveDataVisualizationVideo from "@/assets/videos/ECA Benefits/Interactive Data Visualization.mp4";
+import reducedReviewVolumeVideo from "@/assets/videos/ECA Benefits/Reduced Review Volume.mp4";
+import ecaFeatureVideo1 from "@/assets/features/ECA/1.mp4";
+import ecaFeatureVideo2 from "@/assets/features/ECA/2.mp4";
+import ecaFeatureVideo3 from "@/assets/features/ECA/3.mp4";
+import ecaFeatureVideo4 from "@/assets/features/ECA/4.mp4";
 
 const sections = [
   { id: "hero", label: "Overview" },
@@ -77,45 +88,6 @@ const VenioECA = () => {
     }
     window.open("https://demo.venio.com/eca", "_blank");
   };
-  const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  const buildSvg = (IconComp: LucideIcon) => {
-    const rawInner = renderToStaticMarkup(<IconComp size={32} color="#ffffff" strokeWidth={2} />);
-    const sanitizedInner = rawInner.replace(/stroke="currentColor"/g, 'stroke="#ffffff"').replace('<svg ', '<svg x="16" y="16" ');
-    const outer = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` + `<rect width="64" height="64" fill="#3DC47E" rx="12"/>` + `${sanitizedInner}` + `</svg>`;
-    return outer;
-  };
-  const isValidSvg = (svg: string) => {
-    try {
-      const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
-      return !doc.querySelector("parsererror");
-    } catch {
-      return false;
-    }
-  };
-  const ecaFeatureIcons: { name: string; Icon: LucideIcon }[] = [
-    { name: "Data Collection & Indexing", Icon: Database },
-    { name: "Smart Pre-Processing", Icon: Filter },
-    { name: "Keyword & Metadata Search", Icon: Search },
-    { name: "Concept-Based Clustering", Icon: Layers },
-  ];
-  const handleDownloadEcaIcons = async () => {
-    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
-    const zip = new JSZip();
-    ecaFeatureIcons.forEach(({ name, Icon }) => {
-      const svg = buildSvg(Icon);
-      const final = isValidSvg(svg) ? svg : renderToStaticMarkup(<Icon size={64} color="#ffffff" strokeWidth={2} />);
-      zip.file(`${slugify(name)}.svg`, final);
-    });
-    const blob = await zip.generateAsync({ type: "blob" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "venio-eca-feature-icons.zip";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
-  };
 
   return (
     <div className="min-h-screen">
@@ -152,11 +124,8 @@ const VenioECA = () => {
                 </Button>
               </div>
             </div>
-            <div className="relative h-[400px] glass-dark rounded-2xl p-8 flex items-center justify-center animate-fade-in-scale">
-              <div className="text-white/70 text-center">
-                <BarChart3 className="h-24 w-24 mx-auto mb-4 text-secondary" />
-                <p className="text-sm">ECA Analytics Visual</p>
-              </div>
+            <div className="relative h-[400px] rounded-2xl flex items-center justify-center animate-fade-in-scale overflow-hidden bg-transparent">
+              <img src={ecaHeroImage} alt="ECA Analytics" className="h-full w-full object-contain" draggable={false} />
             </div>
           </div>
         </div>
@@ -168,21 +137,57 @@ const VenioECA = () => {
             <h2 className="text-4xl font-bold mb-2">Turn Data Volume Into Early Advantage</h2>
             <p className="text-lg text-muted-foreground">Early Case Assessment shouldn’t be guesswork. Venio gives you clarity, visibility, and strategic direction before costly review begins.</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
             {[
-              { icon: BarChart3, title: "Interactive Data Visualization", desc: "Transform complex datasets into clear visual insights that reveal trends, custodians, and risk instantly." },
-              { icon: Filter, title: "Reduced Review Volume", desc: "Eliminate irrelevant and duplicate data early to minimize downstream review time and cost." },
-              { icon: Search, title: "Advanced Search & Pattern Insights", desc: "Uncover hidden connections and critical themes using layered search and intelligent clustering." },
-              { icon: DollarSign, title: "Cost Efficient", desc: "Reduce processing, hosting, and review expenses by refining scope before full-scale review begins." },
-              { icon: Shield, title: "Early Risk Identification", desc: "Surface high-risk documents and key custodians early to prevent costly surprises later." },
+              { title: "Interactive Data Visualization", desc: "Transform complex datasets into clear visual insights that reveal trends, custodians, and risk instantly.", videoSrc: interactiveDataVisualizationVideo },
+              { title: "Reduced Review Volume", desc: "Eliminate irrelevant and duplicate data early to minimize downstream review time and cost.", videoSrc: reducedReviewVolumeVideo },
             ].map((item, idx) => (
-              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-6">
-                    <item.icon className="h-7 w-7 text-secondary" />
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-black/5">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={item.videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  <div className="p-7">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { title: "Advanced Search & Pattern Insights", desc: "Uncover hidden connections and critical themes using layered search and intelligent clustering.", videoSrc: advancedSearchPatternInsightsVideo },
+              { title: "Cost Efficient", desc: "Reduce processing, hosting, and review expenses by refining scope before full-scale review begins.", videoSrc: costEfficientVideo },
+              { title: "Early Risk Identification", desc: "Surface high-risk documents and key custodians early to prevent costly surprises later.", videoSrc: earlyRiskIdentificationVideo },
+            ].map((item, idx) => (
+              <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video bg-black/5">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={item.videoSrc}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
+                  </div>
+                  <div className="p-7">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -234,31 +239,23 @@ const VenioECA = () => {
               Experience how Venio processes, analyzes, and visualizes your data by turning complexity into actionable insight.
             </p>
           </div>
-          <div className="max-w-5xl mx-auto space-y-8">
-            <div className="relative aspect-video glass rounded-2xl p-8 flex items-center justify-center group hover:shadow-2xl transition-all duration-300 cursor-pointer"
-              onClick={handleDemoAccess}
-            >
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Play className="h-12 w-12 text-secondary" />
-                </div>
-                <p className="text-muted-foreground text-lg font-medium">Interactive ECA Demo</p>
-                <p className="text-sm text-muted-foreground mt-2">Click to explore the analytics workflow</p>
-              </div>
+          <div className="max-w-6xl mx-auto">
+            <div style={{ position: "relative", boxSizing: "content-box", maxHeight: "80svh", width: "100%", aspectRatio: "2.01", padding: "40px 0" }}>
+              <iframe
+                src="https://app.supademo.com/embed/cmmehii992ss6nr99pi748qcx?embed_v=2&utm_source=embed"
+                loading="lazy"
+                title="Venio ECA Software | Reduce eDiscovery Costs & Case Time"
+                allow="clipboard-write"
+                frameBorder={0}
+                allowFullScreen
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <section id="compliance" className="py-24 px-6">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-2">Compliance Built Into the Core</h2>
-            <p className="text-lg text-muted-foreground">End-to-end eDiscovery software designed with security, auditability, and regulatory defensibility at every layer.</p>
-          </div>
-        </div>
-      </section>
-      <SecuritySection />
+      <SecuritySection id="compliance" />
 
       <ScrollFeatureAccordion
         title="Defensible Early Assessment Capabilities"
@@ -270,6 +267,7 @@ const VenioECA = () => {
             description: "Securely ingest and index large datasets quickly, making everything searchable from the start.",
             details: [],
             imagePlaceholder: "Collection & Indexing",
+            videoSrc: ecaFeatureVideo1,
           },
           {
             icon: Filter,
@@ -277,6 +275,7 @@ const VenioECA = () => {
             description: "Automatically de-duplicate, filter, and normalize data to eliminate noise before it becomes cost.",
             details: [],
             imagePlaceholder: "Pre-Processing",
+            videoSrc: ecaFeatureVideo2,
           },
           {
             icon: Search,
@@ -284,6 +283,7 @@ const VenioECA = () => {
             description: "Run advanced Boolean queries and layered metadata filters to isolate high-risk documents instantly.",
             details: [],
             imagePlaceholder: "Search & Filters",
+            videoSrc: ecaFeatureVideo3,
           },
           {
             icon: Layers,
@@ -291,6 +291,7 @@ const VenioECA = () => {
             description: "Uncover hidden themes and related content automatically, beyond what keywords alone can detect.",
             details: [],
             imagePlaceholder: "Clustering",
+            videoSrc: ecaFeatureVideo4,
           },
         ]}
       />
@@ -359,38 +360,11 @@ const VenioECA = () => {
         </div>
       </section>
 
-      <section id="icons-download" className="py-24 px-6 bg-muted/20">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-2">Download Page Icons</h2>
-            <p className="text-muted-foreground">Get emerald‑green filled feature icons used on this page or browse the full library</p>
-          </div>
-          <div className="flex items-center justify-center gap-4">
-            <Button onClick={handleDownloadEcaIcons} size="lg" className="bg-[#3DC47E] hover:bg-[#33B471] text-white">
-              Download ECA Feature Icons (SVG)
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/icons">Browse Icons Library</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
       <section id="testimonials">
         <TestimonialsSection showLogoTrail title="Testimonials: Why Teams Are Unifying eDiscovery with Venio" />
       </section>
 
-      <section id="cta" className="py-24 bg-gradient-to-b from-white to-muted">
-        <div className="container mx-auto px-6 max-w-5xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Make Early Case Assessment Your Strategic Advantage</h2>
-          <p className="text-lg text-muted-foreground mb-8">Gain measurable clarity into data, exposure, and cost before the case accelerates.</p>
-          <div className="flex justify-center gap-4">
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-6">
-              <Link to="/book-a-demo">Book a Demo</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTABanner />
 
       <CaseStudiesSection />
       <Footer />
