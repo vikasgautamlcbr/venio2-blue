@@ -53,11 +53,12 @@ import productionExportImage from "@/assets/why-venio-assets/Production & Export
 import reducesStorageCostsVideo from "@/assets/why-venio-assets/Reduces Storage Costs.mp4";
 import secureIngestionImage from "@/assets/why-venio-assets/Secure Ingestion.png";
 import unifiedPlatformImage from "@/assets/why-venio-assets/Unified Platform.png";
+import fasterFromStartToFinishVideo from "@/assets/why-venio-assets/Faster From Start to Finish.mp4";
 
 const sections = [
   { id: "hero", label: "Overview" },
   { id: "problem", label: "Problem" },
-  { id: "pillars", label: "Pillars" },
+  { id: "benefits", label: "Benefits" },
   { id: "comparison", label: "Comparison" },
   { id: "journey", label: "Journey" },
   { id: "security", label: "Security" },
@@ -258,88 +259,87 @@ const WhyVenio = () => {
           </div>
         </section>
 
-        <section id="pillars" className="py-20 px-6 bg-muted/30">
+        <section id="benefits" className="py-24 px-6 bg-muted/30">
           <div className="container mx-auto max-w-7xl">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">The pillars of Venio Advantage</h2>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-2">The Venio Advantage</h2>
+              <p className="text-lg text-muted-foreground">
+                Five reasons teams standardize on Venio instead of stitching together point tools.
+              </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="md:col-span-2 md:row-span-2">
-                <Card className="glass hover:shadow-2xl transition-all duration-300 h-full group overflow-hidden rounded-2xl">
-                  <CardContent className="p-0 h-full flex flex-col">
-                    <div className="relative h-80 overflow-hidden">
-                      <img src={unifiedPlatformImage} alt="Unified Platform" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              {[
+                {
+                  title: "Unified Platform",
+                  desc: "One platform for ECA, review, production, and legal hold with no silos, no handoffs, no gaps.",
+                  mediaType: "video" as const,
+                  mediaSrc: fasterFromStartToFinishVideo,
+                },
+                {
+                  title: "AI-Driven",
+                  desc: "Accelerate review with explainable, defensible AI and speed without sacrificing control.",
+                  mediaType: "video" as const,
+                  mediaSrc: aiPoweredVideo,
+                  poster: aiPoweredPoster,
+                },
+              ].map((item, idx) => (
+                <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="relative aspect-video bg-black/5">
+                      {item.mediaType === "video" ? (
+                        <video className="h-full w-full object-cover" src={item.mediaSrc} poster={item.poster} muted loop playsInline autoPlay preload="metadata" />
+                      ) : (
+                        <img className="h-full w-full object-cover" src={item.mediaSrc} alt={item.alt} draggable={false} />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
                     </div>
-                    <div className="p-8 flex-1 flex flex-col">
-                      <h3 className="text-3xl font-bold mb-4">Unified End-to-End</h3>
-                      <p className="text-muted-foreground leading-relaxed flex-1">
-                        One platform handling Legal Hold → Ingestion → ECA → Review → Production — fewer transfers, less risk. Complete workflow integration eliminates data silos and reduces compliance vulnerabilities.
-                      </p>
+                    <div className="p-7">
+                      <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground">{item.desc}</p>
                     </div>
                   </CardContent>
                 </Card>
-              </div>
-
-              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
-                <CardContent className="p-0">
-                  <div className="relative aspect-video overflow-hidden rounded-t-2xl">
-                    <video className="absolute inset-0 h-full w-full object-cover" src={aiPoweredVideo} poster={aiPoweredPoster} muted loop playsInline autoPlay preload="metadata" />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3">AI-Powered Acceleration</h3>
-                    <p className="text-sm text-muted-foreground">CAL/TAR, prioritization, clustering, and auto-tagging reduce reviewer workload.</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
-                <CardContent className="p-0">
-                  <div className="relative aspect-video overflow-hidden rounded-t-2xl">
-                    <video className="absolute inset-0 h-full w-full object-cover" src={onPremOrCloudFlexibilityVideo} muted loop playsInline autoPlay preload="metadata" />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3">Flexible Deployment</h3>
-                    <p className="text-sm text-muted-foreground">Cloud, hybrid, or on-prem—choose what fits your security and governance model.</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
-                <CardContent className="p-0">
-                  <div className="relative aspect-video overflow-hidden rounded-t-2xl">
-                    <video className="absolute inset-0 h-full w-full object-cover" src={reducesStorageCostsVideo} muted loop playsInline autoPlay preload="metadata" />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3">Radical Cost Control</h3>
-                    <p className="text-sm text-muted-foreground">Early culling and optimized hosting deliver predictable total cost of ownership.</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
-                <CardContent className="p-0">
-                  <div className="relative aspect-video overflow-hidden rounded-t-2xl">
-                    <img src={legalHoldAutomationImage} alt="Defensible Process" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3">Defensible Process</h3>
-                    <p className="text-sm text-muted-foreground">Full, immutable audit trails, custodial tracking, and production QC built in.</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="glass hover:shadow-xl transition-all duration-300 group rounded-2xl">
-                <CardContent className="p-0">
-                  <div className="relative aspect-video overflow-hidden rounded-t-2xl">
-                    <img src={secureIngestionImage} alt="Modern Data Coverage" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3">Modern Data Coverage</h3>
-                    <p className="text-sm text-muted-foreground">Native ingestion for email, cloud apps, chats, multimedia, and mobile sources.</p>
-                  </div>
-                </CardContent>
-              </Card>
+              ))}
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Flexible Deployment",
+                  desc: "Cloud, on-prem, or hybrid: deploy Venio your way, without compromise.",
+                  mediaType: "video" as const,
+                  mediaSrc: onPremOrCloudFlexibilityVideo,
+                },
+                {
+                  title: "Reduced Costs",
+                  desc: "Transparent pricing that scales predictably without surprise fees and cost shocks.",
+                  mediaType: "video" as const,
+                  mediaSrc: reducesStorageCostsVideo,
+                },
+                {
+                  title: "Intuitive by Design",
+                  desc: "Built for legal teams for fast adoption, minimal training, and fewer errors.",
+                  mediaType: "video" as const,
+                  mediaSrc: intuitiveInterfaceVideo,
+                },
+              ].map((item, idx) => (
+                <Card key={idx} className="rounded-2xl bg-white border border-border/40 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="relative aspect-video bg-black/5">
+                      {item.mediaType === "video" ? (
+                        <video className="h-full w-full object-cover" src={item.mediaSrc} muted loop playsInline autoPlay preload="metadata" />
+                      ) : (
+                        <img className="h-full w-full object-cover" src={item.mediaSrc} alt={item.title} draggable={false} />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0" />
+                    </div>
+                    <div className="p-7">
+                      <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
