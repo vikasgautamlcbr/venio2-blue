@@ -34,9 +34,15 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    setIsScrolled(window.scrollY > 20);
+    setIsMobileMenuOpen(false);
+  }, [location.pathname, location.hash]);
 
   useEffect(() => {
     const el = prodListRef.current?.querySelector(`[data-id="${activeProduct}"]`) as HTMLElement | null;

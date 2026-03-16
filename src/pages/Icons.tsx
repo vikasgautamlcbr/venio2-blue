@@ -559,6 +559,13 @@ const ecaIndustryIcons: { name: string; Icon: LucideIcon }[] = [
   { name: "Government", Icon: Landmark },
 ];
 
+const caseStudyCategoryIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Corporates", Icon: Building2 },
+  { name: "Law Firms", Icon: Briefcase },
+  { name: "Legal Service Providers", Icon: Users },
+  { name: "Government", Icon: Landmark },
+];
+
 const investigationsPageIcons: { name: string; Icon: LucideIcon; variant: "accent" | "destructive" }[] = [
   { name: "Data Overload", Icon: Database, variant: "destructive" },
   { name: "Fragmented Data Sources", Icon: Layers, variant: "destructive" },
@@ -764,6 +771,28 @@ const Icons = () => {
     const a = document.createElement("a");
     a.href = url;
     a.download = "venio-eca-industry-nav-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+
+  const handleDownloadCaseStudyCategoryIcons = async () => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    const neutralHex = "#64748B";
+    const accentHex = palette.accent;
+    caseStudyCategoryIcons.forEach(({ name, Icon }) => {
+      const neutralSvg = buildIconOnlySvg(Icon, neutralHex);
+      const accentSvg = buildIconOnlySvg(Icon, accentHex);
+      zip.file(`${slugify(name)}-neutral.svg`, isValidSvg(neutralSvg) ? neutralSvg : renderToStaticMarkup(<Icon size={64} color={neutralHex} strokeWidth={2} />));
+      zip.file(`${slugify(name)}-accent.svg`, isValidSvg(accentSvg) ? accentSvg : renderToStaticMarkup(<Icon size={64} color={accentHex} strokeWidth={2} />));
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "venio-case-study-category-icons.zip";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1282,6 +1311,37 @@ const Icons = () => {
           <div className="rounded-2xl bg-muted/50 p-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {ecaIndustryIcons.map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-muted/50">
+                    <item.Icon className="h-5 w-5 text-muted-foreground" />
+                    <span className="text-muted-foreground">{item.name}</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white text-foreground shadow-sm">
+                    <item.Icon className="h-5 w-5 text-secondary" />
+                    <span>{item.name}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="case-study-category-icons" className="py-12 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Case Study Category Icons</h2>
+            <p className="text-muted-foreground">Icons used on case study cards</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleDownloadCaseStudyCategoryIcons} variant="outline" className="gap-2">
+                <Download className="w-4 h-4" />
+                Download Case Study Category Icons
+              </Button>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-muted/50 p-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {caseStudyCategoryIcons.map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3">
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-muted/50">
                     <item.Icon className="h-5 w-5 text-muted-foreground" />
