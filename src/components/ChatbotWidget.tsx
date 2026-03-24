@@ -105,13 +105,22 @@ const ChatbotWidget = () => {
             {/* Right Side - Product Demo */}
             <div className="w-3/4 rounded-lg overflow-hidden max-md:hidden flex items-center">
               <div className="w-full">
-                <script async src="https://js.storylane.io/js/v2/storylane.js"></script>
-                <div className="relative pb-[calc(56.25%+25px)] w-full h-0">
+                <div
+                  className="relative w-full"
+                  style={{
+                    boxSizing: "content-box",
+                    maxHeight: "80svh",
+                    width: "100%",
+                    aspectRatio: "2.01",
+                    padding: "40px 0",
+                  }}
+                >
                   <iframe
+                    src="https://app.supademo.com/embed/cmmelkd6v2zmwnr99x6s6tjpr?embed_v=2&utm_source=embed"
                     loading="lazy"
-                    src="https://app.storylane.io/demo/pjaaebjnr9nb?embed=inline"
-                    name="sl-embed"
-                    allow="fullscreen"
+                    title="Venio eDiscovery Interactive Demo"
+                    allow="clipboard-write"
+                    frameBorder={0}
                     allowFullScreen
                     className="absolute top-0 left-0 w-full h-full border border-border/35 shadow-lg rounded-lg"
                   />
