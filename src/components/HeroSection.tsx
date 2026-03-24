@@ -179,13 +179,13 @@ const HeroSection = () => {
 
             {/* Dashboard/Video Section */}
             <div className="relative max-w-6xl mx-auto px-4 pb-8">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 bg-white">
-                <div className="aspect-video bg-black">
+              <div className="relative rounded-2xl overflow-hidden bg-transparent shadow-[0_18px_60px_-40px_rgba(0,0,0,0.65),0_6px_18px_-14px_rgba(0,0,0,0.35)]">
+                <div className="aspect-video bg-transparent">
                   <video
                     key={activeTab}
                     ref={videoRef}
                     src={tabs[activeTab].videoUrl}
-                    className="w-full h-full object-cover"
+                    className="block w-full h-full object-cover"
                     onEnded={handleVideoEnd}
                     preload="auto"
                     playsInline
