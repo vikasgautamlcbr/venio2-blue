@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, FileOutput, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award, Filter, Hash, File, Brain, Tag } from "lucide-react";
+import { ArrowRight, Server, BarChart3, FileCheck, Shield, Gauge, Search, Workflow, ClipboardCheck, ClipboardList, LayoutDashboard, Fingerprint, Lock, FileText, Cloud, TrendingUp, ShieldCheck, FileSearch, FileOutput, Download, Link as LinkIcon, Eye, Zap, Database, Users, Unlink, Anchor, BadgeDollarSign, Layers, GitFork, CircleDollarSign, Building, Building2, Landmark, ServerCog, FileWarning, TrendingDown, Timer, Puzzle, EyeOff, Briefcase, GitBranch, AlertTriangle, Clock, LightbulbOff, SearchX, UserCheck, Key, Award, Filter, Hash, File, Brain, Tag, Globe2, Network, LockKeyhole, Scale } from "lucide-react";
 import type { LucideIcon, LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -566,6 +566,50 @@ const caseStudyCategoryIcons: { name: string; Icon: LucideIcon }[] = [
   { name: "Government", Icon: Landmark },
 ];
 
+const deploymentCloudIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Corporate Legal Departments", Icon: Building2 },
+  { name: "Law Firms", Icon: Scale },
+  { name: "eDiscovery Service Providers", Icon: Users },
+  { name: "Global Enterprises", Icon: Globe2 },
+  { name: "Instant Case Environments", Icon: Server },
+  { name: "AI‑Powered TAR/CAL", Icon: Brain },
+  { name: "Interactive Data Visualizations", Icon: BarChart3 },
+  { name: "Self‑Service Interface", Icon: Workflow },
+  { name: "Unlimited Processing Throughput", Icon: Gauge },
+  { name: "Workflow Automation", Icon: Workflow },
+];
+
+const deploymentOnPremIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Government & Public Sector", Icon: Landmark },
+  { name: "Law Enforcement", Icon: Shield },
+  { name: "Financial Institutions", Icon: Building2 },
+  { name: "Highly Regulated Industries", Icon: ShieldCheck },
+  { name: "Absolute Data Control", Icon: Shield },
+  { name: "Stronger Compliance Alignment", Icon: Scale },
+  { name: "Cost Predictability", Icon: TrendingDown },
+  { name: "Customer‑Hosted Infrastructure", Icon: Server },
+  { name: "Air‑Gapped Deployment Support", Icon: ShieldCheck },
+  { name: "Active Directory Integration", Icon: Lock },
+  { name: "Direct SAN/NAS Integration", Icon: Database },
+  { name: "Controlled Updates & Patches", Icon: ServerCog },
+  { name: "Infrastructure‑Level Security", Icon: Shield },
+];
+
+const deploymentHybridIcons: { name: string; Icon: LucideIcon }[] = [
+  { name: "Global Enterprises", Icon: Globe2 },
+  { name: "Law Firms Managing Mixed Matters", Icon: Scale },
+  { name: "eDiscovery Service Providers", Icon: Users },
+  { name: "Organizations with Fluctuating Workloads", Icon: Zap },
+  { name: "Environment Flexibility", Icon: Workflow },
+  { name: "Unified Platform Workflow", Icon: Workflow },
+  { name: "Workload Bursting", Icon: Server },
+  { name: "Operational Continuity", Icon: Workflow },
+  { name: "Flexible Infrastructure Strategy", Icon: Workflow },
+  { name: "Optimized Cost Efficiency", Icon: CircleDollarSign },
+  { name: "Operational Resilience", Icon: Shield },
+  { name: "Future‑Ready Architecture", Icon: TrendingUp },
+  { name: "Cross‑Environment Collaboration", Icon: Users },
+];
 const investigationsPageIcons: { name: string; Icon: LucideIcon; variant: "accent" | "destructive" }[] = [
   { name: "Data Overload", Icon: Database, variant: "destructive" },
   { name: "Fragmented Data Sources", Icon: Layers, variant: "destructive" },
@@ -646,6 +690,19 @@ const Icons = () => {
       `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
       `<rect x="2" y="2" width="60" height="60" rx="12" fill="${hex}" fill-opacity="0.12"/>` +
       `<rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="${hex}" stroke-opacity="0.25" stroke-width="2"/>` +
+      `${sanitizedInner}` +
+      `</svg>`;
+    return outer;
+  };
+
+  const buildTintedSvgNoBorder = (IconComp: LucideIcon, hex: string) => {
+    const innerSvg = renderToStaticMarkup(<IconComp size={32} color={hex} strokeWidth={2} />);
+    const sanitizedInner = innerSvg
+      .replace(/stroke="currentColor"/g, `stroke="${hex}"`)
+      .replace('<svg ', '<svg x="16" y="16" ');
+    const outer =
+      `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">` +
+      `<rect x="2" y="2" width="60" height="60" rx="12" fill="${hex}" fill-opacity="0.12"/>` +
       `${sanitizedInner}` +
       `</svg>`;
     return outer;
@@ -793,6 +850,30 @@ const Icons = () => {
     const a = document.createElement("a");
     a.href = url;
     a.download = "venio-case-study-category-icons.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+
+  const handleDownloadDeploymentIcons = async (items: { name: string; Icon: LucideIcon }[], fileName: string) => {
+    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const zip = new JSZip();
+    const neutralHex = "#64748B";
+    const accentHex = palette.accent;
+    items.forEach(({ name, Icon }) => {
+      const neutralSvg = buildTintedSvgNoBorder(Icon, neutralHex);
+      const accentSvg = buildTintedSvgNoBorder(Icon, accentHex);
+      const finalNeutral = isValidSvg(neutralSvg) ? neutralSvg : renderToStaticMarkup(<Icon size={64} color={neutralHex} strokeWidth={2} />);
+      const finalAccent = isValidSvg(accentSvg) ? accentSvg : renderToStaticMarkup(<Icon size={64} color={accentHex} strokeWidth={2} />);
+      zip.file(`${slugify(name)}-neutral.svg`, finalNeutral);
+      zip.file(`${slugify(name)}-accent.svg`, finalAccent);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -988,6 +1069,119 @@ const Icons = () => {
         </div>
       </section>
 
+      <section id="deployment-cloud-icons" className="py-12 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Deployment: Cloud Page Icons</h2>
+            <p className="text-muted-foreground">Icons used across the Cloud deployment page (neutral and accent states)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={() => handleDownloadDeploymentIcons(deploymentCloudIcons, "venio-deployment-cloud-icons.zip")} variant="outline" className="gap-2">
+                <Download className="w-4 h-4" />
+                Download Cloud Icons
+              </Button>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-muted/50 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {deploymentCloudIcons.map((item, idx) => (
+                <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg">{item.name}</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-xl bg-muted/50 border border-muted-foreground/30 flex items-center justify-center">
+                        <item.Icon className="w-10 h-10 text-muted-foreground" />
+                      </div>
+                      <div className="w-16 h-16 rounded-xl bg-[#3DC47E] flex items-center justify-center">
+                        <item.Icon className="w-10 h-10 text-white" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="deployment-onprem-icons" className="py-12 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Deployment: On‑Premises Page Icons</h2>
+            <p className="text-muted-foreground">Icons used across the On‑Premises deployment page (neutral and accent states)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={() => handleDownloadDeploymentIcons(deploymentOnPremIcons, "venio-deployment-onprem-icons.zip")} variant="outline" className="gap-2">
+                <Download className="w-4 h-4" />
+                Download On‑Prem Icons
+              </Button>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-muted/50 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {deploymentOnPremIcons.map((item, idx) => (
+                <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg">{item.name}</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-xl bg-muted/50 border border-muted-foreground/30 flex items-center justify-center">
+                        <item.Icon className="w-10 h-10 text-muted-foreground" />
+                      </div>
+                      <div className="w-16 h-16 rounded-xl bg-[#3DC47E] flex items-center justify-center">
+                        <item.Icon className="w-10 h-10 text-white" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="deployment-hybrid-icons" className="py-12 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold">Deployment: Hybrid Page Icons</h2>
+            <p className="text-muted-foreground">Icons used across the Hybrid deployment page (neutral and accent states)</p>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={() => handleDownloadDeploymentIcons(deploymentHybridIcons, "venio-deployment-hybrid-icons.zip")} variant="outline" className="gap-2">
+                <Download className="w-4 h-4" />
+                Download Hybrid Icons
+              </Button>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-muted/50 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {deploymentHybridIcons.map((item, idx) => (
+                <Card key={idx} className="hover:shadow-xl transition-all duration-300 border-2">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg">{item.name}</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-xl bg-muted/50 border border-muted-foreground/30 flex items-center justify-center">
+                        <item.Icon className="w-10 h-10 text-muted-foreground" />
+                      </div>
+                      <div className="w-16 h-16 rounded-xl bg-[#3DC47E] flex items-center justify-center">
+                        <item.Icon className="w-10 h-10 text-white" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8">

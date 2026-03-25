@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link, useParams } from "react-router-dom";
-import { Cloud, Server, Workflow, Shield, Database, Network, Cog, Lock, CheckCircle2, ArrowRight, FileText, TrendingDown, Zap, Bell, Sparkles, Scale, Building2, Landmark, ShieldCheck, Globe2, LockKeyhole, LifeBuoy, Users, Rocket, Brain, BarChart3, Monitor, Gauge } from "lucide-react";
+import { Cloud, Server, Workflow, Shield, Database, Network, Cog, Lock, CheckCircle2, ArrowRight, FileText, TrendingDown, Zap, Bell, Sparkles, Scale, Building2, Landmark, ShieldCheck, Globe2, LockKeyhole, LifeBuoy, Users, Rocket, Brain, BarChart3, Monitor, Gauge, DollarSign } from "lucide-react";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import CTABanner from "@/components/CTABanner";
@@ -25,7 +25,7 @@ const DeploymentType = () => {
   const title = key === "on-premises" ? "On-premises Deployment" : key === "cloud" ? "Cloud Deployment" : key === "hybrid" ? "Hybrid Deployment" : config.label;
   const description =
     key === "on-premises"
-      ? "Enterprise-grade on-premises deployment with air-gapped options, single database architecture, and complete control."
+      ? "Maintain infrastructure control, meet regulatory mandates, and operate without external dependency, all on Venio’s unified platform."
       : key === "cloud"
       ? "Launch cases instantly, scale processing on demand, and collaborate globally on Venio’s secure, fully managed cloud platform."
       : key === "hybrid"
@@ -44,12 +44,16 @@ const DeploymentType = () => {
       ? "The Cloud Platform for Enterprise Discovery"
       : key === "on-premises"
       ? "Enterprise eDiscovery - Inside Your Firewall"
+      : key === "hybrid"
+      ? "Hybrid eDiscovery - Control and Scale in One Platform"
       : title;
   const heroDescription =
     key === "on-premises"
       ? "Run enterprise-grade eDiscovery entirely inside your environment, with dedicated performance and complete control over sensitive data."
+      : key === "hybrid"
+      ? "Run sensitive matters on‑prem while scaling high‑volume discovery to the cloud, all within Venio’s unified eDiscovery environment."
       : description;
-  const isModernLayout = key === "cloud" || key === "on-premises";
+  const isModernLayout = key === "cloud" || key === "on-premises" || key === "hybrid";
 
   if (typeof document !== "undefined") {
     document.title = `${title} - Venio Systems`;
@@ -119,16 +123,18 @@ const DeploymentType = () => {
               <p className="text-white/85 text-base max-w-3xl leading-relaxed mx-auto mt-4">
                 <span className="border-b-2 border-white/50 pb-1">Explore Venio Cloud</span>
               </p>
-            ) : key === "on-premises" ? (
-              <p className="text-white/80 text-base max-w-3xl leading-relaxed mx-auto mt-4">
-                Built for corporates, law firms, legal service providers, and government teams handling high-stakes discovery.
+            ) : key === "hybrid" ? (
+              <p className="text-white/85 text-base max-w-3xl leading-relaxed mx-auto mt-4">
+                <span className="border-b-2 border-white/50 pb-1">Explore Venio On‑Demand</span>
               </p>
             ) : null}
             <div className="mt-8 flex gap-3 justify-center">
               {isModernLayout ? (
                 <>
                   <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white px-6 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
-                    <Link to="/book-a-demo">{key === "cloud" ? "Book a Cloud Demo" : "Get a Free Demo"}</Link>
+                    <Link to={key === "cloud" ? "/book-a-demo" : "#what-powers"}>
+                      {key === "cloud" ? "Book a Cloud Demo" : key === "hybrid" ? "Explore Venio On‑Demand" : "Explore Venio On‑Prem"}
+                    </Link>
                   </Button>
                   <Button asChild size="lg" variant="outline" className="border-white/40 text-white bg-transparent hover:bg-white/20 px-6 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
                     <Link to="#what-powers">See it in Action</Link>
@@ -154,29 +160,42 @@ const DeploymentType = () => {
                 <div className="container mx-auto max-w-6xl">
                   <div className="text-center mb-10">
                     <h2 className="text-3xl md:text-4xl font-bold mb-3">
-                      Who {key === "cloud" ? "Venio Cloud" : "Venio On‑Premises"} Is Built For
+                      {key === "cloud"
+                        ? "Who Venio Cloud Is Built For"
+                        : key === "hybrid"
+                        ? "Who Hybrid Deployment Is Built For"
+                        : "Who On‑Premises Is Built For"}
                     </h2>
                     <p className="text-muted-foreground">
                       {key === "cloud"
                         ? "When speed, scalability, and global collaboration matter more than managing infrastructure."
-                        : "Venio On‑Premises is built for organizations that require full control, strict governance, and data that cannot leave the network."}
+                        : key === "hybrid"
+                        ? "Designed for teams managing matters with varying security, infrastructure, and scalability requirements."
+                        : "When governance is mandatory and data sovereignty is non-negotiable, on‑prem isn’t optional — it’s required."}
                     </p>
                   </div>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {[
-                      key === "cloud"
-                        ? { title: "Corporate Legal Departments", desc: "Rapidly scale discovery for litigation, investigations, and regulatory requests without internal IT constraints.", Icon: Building2 }
-                        : { title: "Law Firms", desc: "Handling large, multi‑matter discovery across clients", Icon: Scale },
-                      key === "cloud"
-                        ? { title: "Law Firms", desc: "Support multiple matters and distributed review teams without worrying about infrastructure capacity.", Icon: Scale }
-                        : { title: "Corporates", desc: "Managing litigation, investigations, and regulatory response", Icon: Building2 },
-                      key === "cloud"
-                        ? { title: "eDiscovery Service Providers", desc: "Spin up new environments instantly to support clients and high‑volume case demands.", Icon: Users }
-                        : { title: "Legal Service Providers", desc: "Managing multiple clients with defensible scale and control", Icon: Users },
-                      key === "cloud"
-                        ? { title: "Global Enterprises", desc: "Enable cross‑office collaboration and external counsel access without complex infrastructure setup.", Icon: Globe2 }
-                        : { title: "Government", desc: "Responding to FOIA, investigations, and enforcement actions", Icon: Landmark },
-                    ].map(({ title, desc, Icon }, index) => (
+                    {(key === "cloud"
+                      ? [
+                          { title: "Corporate Legal Departments", desc: "Rapidly scale discovery for litigation, investigations, and regulatory requests without internal IT constraints.", Icon: Building2 },
+                          { title: "Law Firms", desc: "Support multiple matters and distributed review teams without worrying about infrastructure capacity.", Icon: Scale },
+                          { title: "eDiscovery Service Providers", desc: "Spin up new environments instantly to support clients and high‑volume case demands.", Icon: Users },
+                          { title: "Global Enterprises", desc: "Enable cross‑office collaboration and external counsel access without complex infrastructure setup.", Icon: Globe2 },
+                        ]
+                      : key === "hybrid"
+                      ? [
+                          { title: "Global Enterprises", desc: "Balance sensitive investigations with high‑volume litigation across different environments.", Icon: Globe2 },
+                          { title: "Law Firms Managing Mixed Matters", desc: "Keep confidential cases on‑prem while leveraging cloud infrastructure for large reviews.", Icon: Scale },
+                          { title: "eDiscovery Service Providers", desc: "Support clients with varying security requirements using flexible deployment options.", Icon: Users },
+                          { title: "Organizations with Fluctuating Workloads", desc: "Maintain stable infrastructure while bursting to the cloud during data surges.", Icon: Zap },
+                        ]
+                      : [
+                          { title: "Government & Public Sector", desc: "Classified and citizen‑sensitive data that cannot leave secure networks.", Icon: Landmark },
+                          { title: "Law Enforcement", desc: "Active investigations and digital evidence requiring closed environments.", Icon: Shield },
+                          { title: "Financial Institutions", desc: "Strict regulatory mandates and zero‑tolerance data exposure.", Icon: Building2 },
+                          { title: "Highly Regulated Industries", desc: "Healthcare, energy, and defense sectors demanding full infrastructure control.", Icon: ShieldCheck },
+                        ]
+                    ).map(({ title, desc, Icon }, index) => (
                       <Card key={title} className="rounded-2xl bg-white border border-border/40 shadow-sm animate-fade-in transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ animationDelay: `${0.1 + index * 0.05}s` }}>
                         <CardContent className="p-6 text-center">
                           <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4">
@@ -189,7 +208,7 @@ const DeploymentType = () => {
                     ))}
                   </div>
                   <p className="text-center text-sm text-muted-foreground mt-8">
-                    If your discovery work cannot tolerate downtime, data exposure, or unpredictable costs, {key === "cloud" ? "Venio Cloud" : "Venio On‑Premises"} is designed for you.
+                    If your discovery work cannot tolerate downtime, data exposure, or unpredictable costs, {key === "cloud" ? "Venio Cloud" : key === "hybrid" ? "Venio Hybrid" : "Venio On‑Premises"} is designed for you.
                   </p>
                 </div>
               </section>
@@ -203,7 +222,7 @@ const DeploymentType = () => {
                     <p className="text-muted-foreground">
                       {key === "cloud"
                         ? "Built for organizations that need enterprise-grade discovery with instant scalability and zero infrastructure burden."
-                        : "Get enterprise eDiscovery with full control over data, infrastructure, and governance—without sacrificing performance or features."}
+                        : "Built for organizations that demand total control without sacrificing capability, innovation, or scalability."}
                     </p>
                   </div>
                   <div className="grid md:grid-cols-2 gap-6">
@@ -214,11 +233,18 @@ const DeploymentType = () => {
                           { title: "Managed Infrastructure", desc: "Venio handles infrastructure maintenance, updates, and system performance." },
                           { title: "Unified Platform Architecture", desc: "ECA, review, production, and legal hold operate in a single cloud environment without workflow fragmentation." },
                         ]
+                      : key === "hybrid"
+                      ? [
+                          { title: "Environment Flexibility", desc: "Run sensitive matters on‑prem while scaling other projects to the cloud." },
+                          { title: "Unified Platform Workflow", desc: "ECA, review, production, and legal hold remain within the same Venio ecosystem across environments." },
+                          { title: "Workload Bursting", desc: "Move high‑volume processing or review tasks to the cloud when workloads spike." },
+                          { title: "Operational Continuity", desc: "Manage all matters through one interface without switching between different platforms." },
+                        ]
                       : [
-                          { title: "Data Sovereignty", desc: "Keep sensitive matter data inside your environment to meet security, residency, and governance requirements." },
-                          { title: "Air‑Gapped Options", desc: "Support highly restricted environments where the platform must run completely disconnected from the internet." },
-                          { title: "Predictable Economics", desc: "Avoid recurring per‑GB cloud storage fees and align long‑running matter cost to your infrastructure strategy." },
-                          { title: "Dedicated Performance", desc: "No shared tenants and no throttling—maximize throughput with infrastructure you control." },
+                          { title: "Long‑Term Cost Predictability", desc: "Avoid escalating cloud consumption fees. Control infrastructure investment and scale on your terms." },
+                          { title: "Unified Platform Architecture", desc: "ECA, review, production, and legal hold operate within one seamless environment." },
+                          { title: "True Data Sovereignty", desc: "All data processing, storage, indexing, and review stay entirely within your infrastructure and not routed through external services." },
+                          { title: "Zero Feature Downgrade", desc: "Venio On‑Prem runs the exact same codebase, AI models, and workflows as our cloud platform." },
                         ]
                     ).map((item, index) => (
                       <Card key={item.title} className="rounded-2xl bg-white border border-border/40 shadow-sm animate-fade-in transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ animationDelay: `${0.1 + index * 0.05}s` }}>
@@ -238,12 +264,18 @@ const DeploymentType = () => {
                 <div className="container mx-auto max-w-6xl">
                   <div className="text-center mb-10">
                     <h2 className="text-3xl md:text-4xl font-bold mb-3">
-                      {key === "cloud" ? "Why Legal Teams Are Moving Discovery to the Cloud" : "Why On‑Prem Still Leads in High‑Stakes Environments"}
+                      {key === "cloud"
+                        ? "Why Legal Teams Are Moving Discovery to the Cloud"
+                        : key === "hybrid"
+                        ? "Why Hybrid eDiscovery Is the Strategic Middle Ground"
+                        : "Why On‑Prem Still Leads in High‑Stakes Environments"}
                     </h2>
                     <p className="text-muted-foreground">
                       {key === "cloud"
                         ? "Cloud deployment removes infrastructure barriers, allowing teams to focus on discovery workflows rather than system management."
-                        : "When data sensitivity is non‑negotiable, on‑premises keeps discovery fast, compliant, and inside your control."}
+                        : key === "hybrid"
+                        ? "Hybrid deployment lets organizations balance security mandates with operational scalability."
+                        : "For organizations operating under strict mandates, keeping eDiscovery behind the firewall isn’t legacy thinking — it’s strategic risk management."}
                     </p>
                   </div>
                   <div className="grid md:grid-cols-2 gap-6">
@@ -254,10 +286,17 @@ const DeploymentType = () => {
                           { title: "Global Collaboration", desc: "Enable secure access for internal teams, outside counsel, and reviewers from anywhere.", Icon: Globe2 },
                           { title: "Lower Infrastructure Burden", desc: "Eliminate the operational overhead of maintaining servers, storage, and upgrades.", Icon: Cog },
                         ]
+                      : key === "hybrid"
+                      ? [
+                          { title: "Flexible Infrastructure Strategy", desc: "Choose the right environment for each matter without being locked into one deployment model.", Icon: Workflow },
+                          { title: "Optimized Cost Efficiency", desc: "Keep steady workloads on‑prem while scaling cloud resources only when needed.", Icon: DollarSign },
+                          { title: "Operational Resilience", desc: "Distribute workloads across environments to prevent infrastructure bottlenecks.", Icon: Network },
+                          { title: "Future‑Ready Architecture", desc: "Adapt quickly as data volumes, regulatory requirements, or case demands evolve.", Icon: Gauge },
+                        ]
                       : [
-                          { title: "Maximum Data Control", desc: "Keep evidence and work product fully contained within your internal network perimeter.", Icon: Shield },
-                          { title: "Restricted Network Readiness", desc: "Support environments where external connectivity is limited or prohibited.", Icon: Lock },
-                          { title: "Infrastructure Alignment", desc: "Leverage existing hardware and security tooling while maintaining predictable performance.", Icon: Server },
+                          { title: "Absolute Data Control", desc: "Maintain full ownership of storage, processing, indexing, and review environments without relying on external infrastructure.", Icon: Shield },
+                          { title: "Stronger Compliance Alignment", desc: "Align directly with regulatory frameworks, internal governance policies, and client‑mandated infrastructure requirements.", Icon: Scale },
+                          { title: "Cost Predictability", desc: "Eliminate unpredictable cloud consumption spikes. Capital investments can be forecasted and controlled.", Icon: TrendingDown },
                         ]
                     ).map(({ title, desc, Icon }, index) => (
                       <Card key={title} className="rounded-2xl bg-white border border-border/40 shadow-sm animate-fade-in transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ animationDelay: `${0.1 + index * 0.05}s` }}>
@@ -274,84 +313,19 @@ const DeploymentType = () => {
                 </div>
               </section>
 
-              <section className="py-20 px-6 bg-white border-t border-border/50 animate-fade-in" style={{ animationDelay: "0.05s" }}>
-                <div className="container mx-auto max-w-7xl">
-                  <div className="grid lg:grid-cols-2 gap-10 items-center">
-                    <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-                      <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                        {key === "cloud" ? "Architecture of Isolation." : "Inside Your Firewall Architecture."}
-                      </h2>
-                      <p className="text-muted-foreground mb-6">
-                        {key === "cloud"
-                          ? "Unlike shared‑everything providers, Venio Cloud offers single‑tenant isolation. Your data sits in a dedicated instance, ensuring no commingling with other clients."
-                          : "Venio On‑Premises runs entirely within your environment. Maintain complete control over data access, security posture, and infrastructure strategy."}
-                      </p>
-                      <div className="space-y-4">
-                        {(key === "cloud"
-                          ? [
-                              { title: "Regional Residency", desc: "Choose your hosting region (US, EU, Canada, Asia) to comply with localized data transfer laws.", Icon: Globe2 },
-                              { title: "Encrypted by Default", desc: "FIPS‑compliant encryption for all data at rest and in transit.", Icon: LockKeyhole },
-                              { title: "Disaster Recovery", desc: "Automatic multi‑zone backups ensure your work product is never lost during extreme infrastructure events.", Icon: LifeBuoy },
-                            ]
-                          : [
-                              { title: "Air‑Gapped Options", desc: "Support environments where the system must run completely disconnected from the internet.", Icon: ShieldCheck },
-                              { title: "Single Database Architecture", desc: "Reduce complexity and speed up review and production workflows with a unified data model.", Icon: Database },
-                              { title: "Dedicated Resources", desc: "Maximize throughput with infrastructure reserved for your matters and your teams.", Icon: Server },
-                            ]
-                        ).map(({ title, desc, Icon }) => (
-                          <div key={title} className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center">
-                              <Icon className="h-5 w-5 text-accent" />
-                            </div>
-                            <div>
-                              <p className="font-semibold">{title}</p>
-                              <p className="text-sm text-muted-foreground">{desc}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="rounded-3xl bg-primary text-white p-8 border border-white/10 shadow-xl animate-fade-in" style={{ animationDelay: "0.2s" }}>
-                      <div className="flex items-center justify-between text-xs uppercase tracking-wider text-white/70 mb-6">
-                        <span>{key === "cloud" ? "Single‑tenant architecture" : "Behind‑the‑firewall architecture"}</span>
-                        <span>{key === "cloud" ? "Managed cloud" : "Dedicated instance"}</span>
-                      </div>
-                      <div className="rounded-2xl bg-white/10 border border-white/15 p-6">
-                        <div className="flex items-center gap-4 mb-6">
-                          <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center">
-                            <Database className="h-6 w-6 text-white" />
-                          </div>
-                          <div className="h-px flex-1 bg-white/30" />
-                          <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center">
-                            <Network className="h-6 w-6 text-white" />
-                          </div>
-                        </div>
-                        <div className="grid grid-cols-3 gap-3">
-                          {["Worker 1", "Worker 2", "Worker 3"].map((t) => (
-                            <div key={t} className="rounded-xl bg-white/10 border border-white/10 text-center text-xs py-3">{t}</div>
-                          ))}
-                        </div>
-                        <div className="mt-6 text-xs text-white/70 space-y-2">
-                          <p>• Modular load balancing active</p>
-                          <p>• Distributed queue manager status: ready</p>
-                          <p>• Internal API access only</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
 
               <section id="what-powers" className="py-20 px-6 bg-primary text-white border-t border-border/50 animate-fade-in" style={{ animationDelay: "0.05s" }}>
                 <div className="container mx-auto max-w-6xl">
                   <div className="text-center mb-10">
                     <h2 className="text-3xl md:text-4xl font-bold mb-3">
-                      {key === "cloud" ? "What Powers Venio Cloud" : "What Powers Venio On‑Premises"}
+                      {key === "cloud" ? "What Powers Venio Cloud" : key === "hybrid" ? "What Powers Venio Hybrid Deployment" : "What Powers Venio On‑Premises"}
                     </h2>
                     <p className="text-white/80">
                       {key === "cloud"
                         ? "Enterprise-grade eDiscovery delivered through secure, scalable cloud infrastructure."
-                        : "Venio On‑Premises delivers the same end‑to‑end platform with the control and governance of your own infrastructure."}
+                        : key === "hybrid"
+                        ? "One platform that operates seamlessly across cloud and on‑prem environments."
+                        : "The same powerful eDiscovery platform, deployed inside your infrastructure."}
                     </p>
                   </div>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -364,13 +338,22 @@ const DeploymentType = () => {
                           { title: "Unlimited Processing Throughput", desc: "Process large datasets across multiple cases simultaneously without performance slowdowns.", Icon: Gauge },
                           { title: "Workflow Automation", desc: "Automate repetitive discovery tasks to streamline processing, review, and production.", Icon: Cog },
                         ]
+                      : key === "hybrid"
+                      ? [
+                          { title: "Instant Access", desc: "Access the platform immediately from anywhere while keeping sensitive matters in controlled on‑prem environments when required.", Icon: Monitor },
+                          { title: "Scalability & Flexibility", desc: "Scale resources based on case size and workload, shifting processing or review between environments as needed.", Icon: Gauge },
+                          { title: "Time‑Efficient Workflows", desc: "Automation streamlines repetitive tasks like indexing and document preparation to accelerate discovery workflows.", Icon: Cog },
+                          { title: "Seamless Workflow Integration", desc: "Integrates with common enterprise tools such as email systems, document repositories, and collaboration platforms.", Icon: Network },
+                          { title: "Self‑Service Web Interface", desc: "Upload data, analyze, review, and produce documents from a browser‑based platform.", Icon: Monitor },
+                          { title: "Cross‑Environment Collaboration", desc: "Allow internal teams and external counsel to work securely regardless of deployment location.", Icon: Users },
+                        ]
                       : [
-                          { title: "Processing Performance", desc: "Dedicated infrastructure tuned for throughput on high‑volume matters.", Icon: Gauge },
-                          { title: "Air‑Gapped Deployment", desc: "Support environments where evidence must remain fully disconnected from the internet.", Icon: ShieldCheck },
-                          { title: "Single Database", desc: "Unified data model reduces complexity and accelerates end‑to‑end workflows.", Icon: Database },
-                          { title: "Built‑in AI", desc: "Defensible AI capabilities to prioritize, cluster, and accelerate review without compromise.", Icon: Brain },
-                          { title: "Production Workflows", desc: "Generate exports in standard formats with slipsheets, Bates stamping, and audit logs.", Icon: FileText },
-                          { title: "Automation & Audit Trails", desc: "Reduce manual steps with automation and auditability designed for defensibility.", Icon: Cog },
+                          { title: "Customer‑Hosted Infrastructure", desc: "Deploy Venio entirely within your own data center and hardware environment, fully managed by your internal IT team.", Icon: Server },
+                          { title: "Air‑Gapped Deployment Support", desc: "Operate the platform within isolated or restricted networks where external internet connectivity is prohibited.", Icon: ShieldCheck },
+                          { title: "Native Active Directory Integration", desc: "Authenticate users and manage permissions directly through existing enterprise identity systems like Active Directory.", Icon: LockKeyhole },
+                          { title: "Direct SAN / NAS Storage Integration", desc: "Connect Venio to existing enterprise storage systems without requiring external or cloud storage layers.", Icon: Database },
+                          { title: "Controlled Update & Patch Management", desc: "IT teams control when and how platform updates are deployed, aligning with internal change management policies.", Icon: Cog },
+                          { title: "Infrastructure‑Level Security Controls", desc: "Leverage your organization’s existing firewalls, network monitoring, encryption standards, and security frameworks.", Icon: Shield },
                         ]
                     ).map(({ title, desc, Icon }, index) => (
                       <Card key={title} className="rounded-2xl bg-white text-primary border border-white/10 shadow-sm animate-fade-in transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ animationDelay: `${0.1 + index * 0.05}s` }}>
@@ -461,18 +444,24 @@ const DeploymentType = () => {
                 </div>
               </section>
 
-              <section className="py-20 px-6 bg-gradient-to-r from-[#3DC47E] to-[#2FA964] text-white border-t border-border/50 animate-fade-in" style={{ animationDelay: "0.05s" }}>
+              <section className="py-20 px-6 bg-gradient-to-r from-primary via-primary/95 to-primary text-white border-t border-border/50 animate-fade-in relative overflow-hidden" style={{ animationDelay: "0.05s" }}>
+                <div className="absolute inset-0">
+                  <div className="absolute top-10 left-20 w-64 h-64 bg-accent/20 rounded-full blur-3xl animate-pulse"></div>
+                  <div className="absolute bottom-10 right-20 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-pulse delay-500"></div>
+                </div>
                 <div className="container mx-auto max-w-5xl text-center">
                   <h2 className="text-3xl md:text-4xl font-bold mb-3">
-                    {key === "cloud" ? "Start eDiscovery in Minutes, Not Weeks" : "Your Data. Your Infrastructure. Your Control."}
+                    {key === "cloud" ? "Start eDiscovery in Minutes, Not Weeks" : key === "hybrid" ? "One Platform. Two Environments. Unlimited Flexibility." : "Your Data. Your Infrastructure. Your Control."}
                   </h2>
                   <p className="text-white/90 max-w-2xl mx-auto mb-6">
                     {key === "cloud"
                       ? "Spin up secure environments instantly and scale discovery operations without managing infrastructure."
+                      : key === "hybrid"
+                      ? "See how Venio Hybrid adapts to your organization’s security requirements and workload demands."
                       : "Enterprise eDiscovery behind your firewall with full control over security, governance, and performance."}
                   </p>
                   <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 px-8 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
-                    <Link to="/book-a-demo">{key === "cloud" ? "Book a Cloud Demo" : "Get a Free Demo"}</Link>
+                    <Link to="/book-a-demo">{key === "cloud" ? "Book a Cloud Demo" : key === "hybrid" ? "Request an On‑Demand Demo" : "Request an On-Prem Demo"}</Link>
                   </Button>
                 </div>
               </section>

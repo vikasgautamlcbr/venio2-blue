@@ -1,35 +1,38 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles, Shield, Zap, Brain, Globe } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import endToEndPlatformVideo from "@/assets/resources/1-Motion-End-To-End.mp4";
-import flexibleDeploymentVideo from "@/assets/resources/3-Flexible Deployment.mp4";
+import endToEndVideo from "@/assets/hero images/1 - End to End.mp4";
+import emailThreadingVideo from "@/assets/hero images/2-Email threading.mp4";
+import hybridDeploymentVideo from "@/assets/hero images/3-Hybrid Deployment.mp4";
+import productionVideo from "@/assets/hero images/4 - Production.mp4";
 
 const HeroSection = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [videoProgress, setVideoProgress] = useState<number[]>([0, 0, 0, 0]);
   const videoRef = useRef<HTMLVideoElement>(null);
   const lastProgressUpdateRef = useRef<number>(0);
+  const [videoReady, setVideoReady] = useState(false);
 
   const tabs = [
     {
       icon: Shield,
-      title: "End-to-End Platform",
-      videoUrl: endToEndPlatformVideo
+      title: "End-to-End",
+      videoUrl: endToEndVideo
     },
     {
       icon: Brain,
-      title: "AI-Powered Review",
-      videoUrl: "/videos/venio-ai-review.mp4"
+      title: "Email Threading",
+      videoUrl: emailThreadingVideo
     },
     {
       icon: Zap,
-      title: "Flexible Deployment",
-      videoUrl: flexibleDeploymentVideo
+      title: "Hybrid Deployment",
+      videoUrl: hybridDeploymentVideo
     },
     {
       icon: Globe,
-      title: "Cull Data Early",
-      videoUrl: "/videos/venio-eca.mp4"
+      title: "Production",
+      videoUrl: productionVideo
     }
   ];
 
@@ -42,17 +45,23 @@ const HeroSection = () => {
     });
     
     // Move to next tab
+    setVideoReady(false);
     setActiveTab((prev) => (prev + 1) % tabs.length);
   };
 
   const handleTabClick = (index: number) => {
+    setVideoReady(false);
     setActiveTab(index);
   };
 
   useEffect(() => {
     if (videoRef.current) {
+      setVideoReady(false);
       videoRef.current.load();
-      videoRef.current.play().catch(err => console.log("Video autoplay prevented:", err));
+      const playPromise = videoRef.current.play();
+      if (playPromise && typeof playPromise.then === "function") {
+        playPromise.catch(() => {});
+      }
     }
   }, [activeTab]);
 
@@ -77,9 +86,14 @@ const HeroSection = () => {
 
     const video = videoRef.current;
     video.addEventListener('timeupdate', updateProgress);
+    const markReady = () => setVideoReady(true);
+    video.addEventListener('loadeddata', markReady);
+    video.addEventListener('canplay', markReady);
 
     return () => {
       video.removeEventListener('timeupdate', updateProgress);
+      video.removeEventListener('loadeddata', markReady);
+      video.removeEventListener('canplay', markReady);
     };
   }, [activeTab]);
 
@@ -185,7 +199,7 @@ const HeroSection = () => {
                     key={activeTab}
                     ref={videoRef}
                     src={tabs[activeTab].videoUrl}
-                    className="block w-full h-full object-cover"
+                    className={`block w-full h-full object-cover transition-opacity duration-500 ${videoReady ? "opacity-100" : "opacity-0"}`}
                     onEnded={handleVideoEnd}
                     preload="auto"
                     playsInline
