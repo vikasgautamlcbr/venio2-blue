@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollProgressIndicator } from "@/components/ScrollProgressIndicator";
-import { ScrollFeatureAccordion } from "@/components/ScrollFeatureAccordion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import {
@@ -13,12 +12,15 @@ import {
   Sparkles,
   ArrowRight,
   BarChart3,
+  Zap,
   Brain,
   Database,
   Server,
   FileCheck,
-  Upload
+  Upload,
+  Bell
 } from "lucide-react";
+import { motion } from "framer-motion";
 import CTABanner from "@/components/CTABanner";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -30,6 +32,15 @@ import { useState, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { LucideIcon } from "lucide-react";
 import ediscoveryHeroImage from "@/assets/hero images/venio ediscovery.png";
+import analysisHeroImage from "@/assets/hero images/Analysis.png";
+import legalHoldHeroImage from "@/assets/hero images/legal hold.png";
+import productionHeroImage from "@/assets/hero images/production.png";
+import reviewHeroImage from "@/assets/hero images/review.png";
+import aiPoweredPoster from "@/assets/why-venio-assets/AI-Powered.png";
+import earlyCaseAssessmentImage from "@/assets/why-venio-assets/Early Case Assessment.png";
+import legalHoldAutomationImage from "@/assets/why-venio-assets/Legal Hold Automation.png";
+import productionExportImage from "@/assets/why-venio-assets/Production & Export.png";
+import secureIngestionImage from "@/assets/why-venio-assets/Secure Ingestion.png";
 import adoptionWithoutFrictionVideo from "@/assets/videos/Venio eDiscovery Overview Benefits/Adoption Without Friction.mp4";
 import builtInDefensibilityVideo from "@/assets/videos/Venio eDiscovery Overview Benefits/Built-In Defensibility.mp4";
 import costDisciplineAtScaleVideo from "@/assets/videos/Venio eDiscovery Overview Benefits/Cost Discipline at Scale.mp4";
@@ -38,6 +49,7 @@ import flexibleDeploymentVideo from "@/assets/videos/Venio eDiscovery Overview B
 
 const sections = [
   { id: "hero", label: "Overview" },
+  { id: "modules-split", label: "Modules" },
   { id: "data", label: "Impact" },
   { id: "demo", label: "Demo" },
   { id: "features", label: "Features" },
@@ -49,6 +61,7 @@ const VenioEDiscovery = () => {
   const [isDemoDialogOpen, setIsDemoDialogOpen] = useState(false);
   const [isDemoUnlocked, setIsDemoUnlocked] = useState(false);
   const [isBookDemoDialogOpen, setIsBookDemoDialogOpen] = useState(false);
+  const [activeModuleSplit, setActiveModuleSplit] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -156,6 +169,171 @@ const VenioEDiscovery = () => {
               <img src={ediscoveryHeroImage} alt="Venio eDiscovery" className="h-full w-full object-contain" draggable={false} />
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="modules-split" className="py-24 px-6 bg-muted/30">
+        <div className="container mx-auto max-w-7xl">
+          {(() => {
+            const modules = [
+              { title: "Venio Legal Hold", href: "/venio-legal-hold", Icon: Bell, tone: "primary" as const, desc: "Send notices, track acknowledgments, and maintain defensible audit trails.", bullets: ["Automated custodian notices", "Acknowledgment tracking", "Audit-ready reporting"], image: legalHoldHeroImage },
+              { title: "Venio ECA", href: "/venio-eca", Icon: BarChart3, tone: "secondary" as const, desc: "Find signal early with search and analytics to reduce volume and cost.", bullets: ["Search & filtering", "Visual analytics", "Defensible reduction"], image: analysisHeroImage },
+              { title: "Venio Review", href: "/venio-review", Icon: Brain, tone: "accent" as const, desc: "Accelerate review with AI assistance, tagging workflows, and quality control.", bullets: ["AI prioritization", "Smart tagging", "Integrated QC"], image: reviewHeroImage },
+              { title: "Venio Production", href: "/venio-production", Icon: FileText, tone: "primary" as const, desc: "Produce with slipsheets, Bates, and standard load files — consistently and fast.", bullets: ["Bates & slipsheets", "Standard exports", "Load file generation"], image: productionHeroImage },
+            ];
+            const toneAccent = (t: "primary" | "secondary" | "accent") => (t === "primary" ? "text-primary" : t === "secondary" ? "text-secondary" : "text-accent");
+            const toneTint = (t: "primary" | "secondary" | "accent") => (t === "primary" ? "bg-primary/10" : t === "secondary" ? "bg-secondary/10" : "bg-accent/10");
+            const toneBorder = (t: "primary" | "secondary" | "accent") => (t === "primary" ? "border-primary/20" : t === "secondary" ? "border-secondary/20" : "border-accent/20");
+            const active = modules[Math.min(activeModuleSplit, modules.length - 1)];
+            return (
+              <div className="relative">
+                <motion.div
+                  className="absolute -top-10 -left-10 w-64 h-64 rounded-full bg-accent/20 blur-3xl"
+                  animate={{ scale: [1, 1.06, 1], opacity: [0.15, 0.25, 0.15] }}
+                  transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute -bottom-10 -right-10 w-80 h-80 rounded-full bg-primary/20 blur-3xl"
+                  animate={{ scale: [1, 1.05, 1], opacity: [0.15, 0.25, 0.15] }}
+                  transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
+                />
+                <div className="relative p-10 lg:p-12">
+                  <div className="text-center mb-10">
+                    <h3 className="text-3xl md:text-4xl font-heading font-bold mb-3">Integrated modules. Singular Control</h3>
+                    <p className="text-muted-foreground max-w-3xl mx-auto">End-to-end eDiscovery from first notice to final production — without the platform juggling.</p>
+                  </div>
+                  <div className="grid lg:grid-cols-[0.55fr_1.45fr] gap-10 items-start">
+                    <div>
+                      <div className="flex flex-col gap-2" style={{ perspective: 1200 }}>
+                        {modules.map((m, i) => (
+                          (() => {
+                            const isActive = activeModuleSplit === i;
+                            const activeText = "text-[#3DC47E]";
+                            const activeGlow = "shadow-[0_22px_60px_-35px_rgba(61,196,126,0.65)]";
+                            const activeBg = "bg-white/70";
+                            const idleBg = "bg-white/55";
+                            return (
+                          <motion.button
+                            key={m.title}
+                            type="button"
+                            className={`group relative rounded-xl overflow-hidden text-left px-4 py-3 flex items-center gap-3 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow min-h-[76px] ${isActive ? `${activeBg} ${activeGlow}` : idleBg}`}
+                            whileHover={{ scale: 1.02, x: 4, rotateY: -8 }}
+                            transition={{ duration: 0.18 }}
+                            style={{ transformStyle: "preserve-3d" }}
+                            onMouseEnter={() => setActiveModuleSplit(i)}
+                            onFocus={() => setActiveModuleSplit(i)}
+                            onClick={() => setActiveModuleSplit(i)}
+                          >
+                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(61,196,126,0.08),transparent_60%),radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.06),transparent_60%)] opacity-60" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-white/18 via-white/0 to-white/18" />
+                            <div className="absolute -inset-1 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ background: "linear-gradient(135deg, rgba(61,196,126,0.16), rgba(59,130,246,0.10))", filter: "blur(18px)" }} />
+                            <div className={`w-1.5 h-8 rounded-full bg-[#3DC47E] transition-opacity ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
+                            <div className="w-9 h-9 rounded-xl bg-white/55 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_18px_40px_-30px_rgba(0,0,0,0.28)]">
+                              <m.Icon className="w-4 h-4 text-[#3DC47E]" />
+                            </div>
+                            <div className={`text-sm font-semibold ${isActive ? activeText : ""}`}>{m.title}</div>
+                          </motion.button>
+                            );
+                          })()
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <motion.div
+                        className="relative rounded-2xl bg-white/80 shadow-sm p-8 overflow-hidden"
+                        style={{ transformStyle: "preserve-3d" }}
+                        whileHover={{ rotateX: -2, rotateY: 2, y: -2 }}
+                        transition={{ type: "spring", stiffness: 220, damping: 22 }}
+                      >
+                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(61,196,126,0.18),transparent_55%),radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.14),transparent_55%)]" />
+                        <motion.div
+                          className="absolute -inset-1 rounded-2xl opacity-30"
+                          key={active.title}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 0.3 }}
+                          transition={{ duration: 0.3 }}
+                          style={{ background: "linear-gradient(135deg, rgba(61,196,126,0.25), rgba(59,130,246,0.18))", filter: "blur(22px)" }}
+                        />
+                        <div className="relative z-10 grid md:grid-cols-[1fr_340px] gap-8 items-center">
+                          <div>
+                            <div className="flex items-start gap-4">
+                              <div className={`w-12 h-12 rounded-xl ${toneTint(active.tone)} border ${toneBorder(active.tone)} flex items-center justify-center`}>
+                                <active.Icon className={`w-6 h-6 ${toneAccent(active.tone)}`} />
+                              </div>
+                              <div className="flex-1">
+                                <div className="text-xl font-heading font-bold">{active.title}</div>
+                                <div className="text-sm text-muted-foreground mt-2">{active.desc}</div>
+                              </div>
+                            </div>
+                            <div className="mt-4 grid gap-2">
+                              {active.bullets.map((b, idx) => (
+                                <motion.div
+                                  key={b}
+                                  className="inline-flex items-center rounded-full px-3 py-1.5 text-sm bg-white/55 backdrop-blur-sm border border-white/70 text-foreground shadow-[0_10px_30px_-20px_rgba(0,0,0,0.25)] w-fit"
+                                  initial={{ opacity: 0, y: 6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ duration: 0.25, delay: idx * 0.06 }}
+                                >
+                                  {b}
+                                </motion.div>
+                              ))}
+                            </div>
+                            <div className="mt-5">
+                              <Button asChild className="bg-accent hover:bg-accent/90 text-white">
+                                <Link to={active.href}>Learn more</Link>
+                              </Button>
+                            </div>
+                          </div>
+
+                          <div className="relative w-full h-[260px] flex items-center justify-center">
+                            <img
+                              src={active.image}
+                              alt={`${active.title} screenshot`}
+                              className="max-h-full max-w-full object-contain drop-shadow-[0_30px_70px_rgba(0,0,0,0.18)]"
+                              draggable={false}
+                            />
+                          </div>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
+                  <div className="grid lg:hidden gap-6 mt-10">
+                    {modules.map((m, i) => {
+                      const isActive = activeModuleSplit === i;
+                      return (
+                        <div key={m.title} className="rounded-2xl bg-white border border-border/40 shadow-sm overflow-hidden">
+                          <button type="button" className="w-full text-left p-6 flex items-center gap-3" onClick={() => setActiveModuleSplit(i)}>
+                            <div className={`w-11 h-11 rounded-2xl ${toneTint(m.tone)} border ${toneBorder(m.tone)} flex items-center justify-center`}>
+                              <m.Icon className="w-5 h-5 text-[#3DC47E]" />
+                            </div>
+                            <div className="text-lg font-semibold">{m.title}</div>
+                          </button>
+                          <motion.div initial={false} animate={{ height: isActive ? "auto" : 0, opacity: isActive ? 1 : 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
+                            <div className="px-6 pb-6">
+                              <div className="text-sm text-muted-foreground">{m.desc}</div>
+                              <div className="mt-4 grid gap-2">
+                                {m.bullets.map((b) => (
+                                  <div key={b} className="flex items-center gap-2 text-sm">
+                                    <span className={`inline-block w-1.5 h-1.5 rounded-full ${m.tone === "primary" ? "bg-primary" : m.tone === "secondary" ? "bg-secondary" : "bg-accent"}`} />
+                                    <span>{b}</span>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="mt-5">
+                                <Button asChild variant="outline">
+                                  <Link to={m.href}>Learn more</Link>
+                                </Button>
+                              </div>
+                            </div>
+                          </motion.div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </section>
 
@@ -282,8 +460,200 @@ const VenioEDiscovery = () => {
         </div>
       </section>
 
-      {/* Features Accordion */}
-      <ScrollFeatureAccordion title="End-to-end eDiscovery Management Platform" subtitle="Everything you need to manage eDiscovery efficiently and defensibly" />
+      <section id="features" className="py-24 px-6 bg-muted/30">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-heading font-bold mb-4">Your eDiscovery Journey with Venio</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Follow the complete workflow from legal hold to production—all in one unified platform
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto relative">
+            <div className="absolute left-8 top-20 h-[calc(100%-280px)] w-1 bg-gradient-to-b from-accent via-secondary to-primary rounded-full hidden md:block"></div>
+            <div className="space-y-8">
+              <div className="relative group">
+                <div className="glass rounded-3xl p-8 md:p-10 border-2 border-transparent hover:border-accent/30 transition-all duration-500 hover:shadow-2xl">
+                  <div className="grid md:grid-cols-12 gap-8 items-center">
+                    <div className="md:col-span-1">
+                      <div className="relative">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                          1
+                        </div>
+                        <div className="absolute inset-0 bg-accent/30 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+                      </div>
+                    </div>
+                    <div className="md:col-span-7">
+                      <h3 className="text-2xl font-bold text-primary mb-3 flex items-center gap-3">
+                        <Database className="h-7 w-7 text-accent" />
+                        Secure Data Ingestion
+                      </h3>
+                      <p className="text-muted-foreground mb-4 leading-relaxed">
+                        Collect from O365, Google Workspace, Slack, file shares, and forensic sources. Native format preservation with chain-of-custody maintained.
+                      </p>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Multi-source</span>
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Encrypted transfer</span>
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Format preservation</span>
+                      </div>
+                    </div>
+                    <div className="md:col-span-4">
+                      <div className="aspect-video rounded-2xl relative overflow-hidden">
+                        <img src={secureIngestionImage} alt="Secure Data Ingestion" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative group">
+                <div className="glass rounded-3xl p-8 md:p-10 border-2 border-transparent hover:border-accent/30 transition-all duration-500 hover:shadow-2xl">
+                  <div className="grid md:grid-cols-12 gap-8 items-center">
+                    <div className="md:col-span-1">
+                      <div className="relative">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                          2
+                        </div>
+                        <div className="absolute inset-0 bg-accent/30 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+                      </div>
+                    </div>
+                    <div className="md:col-span-7">
+                      <h3 className="text-2xl font-bold text-primary mb-3 flex items-center gap-3">
+                        <Zap className="h-7 w-7 text-accent" />
+                        Early Case Assessment
+                      </h3>
+                      <p className="text-muted-foreground mb-4 leading-relaxed">
+                        Rapid sampling, culling, and analytics to reduce data volume by up to 90% before review. Understand your case early and make informed decisions.
+                      </p>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Fast analytics</span>
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">90% reduction</span>
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Visual insights</span>
+                      </div>
+                    </div>
+                    <div className="md:col-span-4">
+                      <div className="aspect-video rounded-2xl relative overflow-hidden">
+                        <img src={earlyCaseAssessmentImage} alt="Early Case Assessment" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative group">
+                <div className="glass rounded-3xl p-8 md:p-10 border-2 border-transparent hover:border-accent/30 transition-all duration-500 hover:shadow-2xl">
+                  <div className="grid md:grid-cols-12 gap-8 items-center">
+                    <div className="md:col-span-1">
+                      <div className="relative">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                          3
+                        </div>
+                        <div className="absolute inset-0 bg-accent/30 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+                      </div>
+                    </div>
+                    <div className="md:col-span-7">
+                      <h3 className="text-2xl font-bold text-primary mb-3 flex items-center gap-3">
+                        <Brain className="h-7 w-7 text-accent" />
+                        AI-Powered Review
+                      </h3>
+                      <p className="text-muted-foreground mb-4 leading-relaxed">
+                        Continuous Active Learning (CAL), predictive coding, email threading, near-duplicate detection. Reduce manual review by 70% while improving accuracy.
+                      </p>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">CAL/TAR</span>
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Predictive coding</span>
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">70% faster</span>
+                      </div>
+                    </div>
+                    <div className="md:col-span-4">
+                      <div className="aspect-video rounded-2xl relative overflow-hidden">
+                        <img src={aiPoweredPoster} alt="AI-Powered Review" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative group">
+                <div className="glass rounded-3xl p-8 md:p-10 border-2 border-transparent hover:border-accent/30 transition-all duration-500 hover:shadow-2xl">
+                  <div className="grid md:grid-cols-12 gap-8 items-center">
+                    <div className="md:col-span-1">
+                      <div className="relative">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                          4
+                        </div>
+                        <div className="absolute inset-0 bg-accent/30 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+                      </div>
+                    </div>
+                    <div className="md:col-span-7">
+                      <h3 className="text-2xl font-bold text-primary mb-3 flex items-center gap-3">
+                        <FileCheck className="h-7 w-7 text-accent" />
+                        Production & Export
+                      </h3>
+                      <p className="text-muted-foreground mb-4 leading-relaxed">
+                        Generate productions in multiple formats (TIFF, native, PDF). Full metadata, privilege logs, and audit reports. Court-ready deliverables.
+                      </p>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Multi-format</span>
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Privilege logs</span>
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Court-ready</span>
+                      </div>
+                    </div>
+                    <div className="md:col-span-4">
+                      <div className="aspect-video rounded-2xl relative overflow-hidden">
+                        <img src={productionExportImage} alt="Production & Export" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative group">
+                <div className="glass rounded-3xl p-8 md:p-10 border-2 border-transparent hover:border-accent/30 transition-all duration-500 hover:shadow-2xl">
+                  <div className="grid md:grid-cols-12 gap-8 items-center">
+                    <div className="md:col-span-1">
+                      <div className="relative">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                          5
+                        </div>
+                        <div className="absolute inset-0 bg-accent/30 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+                      </div>
+                    </div>
+                    <div className="md:col-span-7">
+                      <h3 className="text-2xl font-bold text-primary mb-3 flex items-center gap-3">
+                        <Shield className="h-7 w-7 text-accent" />
+                        Legal Hold Automation
+                      </h3>
+                      <p className="text-muted-foreground mb-4 leading-relaxed">
+                        Trigger custodian notifications, track acknowledgments, and preserve data from day one—with full audit trails for defensibility.
+                      </p>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Auto-notifications</span>
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Audit logs</span>
+                        <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">Compliance tracking</span>
+                      </div>
+                    </div>
+                    <div className="md:col-span-4">
+                      <div className="aspect-video rounded-2xl relative overflow-hidden">
+                        <img src={legalHoldAutomationImage} alt="Legal Hold Automation" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <Button asChild size="lg" className="bg-gradient-to-r from-accent to-secondary text-white hover:opacity-90 shadow-lg hover:shadow-accent/50 transition-all duration-300 hover:scale-105">
+                <Link to="#demo">
+                  See the Platform in Action
+                  <Play className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Case Studies */}
       <CaseStudiesSection />
