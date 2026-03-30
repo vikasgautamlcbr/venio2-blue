@@ -8,6 +8,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import CTABanner from "@/components/CTABanner";
 import { useState } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 
 const typeMap: Record<string, { label: string; Icon: React.ComponentType<{ className?: string }> }> = {
   cloud: { label: "On Cloud", Icon: Cloud },
@@ -358,9 +359,22 @@ const DeploymentType = () => {
                     ).map(({ title, desc, Icon }, index) => (
                       <Card key={title} className="rounded-2xl bg-white text-primary border border-white/10 shadow-sm animate-fade-in transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ animationDelay: `${0.1 + index * 0.05}s` }}>
                         <CardContent className="p-6">
-                          <div className="w-10 h-10 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-4">
-                            <Icon className="h-5 w-5 text-accent" />
-                          </div>
+                          {(() => {
+                            const rawSvg = renderToStaticMarkup(<Icon className="h-5 w-5" />);
+                            const withXmlns = rawSvg.includes("xmlns=")
+                              ? rawSvg
+                              : rawSvg.replace("<svg ", '<svg xmlns="http://www.w3.org/2000/svg" ');
+                            const withColor = withXmlns.includes('style="')
+                              ? withXmlns
+                              : withXmlns.replace("<svg ", '<svg style="color:#3DC47E" ');
+                            const href = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(withColor)}`;
+                            const filename = `${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}.svg`;
+                            return (
+                              <a href={href} download={filename} className="inline-flex w-10 h-10 rounded-2xl bg-accent/10 border border-accent/20 items-center justify-center mb-4 hover:bg-accent/20 transition-colors">
+                                <Icon className="h-5 w-5 text-accent" />
+                              </a>
+                            );
+                          })()}
                           <h3 className="text-lg font-semibold mb-2">{title}</h3>
                           <p className="text-sm text-muted-foreground">{desc}</p>
                         </CardContent>
