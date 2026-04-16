@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
 import { ChevronRight, ChevronLeft, Play } from "lucide-react";
 import {
   Carousel,
@@ -24,8 +23,6 @@ interface TestimonialsSectionProps {
 const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectionProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [api2, setApi2] = useState<CarouselApi>();
-  const [current2, setCurrent2] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const autoplayRef = useRef<NodeJS.Timeout>();
 
@@ -59,6 +56,26 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
     }
   ];
 
+  const videoTestimonial = testimonials[0];
+  const writtenTestimonials = testimonials.slice(1);
+  const slideCount = 1 + writtenTestimonials.length;
+
+  const getCompanyLogo = (company?: string) => {
+    if (!company) return undefined;
+    const normalized = company.toLowerCase();
+    if (normalized.includes("amentum")) return { src: amentumLogo, alt: "Amentum" };
+    if (normalized.includes("array")) return { src: arrayLogo, alt: "Array" };
+    if (normalized.includes("cds")) return { src: cdsLogo, alt: "CDS" };
+    if (normalized.includes("consilio")) return { src: consilioLogo, alt: "Consilio" };
+    if (normalized.includes("epario")) return { src: eparioLogo, alt: "Epario" };
+    if (normalized.includes("haug")) return { src: haugLogo, alt: "Haug Partners" };
+    if (normalized.includes("nixon")) return { src: nixonLogo, alt: "Nixon Peabody" };
+    if (normalized.includes("proteus")) return { src: proteusLogo, alt: "Proteus" };
+    return undefined;
+  };
+
+  const videoCompanyLogo = getCompanyLogo(videoTestimonial?.company);
+
   useEffect(() => {
     if (!api) return;
     setCurrent(api.selectedScrollSnap());
@@ -67,20 +84,12 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
     });
   }, [api]);
 
-  useEffect(() => {
-    if (!api2) return;
-    setCurrent2(api2.selectedScrollSnap());
-    api2.on("select", () => {
-      setCurrent2(api2.selectedScrollSnap());
-    });
-  }, [api2]);
-
   // Auto-advance carousel every 5 seconds
   useEffect(() => {
-    if (!api2 || isHovering) return;
+    if (!api || isHovering) return;
     
     autoplayRef.current = setInterval(() => {
-      api2.scrollNext();
+      api.scrollNext();
     }, 5000);
 
     return () => {
@@ -88,7 +97,7 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
         clearInterval(autoplayRef.current);
       }
     };
-  }, [api2, isHovering]);
+  }, [api, isHovering]);
 
 
   return (
@@ -105,7 +114,11 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
           <div className="max-w-5xl mx-auto relative">
             <div className="rounded-3xl bg-white/90 backdrop-blur-sm shadow-[0_0_60px_rgba(61,196,126,0.22)] transition-all duration-500">
               <div className="p-0 relative">
-            <div className="rounded-3xl overflow-hidden min-h-[450px]">
+            <div
+              className="rounded-3xl overflow-hidden min-h-[450px]"
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
               <Carousel
                 setApi={setApi}
                 opts={{
@@ -118,17 +131,32 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
                 {/* Slide 1: Video Testimonial */}
                 <CarouselItem>
                   <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px] transition-all duration-300 shadow-none">
-                    <div className="grid md:grid-cols-5 gap-8 items-center h-full">
+                    <div className="grid md:grid-cols-5 gap-8 items-stretch h-full">
                       {/* Left side - Text testimonial (2 cols) */}
-                      <div className="md:col-span-2 space-y-6">
-                        <div className="text-5xl text-accent/20 font-serif">"</div>
-                        <p className="text-base text-muted-foreground font-body leading-relaxed -mt-4">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniamelit, sed do eiusmod tempor
+                      <div className="md:col-span-2 flex flex-col h-full">
+                        <div className="text-5xl text-accent/20 font-serif leading-none mb-4">"</div>
+                        <p className="text-sm md:text-base text-muted-foreground/90 font-body leading-relaxed italic flex-grow max-w-prose">
+                          {videoTestimonial?.text ?? ""}
                         </p>
-                        <div>
-                          <p className="font-bold text-primary text-lg">{testimonials[0].author}</p>
-                          <p className="text-muted-foreground font-body text-sm">{testimonials[0].role}</p>
-                          <p className="text-muted-foreground font-body text-sm">{testimonials[0].company}</p>
+                        <div className="pt-6 flex items-center gap-4">
+                          <div className="min-w-0">
+                            <p className="font-bold text-primary text-lg">{videoTestimonial?.author ?? ""}</p>
+                            <p className="text-muted-foreground font-body text-sm">{videoTestimonial?.role ?? ""}</p>
+                            <p className="text-muted-foreground font-body text-sm">{videoTestimonial?.company ?? ""}</p>
+                          </div>
+                          <div className="ml-auto w-24 h-10 rounded-md bg-muted/50 flex items-center justify-center px-3 flex-shrink-0">
+                            {videoCompanyLogo ? (
+                              <img
+                                src={videoCompanyLogo.src}
+                                alt={videoCompanyLogo.alt}
+                                className="h-6 w-auto max-w-full object-contain grayscale brightness-0 opacity-70"
+                              />
+                            ) : (
+                              <span className="text-[10px] text-muted-foreground font-medium tracking-wide uppercase">
+                                Logo
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
 
@@ -147,41 +175,57 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
                 </CarouselItem>
 
                 {/* Slides 2-4: Written Testimonials */}
-                {testimonials.map((testimonial, idx) => (
+                {writtenTestimonials.map((testimonial, idx) => {
+                  const companyLogo = getCompanyLogo(testimonial.company);
+                  return (
                   <CarouselItem key={idx}>
                     <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px] transition-all duration-300 shadow-none">
-                      <div className="grid md:grid-cols-5 gap-8 items-center">
+                      <div className="grid md:grid-cols-5 gap-8 items-stretch h-full">
                         {/* Stats - Left side (2 cols) */}
                         <div className="md:col-span-2 space-y-4">
                           {stats.map((stat, index) => (
-                            <div key={index} className="bg-gradient-to-br from-primary/90 to-accent/80 p-5 rounded-xl border border-white/20 backdrop-blur-sm">
-                              <div className="text-4xl font-bold text-white mb-1">{stat.value}</div>
-                              <p className="text-white/90 font-body text-xs">{stat.label}</p>
+                            <div key={index} className="bg-gradient-to-br from-primary/90 to-accent/80 p-5 rounded-xl border border-white/20 backdrop-blur-sm min-h-[110px] flex flex-col justify-center">
+                              <div className="text-3xl md:text-4xl font-bold text-white mb-2 leading-none tracking-tight break-words">{stat.value}</div>
+                              <p className="text-white/90 font-body text-sm leading-snug">{stat.label}</p>
                             </div>
                           ))}
                         </div>
 
                         {/* Testimonial Text - Right side (3 cols) */}
-                        <div className="md:col-span-3 space-y-6">
-                          <div className="text-5xl text-accent/20 font-serif">"</div>
-                          <p className="text-base text-muted-foreground font-body leading-relaxed -mt-4 italic">
+                        <div className="md:col-span-3 flex flex-col h-full">
+                          <div className="text-5xl text-accent/20 font-serif leading-none mb-4">"</div>
+                          <p className="text-base md:text-lg text-muted-foreground/90 font-body leading-relaxed italic flex-grow max-w-prose">
                             {testimonial.text}
                           </p>
-                          <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-3 pt-6">
                             <div className="w-14 h-14 rounded-full bg-accent flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                               {testimonial.initials}
                             </div>
-                            <div>
+                            <div className="min-w-0">
                               <p className="font-bold text-primary text-base">{testimonial.author}</p>
                               <p className="text-muted-foreground font-body text-sm">{testimonial.role}</p>
                               <p className="text-muted-foreground font-body text-sm">{testimonial.company}</p>
+                            </div>
+                            <div className="ml-auto w-24 h-10 rounded-md bg-muted/50 flex items-center justify-center px-3 flex-shrink-0">
+                              {companyLogo ? (
+                                <img
+                                  src={companyLogo.src}
+                                  alt={companyLogo.alt}
+                                  className="h-6 w-auto max-w-full object-contain grayscale brightness-0 opacity-70"
+                                />
+                              ) : (
+                                <span className="text-[10px] text-muted-foreground font-medium tracking-wide uppercase">
+                                  Logo
+                                </span>
+                              )}
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </CarouselItem>
-                ))}
+                  );
+                })}
                 </CarouselContent>
               </Carousel>
             </div>
@@ -189,7 +233,7 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
             {/* Navigation Buttons - middle left/right edges */}
             <button
               onClick={() => api?.scrollPrev()}
-              className="group absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-0 z-20"
+              className="group absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-150 z-20"
               aria-label="Previous slide"
             >
               <ChevronLeft className="h-6 w-6 text-primary group-hover:text-white" />
@@ -197,7 +241,7 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
 
             <button
               onClick={() => api?.scrollNext()}
-              className="group absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-0 z-20"
+              className="group absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:bg-accent flex items-center justify-center transition-all duration-150 z-20"
               aria-label="Next slide"
             >
               <ChevronRight className="h-6 w-6 text-primary group-hover:text-white" />
@@ -207,7 +251,7 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
           </div>
           {/* Dot indicators outside the placeholder */}
           <div className="flex justify-center gap-2 mt-6">
-            {[0, 1, 2, 3].map((index) => (
+            {Array.from({ length: slideCount }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => api?.scrollTo(index)}
