@@ -115,7 +115,7 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
             <div className="rounded-3xl bg-white/90 backdrop-blur-sm shadow-[0_0_60px_rgba(61,196,126,0.22)] transition-all duration-500">
               <div className="p-0 relative">
             <div
-              className="rounded-3xl overflow-hidden min-h-[450px]"
+              className="rounded-3xl overflow-hidden"
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
             >
@@ -127,10 +127,10 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
                 }}
                 className="w-full"
               >
-                <CarouselContent>
+                <CarouselContent className="!ml-0">
                 {/* Slide 1: Video Testimonial */}
-                <CarouselItem>
-                  <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px] transition-all duration-300 shadow-none">
+                <CarouselItem className="!pl-0">
+                  <div className="glass border-0 bg-[radial-gradient(ellipse_at_top_left,hsl(var(--accent)_/_0.18),transparent_60%),radial-gradient(ellipse_at_bottom_right,hsl(var(--ring)_/_0.16),transparent_60%)] rounded-2xl p-8 md:p-12 transition-all duration-300 shadow-none h-full">
                     <div className="grid md:grid-cols-5 gap-8 items-stretch h-full">
                       {/* Left side - Text testimonial (2 cols) */}
                       <div className="md:col-span-2 flex flex-col h-full">
@@ -161,7 +161,7 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
                       </div>
 
                       {/* Right side - Video placeholder (3 cols) */}
-                      <div className="md:col-span-3 relative aspect-video rounded-xl overflow-hidden glass-dark">
+                      <div className="md:col-span-3 relative aspect-video rounded-xl overflow-hidden glass-dark border-0">
                         <div className="absolute inset-0 flex items-center justify-center">
                           <button className="w-16 h-16 rounded-full bg-accent flex items-center justify-center hover:scale-110 transition-transform glow-accent-hover">
                             <Play className="w-6 h-6 text-white ml-1" fill="white" />
@@ -178,8 +178,8 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
                 {writtenTestimonials.map((testimonial, idx) => {
                   const companyLogo = getCompanyLogo(testimonial.company);
                   return (
-                  <CarouselItem key={idx}>
-                    <div className="glass rounded-2xl p-8 md:p-12 min-h-[450px] transition-all duration-300 shadow-none">
+                  <CarouselItem key={idx} className="!pl-0">
+                    <div className="glass border-0 bg-[radial-gradient(ellipse_at_top_left,hsl(var(--accent)_/_0.18),transparent_60%),radial-gradient(ellipse_at_bottom_right,hsl(var(--ring)_/_0.16),transparent_60%)] rounded-2xl p-8 md:p-12 transition-all duration-300 shadow-none h-full">
                       <div className="grid md:grid-cols-5 gap-8 items-stretch h-full">
                         {/* Stats - Left side (2 cols) */}
                         <div className="md:col-span-2 space-y-4">
