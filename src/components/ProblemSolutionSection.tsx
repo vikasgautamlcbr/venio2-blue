@@ -19,11 +19,14 @@ interface Problem {
   resources: Resource[];
 }
 
+type ProblemContent = Partial<Pick<Problem, "solution" | "resources">>;
+
 const problems: Problem[] = [
   {
     id: "data-overload",
     label: "Data Overload",
-    solution: "Venio helps you take control of exploding data volumes by reducing massive datasets early in the discovery process. Through AI-driven culling, deduplication, and advanced filtering, you quickly eliminate noise and focus only on what matters. The result is a dramatically smaller, more manageable review set.",
+    solution:
+      "Venio handles massive datasets with powerful processing capabilities that eliminate duplicates, remove system files, and structure data before review begins. This ensures legal teams are not overwhelmed by volume and can quickly focus on meaningful information, improving both efficiency and accuracy in high-stakes litigation environments.",
     resources: [
       { 
         title: "Data Reduction Guide", 
@@ -42,7 +45,8 @@ const problems: Problem[] = [
   {
     id: "hard-to-process-data",
     label: "Hard-to-Process Data Types",
-    solution: "Venio processes emails, chats, cloud apps, multimedia, and modern data formats at high speed. It normalizes complex, dynamic data so your reviewers don't struggle with inconsistent structures. Everything becomes searchable, analyzable, and defensible.",
+    solution:
+      "Venio supports a wide range of modern data sources, including emails, chat platforms, mobile data, and multilingual content. Its ability to process complex and diverse data types natively ensures that no critical evidence is overlooked, enabling legal teams to confidently manage evolving data landscapes.",
     resources: [
       { 
         title: "Modern Data Challenges in eDiscovery", 
@@ -61,7 +65,8 @@ const problems: Problem[] = [
   {
     id: "poor-early-case-insight",
     label: "Poor Early Case Insight",
-    solution: "Venio ECA gives teams fast clarity with instant analytics, search, custodian insights, and data reduction. You can understand scope, risk, and cost before you commit to full review. This lets you make smarter strategic decisions earlier in the matter.",
+    solution:
+      "Venio provides early visibility into case data through advanced analytics and Early Case Assessment, helping teams identify key facts, risks, and patterns before full review begins. This allows legal teams to make informed strategic decisions earlier, reducing unnecessary work and strengthening case positioning from the outset.",
     resources: [
       { 
         title: "Why ECA Matters in 2025", 
@@ -80,7 +85,8 @@ const problems: Problem[] = [
   {
     id: "inconsistent-legal-holds",
     label: "Inconsistent Legal Holds",
-    solution: "Venio eliminates manual, inconsistent legal hold processes with automated notices, reminders, acknowledgments, and defensible tracking. Custodians receive clear instructions, and every action is logged for audit and compliance. Your team gets full visibility and reduces risk of preservation failures.",
+    solution:
+      "Venio standardizes legal hold processes by automating notifications, tracking custodian acknowledgments, and maintaining detailed audit logs. This ensures that preservation efforts are consistent, defensible, and fully documented, allowing legal teams to demonstrate compliance and withstand scrutiny when challenged.",
     resources: [
       { 
         title: "Legal Hold Product Page", 
@@ -99,7 +105,8 @@ const problems: Problem[] = [
   {
     id: "slow-review",
     label: "Slow Review",
-    solution: "Venio accelerates document review with AI-powered prioritization, smart batching, and continuous active learning that gets smarter as you work. Review teams see the most relevant documents first, reducing hours of manual effort. You get faster insights, higher accuracy, and significantly shorter review cycles.",
+    solution:
+      "Venio transforms document review by combining AI-driven prioritization with intuitive workflows, allowing legal teams to focus only on what matters. By reducing review volumes and surfacing relevant documents faster, teams can meet deadlines confidently while maintaining consistency and defensibility across even the most complex matters.",
     resources: [
       { 
         title: "Review Acceleration Whitepaper", 
@@ -118,7 +125,8 @@ const problems: Problem[] = [
   {
     id: "manual-workflows",
     label: "Manual Workflows",
-    solution: "Venio automates repetitive tasks like tagging, routing, batching, and searching so your team can focus on strategy—not busywork. AI and workflow automation remove human bottlenecks and reduce errors across every stage. You gain speed, accuracy, and more time for meaningful analysis.",
+    solution:
+      "Venio replaces repetitive, manual processes with intelligent automation across review, tagging, and production workflows. By reducing reliance on manual effort, legal teams minimize human error, improve consistency, and significantly accelerate timelines, allowing attorneys to focus on higher-value legal analysis instead of administrative tasks.",
     resources: [
       { 
         title: "Automation Features", 
@@ -137,7 +145,8 @@ const problems: Problem[] = [
   {
     id: "tool-fragmentation",
     label: "Tool Fragmentation",
-    solution: "Venio replaces disconnected tools with one unified platform for Legal Hold, ECA, Review, and Production. With all your workflows, data, and teams in one system, you eliminate handoffs, delays, and unnecessary complexity. Collaboration improves—and your entire process becomes faster and more consistent.",
+    solution:
+      "Venio unifies the entire eDiscovery lifecycle within a single platform, eliminating the need to switch between multiple tools. This ensures seamless data flow, preserves metadata integrity, and reduces operational complexity, enabling legal teams to work more efficiently while maintaining complete control and visibility across every stage of discovery.",
     resources: [
       { 
         title: "Platform Overview", 
@@ -156,7 +165,8 @@ const problems: Problem[] = [
   {
     id: "high-costs",
     label: "High Costs",
-    solution: "Venio reduces overall eDiscovery spend by shrinking your dataset early and automating time-consuming workflows across the lifecycle. With flexible cloud or on-prem deployments and efficient analytics, you avoid unnecessary hosting and review costs. Teams achieve predictable budgets without sacrificing quality or defensibility.",
+    solution:
+      "Venio reduces overall eDiscovery costs by minimizing review hours, eliminating redundant processes, and reducing dependency on external vendors. By optimizing workflows and leveraging automation, legal teams can handle more matters with fewer resources, achieving significant cost savings without compromising on quality or defensibility.",
     resources: [
       { 
         title: "Cost Reduction Calculator", 
@@ -175,7 +185,8 @@ const problems: Problem[] = [
   {
     id: "security-risks",
     label: "Security Risks",
-    solution: "Venio protects sensitive data with secure uploads, role-based access controls, and a fully defensible audit trail. Whether deployed in the cloud or on-prem, your information stays governed and protected throughout the discovery process. You reduce risk while maintaining complete visibility and control.",
+    solution:
+      "Venio ensures enterprise-grade data security with strict access controls, encryption, and comprehensive audit trails. Every action is logged and traceable, providing full visibility into how data is handled. This allows legal teams to confidently manage sensitive information while meeting compliance and regulatory requirements.",
     resources: [
       { 
         title: "Security Whitepaper", 
@@ -215,6 +226,170 @@ const defaultResources = [
   },
 ];
 
+const problemsByIndustry: Record<IndustryId, ProblemId[]> = {
+  "law-firm": [
+    "slow-review",
+    "data-overload",
+    "poor-early-case-insight",
+    "manual-workflows",
+    "tool-fragmentation",
+    "high-costs",
+    "security-risks",
+    "hard-to-process-data",
+    "inconsistent-legal-holds",
+  ],
+  "legal-service-provider": [
+    "data-overload",
+    "hard-to-process-data",
+    "manual-workflows",
+    "slow-review",
+    "tool-fragmentation",
+    "high-costs",
+    "security-risks",
+    "poor-early-case-insight",
+    "inconsistent-legal-holds",
+  ],
+  corporate: [
+    "inconsistent-legal-holds",
+    "security-risks",
+    "high-costs",
+    "poor-early-case-insight",
+    "data-overload",
+    "tool-fragmentation",
+    "manual-workflows",
+    "hard-to-process-data",
+    "slow-review",
+  ],
+  government: [
+    "security-risks",
+    "inconsistent-legal-holds",
+    "hard-to-process-data",
+    "data-overload",
+    "manual-workflows",
+    "poor-early-case-insight",
+    "tool-fragmentation",
+    "high-costs",
+    "slow-review",
+  ],
+};
+
+const industryProblemContent: Partial<Record<IndustryId, Partial<Record<ProblemId, ProblemContent>>>> = {
+  "legal-service-provider": {
+    "slow-review": {
+      solution:
+        "Venio enables LSPs to scale document review efficiently using AI-driven prioritization and streamlined workflows. By reducing the number of documents requiring manual review and accelerating decision-making, service providers can meet tight client deadlines while maintaining accuracy, consistency, and high-quality deliverables across large-scale projects.",
+    },
+    "data-overload": {
+      solution:
+        "Venio processes high volumes of client data with speed and precision, reducing datasets through deduplication and intelligent filtering before review begins. This allows LSPs to manage complex matters efficiently while ensuring reviewers focus only on relevant data, improving turnaround times and client satisfaction.",
+    },
+    "poor-early-case-insight": {
+      solution:
+        "Venio equips LSPs with early data visibility through advanced analytics and case assessment tools, enabling them to provide strategic insights to clients sooner. This improves client trust, enhances decision-making, and allows service providers to position themselves as proactive partners rather than reactive vendors.",
+    },
+    "manual-workflows": {
+      solution:
+        "Venio automates repetitive workflows across processing, review, and production, allowing LSPs to reduce operational overhead and improve efficiency. This enables teams to handle more projects simultaneously while maintaining consistency and reducing errors, ultimately improving margins and service delivery quality.",
+    },
+    "tool-fragmentation": {
+      solution:
+        "Venio eliminates the complexity of managing multiple tools by offering a unified platform for the entire eDiscovery lifecycle. This reduces training requirements, minimizes integration issues, and ensures seamless workflows, allowing LSPs to operate more efficiently and deliver consistent results across all client engagements.",
+    },
+    "high-costs": {
+      solution:
+        "Venio helps LSPs optimize operational costs by reducing manual effort, infrastructure dependency, and processing inefficiencies. By leveraging automation and scalable workflows, service providers can improve profitability while maintaining competitive pricing and delivering high-quality outcomes to clients.",
+    },
+    "security-risks": {
+      solution:
+        "Venio provides secure, compliant environments for handling sensitive client data, with full audit trails and controlled access. This ensures that LSPs can meet client expectations and regulatory requirements while maintaining trust and protecting critical information throughout the eDiscovery process.",
+    },
+    "hard-to-process-data": {
+      solution:
+        "Venio supports a wide range of data formats, including chat, mobile, and foreign-language content, allowing LSPs to handle diverse client needs without additional tools. This flexibility ensures comprehensive data coverage and improves the quality of review and analysis across cases.",
+    },
+    "inconsistent-legal-holds": {
+      solution:
+        "Venio enables LSPs to deliver defensible legal hold services by automating notifications, tracking responses, and maintaining complete audit trails. This ensures clients can demonstrate compliance and maintain consistent preservation practices across matters.",
+    },
+  },
+  government: {
+    "slow-review": {
+      solution:
+        "Venio accelerates investigations by prioritizing relevant data through AI-driven workflows, allowing government teams to review critical information faster. This ensures timely decision-making while maintaining accuracy and accountability, even when handling large-scale or sensitive investigations.",
+    },
+    "data-overload": {
+      solution:
+        "Venio efficiently processes large volumes of public and investigative data, reducing noise through intelligent filtering and structuring. This enables government agencies to focus on relevant information quickly, improving operational efficiency and ensuring no critical evidence is overlooked.",
+    },
+    "poor-early-case-insight": {
+      solution:
+        "Venio provides early visibility into data through advanced analytics, helping agencies identify key patterns, risks, and insights at the start of an investigation. This supports faster, more informed decision-making and improves overall case outcomes.",
+    },
+    "manual-workflows": {
+      solution:
+        "Venio reduces administrative burden by automating workflows across the eDiscovery lifecycle. This allows government teams to operate more efficiently, reduce errors, and focus on mission-critical tasks rather than manual processes.",
+    },
+    "tool-fragmentation": {
+      solution:
+        "Venio consolidates multiple systems into a single unified platform, improving oversight and governance. This ensures consistent workflows, better data control, and reduced operational complexity across departments.",
+    },
+    "high-costs": {
+      solution:
+        "Venio helps government agencies manage budgets effectively by reducing manual effort, improving efficiency, and eliminating unnecessary tool dependencies, ensuring cost-effective operations without compromising capability.",
+    },
+    "security-risks": {
+      solution:
+        "Venio ensures compliance with strict security and regulatory standards, providing full audit trails and secure access controls. This enables agencies to handle sensitive data confidently while maintaining transparency and accountability.",
+    },
+    "hard-to-process-data": {
+      solution:
+        "Venio supports complex data types, including multimedia and multilingual content, ensuring agencies can process and analyze all forms of evidence effectively in modern investigations.",
+    },
+    "inconsistent-legal-holds": {
+      solution:
+        "Venio ensures consistent and defensible preservation practices through automated legal hold workflows, complete tracking, and auditability, enabling agencies to demonstrate compliance under scrutiny.",
+    },
+  },
+  corporate: {
+    "slow-review": {
+      solution:
+        "Venio accelerates internal document review by combining AI-driven prioritization with streamlined workflows, allowing corporate legal teams to focus only on high-value content. By reducing review volumes and surfacing relevant information faster, teams can respond quickly to legal matters while maintaining consistency, accuracy, and defensibility across cases.",
+    },
+    "data-overload": {
+      solution:
+        "Venio helps corporate teams manage overwhelming enterprise data by applying intelligent processing techniques like deduplication, DeNIST, and structured filtering. This significantly reduces data volume before review begins, ensuring legal teams can focus on relevant information while improving efficiency, reducing noise, and minimizing the risk of missing critical evidence.",
+    },
+    "poor-early-case-insight": {
+      solution:
+        "Venio provides early visibility into case data through advanced analytics and Early Case Assessment capabilities, enabling corporate legal teams to identify key risks, patterns, and relevant information before full review begins. This empowers teams to make faster, more informed decisions and align legal strategy early in the matter lifecycle.",
+    },
+    "manual-workflows": {
+      solution:
+        "Venio replaces repetitive manual tasks with intelligent automation across review, tagging, and production workflows. By reducing reliance on manual processes, corporate legal teams can minimize human error, improve consistency, and significantly accelerate timelines, allowing them to focus on strategic legal work instead of administrative overhead.",
+    },
+    "tool-fragmentation": {
+      solution:
+        "Venio eliminates the need for multiple disconnected tools by providing a unified platform that covers the entire eDiscovery lifecycle. This ensures seamless workflows, preserves data integrity, and reduces operational complexity, allowing corporate legal teams to work more efficiently with full visibility and control over their processes.",
+    },
+    "high-costs": {
+      solution:
+        "Venio helps reduce legal spend by minimizing review time, eliminating redundant processes, and reducing dependency on external vendors. Through automation and optimized workflows, corporate teams can handle more matters internally with fewer resources, achieving significant cost savings while maintaining high-quality, defensible outcomes.",
+    },
+    "security-risks": {
+      solution:
+        "Venio ensures enterprise-grade security with strict access controls, encryption, and complete audit trails that track every action taken on data. This allows corporate legal teams to confidently manage sensitive information, maintain compliance with regulatory requirements, and ensure transparency and accountability throughout the eDiscovery process.",
+    },
+    "hard-to-process-data": {
+      solution:
+        "Venio supports a wide range of enterprise data sources, including emails, chat platforms like Teams and Slack, mobile data, and multilingual content. Its ability to process diverse and complex data types ensures corporate teams can capture and analyze all relevant information without data loss or additional tools.",
+    },
+    "inconsistent-legal-holds": {
+      solution:
+        "Venio centralizes legal hold management by automating custodian notifications, tracking acknowledgments, and maintaining detailed audit logs. This ensures consistent and defensible preservation practices across the organization, allowing corporate legal teams to demonstrate compliance and confidently respond to scrutiny when legal holds are challenged.",
+    },
+  },
+};
+
 type CardItem = {
   icon: React.ElementType;
   title: string;
@@ -238,8 +413,17 @@ const ProblemSolutionSection = ({
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryId | null>(null);
   const [selectedProblem, setSelectedProblem] = useState<ProblemId | null>(null);
 
-  const currentProblem = selectedProblem 
-    ? problems.find((p) => p.id === selectedProblem) 
+  const baseProblem = selectedProblem ? problems.find((p) => p.id === selectedProblem) : null;
+  const industryOverride =
+    selectedIndustry && selectedProblem
+      ? industryProblemContent[selectedIndustry]?.[selectedProblem]
+      : undefined;
+
+  const currentProblem = baseProblem
+    ? {
+        ...baseProblem,
+        ...(industryOverride ?? {}),
+      }
     : null;
 
   const handleIndustrySelect = (industryId: IndustryId) => {
@@ -382,7 +566,10 @@ const ProblemSolutionSection = ({
                   What challenge are you facing?
                 </h2>
                 <div className="flex flex-wrap gap-3 justify-center">
-                  {problems.map((problem) => (
+                  {problemsByIndustry[selectedIndustry].map((problemId) => {
+                    const problem = problems.find((p) => p.id === problemId);
+                    if (!problem) return null;
+                    return (
                     <button
                       key={problem.id}
                       onClick={() => setSelectedProblem(problem.id)}
@@ -394,7 +581,8 @@ const ProblemSolutionSection = ({
                     >
                       {problem.label}
                     </button>
-                  ))}
+                    );
+                  })}
                 </div>
               </>
             )}

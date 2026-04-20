@@ -1,45 +1,53 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const demos = [
   {
-    id: "legal-hold",
-    title: "Venio Legal Hold",
-    description: "Automate notices, reminders, and escalations to custodians with defensible tracking built in. Say goodbye to spreadsheets and hello to smart legal hold management with eDiscovery tools.",
+    id: "ediscovery",
+    title: "Venio eDiscovery",
+    description: "Manage the entire eDiscovery lifecycle in one secure, defensible, and fully unified platform.",
+    href: "/venio-ediscovery",
     embedUrl: "https://app.supademo.com/embed/cmmelkd6v2zmwnr99x6s6tjpr?embed_v=2&utm_source=embed"
-  },
-  {
-    id: "eca",
-    title: "Venio ECA",
-    description: "Analyze large datasets upfront to filter noise, reduce review volumes, and lower litigation spend. Make fast, informed decisions before the full review begins using advanced eDiscovery software.",
-    embedUrl: "https://app.supademo.com/embed/cmmehii992ss6nr99pi748qcx?embed_v=2&utm_source=embed"
   },
   {
     id: "review",
     title: "Venio Review",
-    description: "Streamline document tagging, redaction, and annotation in an intuitive review workspace. Built for precision, speed, and collaboration across legal teams with powerful eDiscovery review tools.",
+    description: "Drive faster, smarter document review while minimizing risk and maximizing control.",
+    href: "/venio-review",
     embedUrl: "https://app.supademo.com/embed/cmmd9geyz0mavnr99bsv4nyv3?embed_v=2&utm_source=embed"
   },
   {
-    id: "production",
-    title: "Venio Production",
-    description: "Boost your review speed with AI that prioritizes key documents, learns from reviewer behavior, and flags risks automatically. Smart review, powered by intelligence, in a robust eDiscovery platform.",
-    embedUrl: "https://app.supademo.com/embed/cmmeiwzre2v4rnr99mb3xthjb?embed_v=2&utm_source=embed"
+    id: "eca",
+    title: "Venio ECA",
+    description: "Surface critical insights early to reduce data volume, risk exposure, and downstream review costs.",
+    href: "/venio-eca",
+    embedUrl: "https://app.supademo.com/embed/cmmehii992ss6nr99pi748qcx?embed_v=2&utm_source=embed"
+  },
+  {
+    id: "legal-hold",
+    title: "Venio Legal Hold",
+    description: "Automate and track defensible legal holds with centralized oversight and complete audit visibility.",
+    href: "/venio-legal-hold",
+    embedUrl: "https://app.supademo.com/embed/cmnmxampp47bgaburncntk4fy?embed_v=2&utm_source=embed"
   }
 ];
 
 const InteractiveDemosSection = () => {
   const [activeDemo, setActiveDemo] = useState(demos[0].id);
-  const [displayedDemoId, setDisplayedDemoId] = useState(demos[0].id);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const swapTimeoutRef = useRef<number | null>(null);
-  const fadeInTimeoutRef = useRef<number | null>(null);
-  const transitionMs = 220;
+  const [activeFrame, setActiveFrame] = useState<"a" | "b">("a");
+  const [frameADemoId, setFrameADemoId] = useState(demos[0].id);
+  const [frameBDemoId, setFrameBDemoId] = useState(demos[0].id);
+  const [crossfadeTo, setCrossfadeTo] = useState<"a" | "b" | null>(null);
+  const [loadingFrame, setLoadingFrame] = useState<"a" | "b" | null>(null);
+  const crossfadeTimeoutRef = useRef<number | null>(null);
+  const loadTokenRef = useRef({ a: 0, b: 0 });
+  const crossfadeMs = 220;
+  const swapDelayMs = 320;
 
   useEffect(() => {
     return () => {
-      if (swapTimeoutRef.current) window.clearTimeout(swapTimeoutRef.current);
-      if (fadeInTimeoutRef.current) window.clearTimeout(fadeInTimeoutRef.current);
+      if (crossfadeTimeoutRef.current) window.clearTimeout(crossfadeTimeoutRef.current);
     };
   }, []);
 
@@ -47,31 +55,34 @@ const InteractiveDemosSection = () => {
     if (id === activeDemo) return;
 
     setActiveDemo(id);
-    setIsTransitioning(true);
+    const nextFrame = activeFrame === "a" ? "b" : "a";
+    if (crossfadeTimeoutRef.current) window.clearTimeout(crossfadeTimeoutRef.current);
+    loadTokenRef.current[nextFrame] += 1;
+    setCrossfadeTo(null);
+    setLoadingFrame(nextFrame);
 
-    if (swapTimeoutRef.current) window.clearTimeout(swapTimeoutRef.current);
-    if (fadeInTimeoutRef.current) window.clearTimeout(fadeInTimeoutRef.current);
-
-    swapTimeoutRef.current = window.setTimeout(() => {
-      setDisplayedDemoId(id);
-      fadeInTimeoutRef.current = window.setTimeout(() => {
-        setIsTransitioning(false);
-      }, 30);
-    }, transitionMs);
+    if (nextFrame === "a") setFrameADemoId(id);
+    else setFrameBDemoId(id);
   };
 
-  const currentDemo = demos.find(demo => demo.id === displayedDemoId) || demos[0];
+  const frameADemo = demos.find((demo) => demo.id === frameADemoId) || demos[0];
+  const frameBDemo = demos.find((demo) => demo.id === frameBDemoId) || demos[0];
+  const isCrossfading = crossfadeTo !== null;
+  const opacityFor = (frame: "a" | "b") => {
+    if (!isCrossfading) return frame === activeFrame ? 1 : 0;
+    return frame === crossfadeTo ? 1 : 0;
+  };
 
   return (
-    <section id="interactive-demos" className="py-20 bg-background">
+    <section id="interactive-demos" className="py-14 md:py-[72px] lg:py-24 bg-background">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-            Experience Venio in Action
+            Connected Capabilities with Singular Control
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-body">
-            Explore interactive demos of our powerful eDiscovery solutions
+            Integrated modules that power modern eDiscovery from first notice to final production.
           </p>
         </div>
 
@@ -79,70 +90,152 @@ const InteractiveDemosSection = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-[320px_1fr] gap-8 lg:gap-12 items-stretch">
             {/* Left: Product List */}
-            <div className="space-y-3">
+            <div className="flex flex-col gap-3 lg:h-full self-stretch">
               {demos.map((demo) => (
-                <button
+                <div
                   key={demo.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={activeDemo === demo.id}
                   onClick={() => handleSelectDemo(demo.id)}
-                  className={`w-full text-left p-6 rounded-xl transition-all duration-500 ease-out border-2 ${
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleSelectDemo(demo.id);
+                    }
+                  }}
+                  className={`group relative w-full min-h-[92px] lg:min-h-0 text-left rounded-2xl px-5 py-4 md:px-6 md:py-5 flex items-center gap-4 backdrop-blur-sm transition-all duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-venioGreen/40 ${
                     activeDemo === demo.id
-                      ? 'border-venioGreen shadow-xl shadow-venioGreen/20 bg-gradient-to-br from-venioGreen/10 to-venioGreen/5 scale-[1.02] opacity-100'
-                      : 'border-border hover:border-venioGreen/50 bg-card opacity-50 hover:opacity-100 hover:scale-[1.02]'
+                      ? 'lg:flex-1 lg:min-h-0 bg-white shadow-[0_0_50px_-16px_rgba(61,196,126,0.55),0_0_0_1px_rgba(61,196,126,0.30)] scale-[1.01]'
+                      : 'lg:flex-none bg-white shadow-[0_0_26px_-12px_rgba(15,23,42,0.30)] hover:shadow-[0_0_34px_-12px_rgba(15,23,42,0.34)]'
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1 space-y-2">
-                      <h3 className={`text-lg font-bold ${
-                        activeDemo === demo.id ? 'text-venioGreen mb-2' : 'text-foreground'
-                      }`}>
-                        {demo.title}
-                      </h3>
-                      {activeDemo === demo.id && (
-                        <p className="text-sm text-muted-foreground leading-relaxed animate-fade-in">
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(61,196,126,0.06),transparent_60%),radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.04),transparent_60%)] opacity-70 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/18 via-white/0 to-white/18 pointer-events-none" />
+                  <div className={`relative flex gap-4 w-full transition-all duration-300 ${activeDemo === demo.id ? 'items-start' : 'items-center'}`}>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3">
+                        {activeDemo === demo.id && (
+                          <div className="w-1.5 h-6 rounded-full bg-[#3DC47E] transition-all duration-300" />
+                        )}
+                        <h3
+                          className={`text-base md:text-lg font-semibold transition-colors duration-300 ${
+                            activeDemo === demo.id ? 'text-[#10A250]' : 'text-slate-600'
+                          }`}
+                        >
+                          {demo.title}
+                        </h3>
+                      </div>
+                      <div
+                        className={`overflow-hidden transition-all duration-300 ${
+                          activeDemo === demo.id ? 'mt-1 pl-[18px] max-h-40 opacity-100 translate-y-0' : 'max-h-0 opacity-0 -translate-y-1'
+                        }`}
+                      >
+                        <p className="text-sm text-slate-500 leading-relaxed">
                           {demo.description}
                         </p>
-                      )}
+                        <div className="mt-3">
+                          <Link
+                            to={demo.href}
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-2 text-sm font-medium text-[#10A250] hover:text-[#0E8F46] transition-colors"
+                          >
+                            Learn more
+                            <ChevronRight className="h-4 w-4" />
+                          </Link>
+                        </div>
+                      </div>
                     </div>
-                    <ChevronRight 
-                      className={`ml-3 h-5 w-5 transition-all duration-300 ${
-                        activeDemo === demo.id 
-                          ? 'text-venioGreen translate-x-1' 
-                          : 'text-muted-foreground'
+                    <ChevronRight
+                      className={`ml-2 h-4 w-4 flex-shrink-0 transition-all duration-200 ${
+                        activeDemo === demo.id
+                          ? 'mt-1 text-[#10A250] translate-x-0.5'
+                          : 'text-slate-400 group-hover:text-slate-500'
                       }`}
                     />
                   </div>
-                </button>
+                </div>
               ))}
             </div>
 
             {/* Right: Demo Embed */}
-            <div className="flex-1">
+            <div className="flex-1 self-stretch">
               <div className="w-full">
                 <div
-                  key={displayedDemoId}
-                  className={`transition-opacity duration-300 ease-in-out motion-reduce:transition-none ${isTransitioning ? "opacity-0" : "opacity-100"}`}
+                  className="relative overflow-hidden rounded-2xl bg-transparent"
                   style={{
                     position: 'relative',
-                    boxSizing: 'content-box',
                     maxHeight: '80svh',
                     width: '100%',
                     aspectRatio: '2.01',
-                    padding: '40px 0'
                   }}
                 >
                   <iframe
-                    loading="lazy"
-                    src={currentDemo.embedUrl}
-                    title={`Interactive Demo - ${currentDemo.title}`}
+                    loading="eager"
+                    src={frameADemo.embedUrl}
+                    title={`Interactive Demo - ${frameADemo.title}`}
                     allow="clipboard-write"
                     frameBorder={0}
                     allowFullScreen
+                    onLoad={() => {
+                      if (loadingFrame !== "a") return;
+                      const expectedToken = loadTokenRef.current.a;
+                      window.setTimeout(() => {
+                        if (loadTokenRef.current.a !== expectedToken) return;
+                        window.setTimeout(() => {
+                          if (loadTokenRef.current.a !== expectedToken) return;
+                          setCrossfadeTo("a");
+                          crossfadeTimeoutRef.current = window.setTimeout(() => {
+                            setActiveFrame("a");
+                            setCrossfadeTo(null);
+                            setLoadingFrame(null);
+                          }, crossfadeMs);
+                        }, swapDelayMs);
+                      }, 0);
+                    }}
                     style={{
                       position: 'absolute',
                       top: 0,
                       left: 0,
                       width: '100%',
-                      height: '100%'
+                      height: '100%',
+                      opacity: opacityFor("a"),
+                      transition: `opacity ${crossfadeMs}ms ease`,
+                      pointerEvents: activeFrame === "a" ? "auto" : "none"
+                    }}
+                  />
+                  <iframe
+                    loading="eager"
+                    src={frameBDemo.embedUrl}
+                    title={`Interactive Demo - ${frameBDemo.title}`}
+                    allow="clipboard-write"
+                    frameBorder={0}
+                    allowFullScreen
+                    onLoad={() => {
+                      if (loadingFrame !== "b") return;
+                      const expectedToken = loadTokenRef.current.b;
+                      window.setTimeout(() => {
+                        if (loadTokenRef.current.b !== expectedToken) return;
+                        window.setTimeout(() => {
+                          if (loadTokenRef.current.b !== expectedToken) return;
+                          setCrossfadeTo("b");
+                          crossfadeTimeoutRef.current = window.setTimeout(() => {
+                            setActiveFrame("b");
+                            setCrossfadeTo(null);
+                            setLoadingFrame(null);
+                          }, crossfadeMs);
+                        }, swapDelayMs);
+                      }, 0);
+                    }}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      opacity: opacityFor("b"),
+                      transition: `opacity ${crossfadeMs}ms ease`,
+                      pointerEvents: activeFrame === "b" ? "auto" : "none"
                     }}
                   />
                 </div>

@@ -130,9 +130,8 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
                 <CarouselContent className="!ml-0 h-full items-stretch">
                 {/* Slide 1: Video Testimonial */}
                 <CarouselItem className="!pl-0 h-full">
-                  <div className="glass border-0 rounded-2xl p-8 md:p-12 transition-all duration-300 shadow-none h-full overflow-hidden relative">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,hsl(var(--accent)_/_0.20),transparent_70%),radial-gradient(circle_at_80%_70%,hsl(var(--ring)_/_0.16),transparent_70%),linear-gradient(180deg,hsl(var(--accent)_/_0.06),hsl(var(--ring)_/_0.05))] pointer-events-none" />
-                    <div className="relative z-10 grid md:grid-cols-5 gap-8 items-stretch h-full">
+                  <div className="bg-white border-0 rounded-2xl p-8 md:p-12 transition-all duration-300 shadow-none h-full overflow-hidden relative">
+                    <div className="relative grid md:grid-cols-5 gap-8 items-stretch h-full">
                       {/* Left side - Text testimonial (2 cols) */}
                       <div className="md:col-span-2 flex flex-col h-full">
                         <div className="text-5xl text-accent/20 font-serif leading-none mb-4">"</div>
@@ -180,9 +179,8 @@ const TestimonialsSection = ({ showLogoTrail = true, title }: TestimonialsSectio
                   const companyLogo = getCompanyLogo(testimonial.company);
                   return (
                   <CarouselItem key={idx} className="!pl-0 h-full">
-                    <div className="glass border-0 rounded-2xl p-8 md:p-12 transition-all duration-300 shadow-none h-full overflow-hidden relative">
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,hsl(var(--accent)_/_0.20),transparent_70%),radial-gradient(circle_at_80%_70%,hsl(var(--ring)_/_0.16),transparent_70%),linear-gradient(180deg,hsl(var(--accent)_/_0.06),hsl(var(--ring)_/_0.05))] pointer-events-none" />
-                      <div className="relative z-10 grid md:grid-cols-5 gap-8 items-stretch h-full">
+                    <div className="bg-white border-0 rounded-2xl p-8 md:p-12 transition-all duration-300 shadow-none h-full overflow-hidden relative">
+                      <div className="relative grid md:grid-cols-5 gap-8 items-stretch h-full">
                         {/* Stats - Left side (2 cols) */}
                         <div className="md:col-span-2 space-y-4">
                           {stats.map((stat, index) => (

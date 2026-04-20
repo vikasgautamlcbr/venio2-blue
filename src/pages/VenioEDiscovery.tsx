@@ -176,10 +176,10 @@ const VenioEDiscovery = () => {
         <div className="container mx-auto max-w-7xl">
           {(() => {
             const modules = [
-              { title: "Venio Legal Hold", href: "/venio-legal-hold", Icon: Bell, tone: "primary" as const, desc: "Send notices, track acknowledgments, and maintain defensible audit trails.", bullets: ["Automated custodian notices", "Acknowledgment tracking", "Audit-ready reporting"], image: legalHoldHeroImage },
-              { title: "Venio ECA", href: "/venio-eca", Icon: BarChart3, tone: "secondary" as const, desc: "Find signal early with search and analytics to reduce volume and cost.", bullets: ["Search & filtering", "Visual analytics", "Defensible reduction"], image: analysisHeroImage },
-              { title: "Venio Review", href: "/venio-review", Icon: Brain, tone: "accent" as const, desc: "Accelerate review with AI assistance, tagging workflows, and quality control.", bullets: ["AI prioritization", "Smart tagging", "Integrated QC"], image: reviewHeroImage },
-              { title: "Venio Production", href: "/venio-production", Icon: FileText, tone: "primary" as const, desc: "Produce with slipsheets, Bates, and standard load files — consistently and fast.", bullets: ["Bates & slipsheets", "Standard exports", "Load file generation"], image: productionHeroImage },
+              { title: "Venio eDiscovery", href: "/venio-ediscovery", Icon: Server, tone: "primary" as const, desc: "Manage the entire eDiscovery lifecycle in one secure, defensible, and fully unified platform.", bullets: ["Unified end-to-end workflow", "Secure & defensible by design", "One platform, fewer handoffs"], image: ediscoveryHeroImage },
+              { title: "Venio Review", href: "/venio-review", Icon: Brain, tone: "accent" as const, desc: "Drive faster, smarter document review while minimizing risk and maximizing control.", bullets: ["Faster, smarter review", "Reduced risk exposure", "More control at scale"], image: reviewHeroImage },
+              { title: "Venio ECA", href: "/venio-eca", Icon: BarChart3, tone: "secondary" as const, desc: "Surface critical insights early to reduce data volume, risk exposure, and downstream review costs.", bullets: ["Early insight & clarity", "Lower review volume", "Reduced downstream costs"], image: analysisHeroImage },
+              { title: "Venio Legal Hold", href: "/venio-legal-hold", Icon: Bell, tone: "primary" as const, desc: "Automate and track defensible legal holds with centralized oversight and complete audit visibility.", bullets: ["Automated notices & reminders", "Centralized oversight", "Complete audit visibility"], image: legalHoldHeroImage },
             ];
             const toneAccent = (t: "primary" | "secondary" | "accent") => (t === "primary" ? "text-primary" : t === "secondary" ? "text-secondary" : "text-accent");
             const toneTint = (t: "primary" | "secondary" | "accent") => (t === "primary" ? "bg-primary/10" : t === "secondary" ? "bg-secondary/10" : "bg-accent/10");
@@ -199,8 +199,8 @@ const VenioEDiscovery = () => {
                 />
                 <div className="relative p-10 lg:p-12">
                   <div className="text-center mb-10">
-                    <h3 className="text-3xl md:text-4xl font-heading font-bold mb-3">Integrated modules. Singular Control</h3>
-                    <p className="text-muted-foreground max-w-3xl mx-auto">End-to-end eDiscovery from first notice to final production — without the platform juggling.</p>
+                    <h3 className="text-3xl md:text-4xl font-heading font-bold mb-3">Connected Capabilities with Singular Control</h3>
+                    <p className="text-muted-foreground max-w-3xl mx-auto">Integrated modules that power modern eDiscovery from first notice to final production.</p>
                   </div>
                   <div className="grid lg:grid-cols-[0.55fr_1.45fr] gap-10 items-start">
                     <div>
