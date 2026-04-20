@@ -68,12 +68,7 @@ const InteractiveDemosSection = () => {
       setMobilePortalNode(null);
       return;
     }
-
-    const frame = requestAnimationFrame(() => {
-      setMobilePortalNode(mobileDemoSlotRef.current[activeDemo] ?? null);
-    });
-
-    return () => cancelAnimationFrame(frame);
+    setMobilePortalNode(mobileDemoSlotRef.current[activeDemo] ?? null);
   }, [activeDemo, isDesktop]);
 
   const handleSelectDemo = (id: string) => {
@@ -98,12 +93,10 @@ const InteractiveDemosSection = () => {
     return frame === crossfadeTo ? 1 : 0;
   };
 
-  const iframeOverscanPx = isDesktop ? 0 : 8;
-
   const demoEmbed = (
     <div className="w-full">
       <div
-        className="relative overflow-hidden rounded-none lg:rounded-2xl bg-transparent"
+        className="relative overflow-hidden rounded-2xl bg-transparent"
         style={{
           position: "relative",
           maxHeight: "80svh",
@@ -136,10 +129,10 @@ const InteractiveDemosSection = () => {
           }}
           style={{
             position: "absolute",
-            top: `-${iframeOverscanPx}px`,
-            left: `-${iframeOverscanPx}px`,
-            width: `calc(100% + ${iframeOverscanPx * 2}px)`,
-            height: `calc(100% + ${iframeOverscanPx * 2}px)`,
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
             opacity: opacityFor("a"),
             transition: `opacity ${crossfadeMs}ms ease`,
             pointerEvents: activeFrame === "a" ? "auto" : "none",
@@ -170,10 +163,10 @@ const InteractiveDemosSection = () => {
           }}
           style={{
             position: "absolute",
-            top: `-${iframeOverscanPx}px`,
-            left: `-${iframeOverscanPx}px`,
-            width: `calc(100% + ${iframeOverscanPx * 2}px)`,
-            height: `calc(100% + ${iframeOverscanPx * 2}px)`,
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
             opacity: opacityFor("b"),
             transition: `opacity ${crossfadeMs}ms ease`,
             pointerEvents: activeFrame === "b" ? "auto" : "none",
@@ -214,7 +207,7 @@ const InteractiveDemosSection = () => {
                       handleSelectDemo(demo.id);
                     }
                   }}
-                  className={`group relative w-full min-h-[92px] lg:min-h-0 text-left rounded-2xl overflow-hidden px-5 py-4 md:px-6 md:py-5 flex flex-col lg:flex-row items-start lg:items-center gap-4 backdrop-blur-sm transition-all duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-venioGreen/40 ${
+                  className={`group relative w-full min-h-[92px] lg:min-h-0 text-left rounded-2xl px-5 py-4 md:px-6 md:py-5 flex items-center gap-4 backdrop-blur-sm transition-all duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-venioGreen/40 ${
                     activeDemo === demo.id
                       ? 'lg:flex-1 lg:min-h-0 bg-white shadow-[0_0_50px_-16px_rgba(61,196,126,0.55),0_0_0_1px_rgba(61,196,126,0.30)] scale-[1.01]'
                       : 'lg:flex-none bg-white shadow-[0_0_26px_-12px_rgba(15,23,42,0.30)] hover:shadow-[0_0_34px_-12px_rgba(15,23,42,0.34)]'
@@ -255,6 +248,13 @@ const InteractiveDemosSection = () => {
                           </Link>
                         </div>
                       </div>
+
+                      <div
+                        className={`mt-4 lg:hidden ${activeDemo === demo.id ? "" : "hidden"}`}
+                        ref={(el) => {
+                          mobileDemoSlotRef.current[demo.id] = el;
+                        }}
+                      />
                     </div>
                     <ChevronRight
                       className={`ml-2 h-4 w-4 flex-shrink-0 transition-all duration-200 ${
@@ -264,13 +264,6 @@ const InteractiveDemosSection = () => {
                       }`}
                     />
                   </div>
-
-                  <div
-                    className={`mt-4 -mx-5 md:-mx-6 -mb-4 md:-mb-5 lg:hidden w-full ${activeDemo === demo.id ? "" : "hidden"}`}
-                    ref={(el) => {
-                      mobileDemoSlotRef.current[demo.id] = el;
-                    }}
-                  />
                 </div>
               ))}
             </div>
