@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -40,16 +41,40 @@ const InteractiveDemosSection = () => {
   const [frameBDemoId, setFrameBDemoId] = useState(demos[0].id);
   const [crossfadeTo, setCrossfadeTo] = useState<"a" | "b" | null>(null);
   const [loadingFrame, setLoadingFrame] = useState<"a" | "b" | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [mobilePortalNode, setMobilePortalNode] = useState<HTMLDivElement | null>(null);
   const crossfadeTimeoutRef = useRef<number | null>(null);
   const loadTokenRef = useRef({ a: 0, b: 0 });
+  const mobileDemoSlotRef = useRef<Record<string, HTMLDivElement | null>>({});
   const crossfadeMs = 220;
   const swapDelayMs = 320;
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const handleChange = () => setIsDesktop(mediaQuery.matches);
+    handleChange();
+    if ("addEventListener" in mediaQuery) mediaQuery.addEventListener("change", handleChange);
+    else mediaQuery.addListener(handleChange);
+
     return () => {
+      if ("removeEventListener" in mediaQuery) mediaQuery.removeEventListener("change", handleChange);
+      else mediaQuery.removeListener(handleChange);
       if (crossfadeTimeoutRef.current) window.clearTimeout(crossfadeTimeoutRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    if (isDesktop) {
+      setMobilePortalNode(null);
+      return;
+    }
+
+    const frame = requestAnimationFrame(() => {
+      setMobilePortalNode(mobileDemoSlotRef.current[activeDemo] ?? null);
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [activeDemo, isDesktop]);
 
   const handleSelectDemo = (id: string) => {
     if (id === activeDemo) return;
@@ -72,6 +97,89 @@ const InteractiveDemosSection = () => {
     if (!isCrossfading) return frame === activeFrame ? 1 : 0;
     return frame === crossfadeTo ? 1 : 0;
   };
+
+  const demoEmbed = (
+    <div className="w-full">
+      <div
+        className="relative overflow-hidden rounded-2xl bg-transparent"
+        style={{
+          position: "relative",
+          maxHeight: "80svh",
+          width: "100%",
+          aspectRatio: "2.01",
+        }}
+      >
+        <iframe
+          loading="eager"
+          src={frameADemo.embedUrl}
+          title={`Interactive Demo - ${frameADemo.title}`}
+          allow="clipboard-write"
+          frameBorder={0}
+          allowFullScreen
+          onLoad={() => {
+            if (loadingFrame !== "a") return;
+            const expectedToken = loadTokenRef.current.a;
+            window.setTimeout(() => {
+              if (loadTokenRef.current.a !== expectedToken) return;
+              window.setTimeout(() => {
+                if (loadTokenRef.current.a !== expectedToken) return;
+                setCrossfadeTo("a");
+                crossfadeTimeoutRef.current = window.setTimeout(() => {
+                  setActiveFrame("a");
+                  setCrossfadeTo(null);
+                  setLoadingFrame(null);
+                }, crossfadeMs);
+              }, swapDelayMs);
+            }, 0);
+          }}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            opacity: opacityFor("a"),
+            transition: `opacity ${crossfadeMs}ms ease`,
+            pointerEvents: activeFrame === "a" ? "auto" : "none",
+          }}
+        />
+        <iframe
+          loading="eager"
+          src={frameBDemo.embedUrl}
+          title={`Interactive Demo - ${frameBDemo.title}`}
+          allow="clipboard-write"
+          frameBorder={0}
+          allowFullScreen
+          onLoad={() => {
+            if (loadingFrame !== "b") return;
+            const expectedToken = loadTokenRef.current.b;
+            window.setTimeout(() => {
+              if (loadTokenRef.current.b !== expectedToken) return;
+              window.setTimeout(() => {
+                if (loadTokenRef.current.b !== expectedToken) return;
+                setCrossfadeTo("b");
+                crossfadeTimeoutRef.current = window.setTimeout(() => {
+                  setActiveFrame("b");
+                  setCrossfadeTo(null);
+                  setLoadingFrame(null);
+                }, crossfadeMs);
+              }, swapDelayMs);
+            }, 0);
+          }}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            opacity: opacityFor("b"),
+            transition: `opacity ${crossfadeMs}ms ease`,
+            pointerEvents: activeFrame === "b" ? "auto" : "none",
+          }}
+        />
+      </div>
+    </div>
+  );
 
   return (
     <section id="interactive-demos" className="py-14 md:py-[72px] lg:py-24 bg-background">
@@ -104,7 +212,7 @@ const InteractiveDemosSection = () => {
                       handleSelectDemo(demo.id);
                     }
                   }}
-                  className={`group relative w-full min-h-[92px] lg:min-h-0 text-left rounded-2xl px-5 py-4 md:px-6 md:py-5 flex items-center gap-4 backdrop-blur-sm transition-all duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-venioGreen/40 ${
+                  className={`group relative w-full min-h-[92px] lg:min-h-0 text-left rounded-2xl px-5 py-4 md:px-6 md:py-5 flex flex-col lg:flex-row items-start lg:items-center gap-4 backdrop-blur-sm transition-all duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-venioGreen/40 ${
                     activeDemo === demo.id
                       ? 'lg:flex-1 lg:min-h-0 bg-white shadow-[0_0_50px_-16px_rgba(61,196,126,0.55),0_0_0_1px_rgba(61,196,126,0.30)] scale-[1.01]'
                       : 'lg:flex-none bg-white shadow-[0_0_26px_-12px_rgba(15,23,42,0.30)] hover:shadow-[0_0_34px_-12px_rgba(15,23,42,0.34)]'
@@ -154,94 +262,22 @@ const InteractiveDemosSection = () => {
                       }`}
                     />
                   </div>
+
+                  <div
+                    className={`mt-4 -mx-5 md:-mx-6 lg:hidden w-full ${activeDemo === demo.id ? "" : "hidden"}`}
+                    ref={(el) => {
+                      mobileDemoSlotRef.current[demo.id] = el;
+                    }}
+                  />
                 </div>
               ))}
             </div>
 
             {/* Right: Demo Embed */}
-            <div className="flex-1 self-stretch">
-              <div className="w-full">
-                <div
-                  className="relative overflow-hidden rounded-2xl bg-transparent"
-                  style={{
-                    position: 'relative',
-                    maxHeight: '80svh',
-                    width: '100%',
-                    aspectRatio: '2.01',
-                  }}
-                >
-                  <iframe
-                    loading="eager"
-                    src={frameADemo.embedUrl}
-                    title={`Interactive Demo - ${frameADemo.title}`}
-                    allow="clipboard-write"
-                    frameBorder={0}
-                    allowFullScreen
-                    onLoad={() => {
-                      if (loadingFrame !== "a") return;
-                      const expectedToken = loadTokenRef.current.a;
-                      window.setTimeout(() => {
-                        if (loadTokenRef.current.a !== expectedToken) return;
-                        window.setTimeout(() => {
-                          if (loadTokenRef.current.a !== expectedToken) return;
-                          setCrossfadeTo("a");
-                          crossfadeTimeoutRef.current = window.setTimeout(() => {
-                            setActiveFrame("a");
-                            setCrossfadeTo(null);
-                            setLoadingFrame(null);
-                          }, crossfadeMs);
-                        }, swapDelayMs);
-                      }, 0);
-                    }}
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      opacity: opacityFor("a"),
-                      transition: `opacity ${crossfadeMs}ms ease`,
-                      pointerEvents: activeFrame === "a" ? "auto" : "none"
-                    }}
-                  />
-                  <iframe
-                    loading="eager"
-                    src={frameBDemo.embedUrl}
-                    title={`Interactive Demo - ${frameBDemo.title}`}
-                    allow="clipboard-write"
-                    frameBorder={0}
-                    allowFullScreen
-                    onLoad={() => {
-                      if (loadingFrame !== "b") return;
-                      const expectedToken = loadTokenRef.current.b;
-                      window.setTimeout(() => {
-                        if (loadTokenRef.current.b !== expectedToken) return;
-                        window.setTimeout(() => {
-                          if (loadTokenRef.current.b !== expectedToken) return;
-                          setCrossfadeTo("b");
-                          crossfadeTimeoutRef.current = window.setTimeout(() => {
-                            setActiveFrame("b");
-                            setCrossfadeTo(null);
-                            setLoadingFrame(null);
-                          }, crossfadeMs);
-                        }, swapDelayMs);
-                      }, 0);
-                    }}
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      opacity: opacityFor("b"),
-                      transition: `opacity ${crossfadeMs}ms ease`,
-                      pointerEvents: activeFrame === "b" ? "auto" : "none"
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
+            {isDesktop && <div className="flex-1 self-stretch">{demoEmbed}</div>}
           </div>
+
+          {!isDesktop && mobilePortalNode ? createPortal(demoEmbed, mobilePortalNode) : null}
         </div>
       </div>
     </section>
