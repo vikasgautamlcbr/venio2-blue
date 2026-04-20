@@ -207,7 +207,7 @@ const InteractiveDemosSection = () => {
                       handleSelectDemo(demo.id);
                     }
                   }}
-                  className={`group relative w-full min-h-[92px] lg:min-h-0 text-left rounded-2xl px-5 py-4 md:px-6 md:py-5 flex items-center gap-4 backdrop-blur-sm transition-all duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-venioGreen/40 ${
+                  className={`group relative w-full min-h-[92px] lg:min-h-0 text-left rounded-2xl px-5 py-4 md:px-6 md:py-5 flex items-center gap-4 backdrop-blur-sm overflow-hidden transition-[box-shadow,transform] duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-venioGreen/40 ${
                     activeDemo === demo.id
                       ? 'lg:flex-1 lg:min-h-0 bg-white shadow-[0_0_50px_-16px_rgba(61,196,126,0.55),0_0_0_1px_rgba(61,196,126,0.30)] scale-[1.01]'
                       : 'lg:flex-none bg-white shadow-[0_0_26px_-12px_rgba(15,23,42,0.30)] hover:shadow-[0_0_34px_-12px_rgba(15,23,42,0.34)]'
@@ -230,7 +230,7 @@ const InteractiveDemosSection = () => {
                         </h3>
                       </div>
                       <div
-                        className={`overflow-hidden transition-all duration-300 ${
+                        className={`overflow-hidden transition-[max-height,opacity,transform,margin] duration-300 ${
                           activeDemo === demo.id ? 'mt-1 pl-[18px] max-h-40 opacity-100 translate-y-0' : 'max-h-0 opacity-0 -translate-y-1'
                         }`}
                       >
@@ -257,7 +257,7 @@ const InteractiveDemosSection = () => {
                       />
                     </div>
                     <ChevronRight
-                      className={`ml-2 h-4 w-4 flex-shrink-0 transition-all duration-200 ${
+                      className={`ml-2 h-4 w-4 flex-shrink-0 transition-all duration-200 hidden lg:block ${
                         activeDemo === demo.id
                           ? 'mt-1 text-[#10A250] translate-x-0.5'
                           : 'text-slate-400 group-hover:text-slate-500'
