@@ -46,6 +46,8 @@ const InteractiveDemosSection = () => {
   const crossfadeTimeoutRef = useRef<number | null>(null);
   const loadTokenRef = useRef({ a: 0, b: 0 });
   const mobileDemoSlotRef = useRef<Record<string, HTMLDivElement | null>>({});
+  const leftColumnRef = useRef<HTMLDivElement | null>(null);
+  const demoContainerRef = useRef<HTMLDivElement | null>(null);
   const crossfadeMs = 220;
   const swapDelayMs = 320;
 
@@ -71,6 +73,26 @@ const InteractiveDemosSection = () => {
     setMobilePortalNode(mobileDemoSlotRef.current[activeDemo] ?? null);
   }, [activeDemo, isDesktop]);
 
+  useEffect(() => {
+    const leftColumn = leftColumnRef.current;
+    const demoContainer = demoContainerRef.current;
+    if (!leftColumn) return;
+    if (!isDesktop || !demoContainer) {
+      leftColumn.style.height = "";
+      return;
+    }
+
+    const updateHeight = () => {
+      const { height } = demoContainer.getBoundingClientRect();
+      leftColumn.style.height = height ? `${height}px` : "";
+    };
+
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(demoContainer);
+    return () => observer.disconnect();
+  }, [isDesktop, activeDemo]);
+
   const handleSelectDemo = (id: string) => {
     if (id === activeDemo) return;
 
@@ -87,6 +109,8 @@ const InteractiveDemosSection = () => {
 
   const frameADemo = demos.find((demo) => demo.id === frameADemoId) || demos[0];
   const frameBDemo = demos.find((demo) => demo.id === frameBDemoId) || demos[0];
+  const activeIndex = Math.max(0, demos.findIndex((demo) => demo.id === activeDemo));
+  const tabRowTemplate = demos.map((_, i) => (i === activeIndex ? "2fr" : "0.85fr")).join(" ");
   const isCrossfading = crossfadeTo !== null;
   const opacityFor = (frame: "a" | "b") => {
     if (!isCrossfading) return frame === activeFrame ? 1 : 0;
@@ -96,6 +120,7 @@ const InteractiveDemosSection = () => {
   const demoEmbed = (
     <div className="w-full">
       <div
+        ref={demoContainerRef}
         className="relative overflow-hidden rounded-2xl bg-transparent"
         style={{
           position: "relative",
@@ -191,9 +216,13 @@ const InteractiveDemosSection = () => {
 
         {/* Interactive Demo Layout */}
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-[320px_1fr] gap-8 lg:gap-12 items-stretch">
+          <div className="grid lg:grid-cols-[380px_1fr] gap-1 lg:gap-1 items-stretch">
             {/* Left: Product List */}
-            <div className="flex flex-col gap-3 lg:h-full self-stretch">
+            <div
+              ref={leftColumnRef}
+              className="flex flex-col gap-3 lg:grid lg:gap-3 lg:h-full self-stretch"
+              style={isDesktop ? { gridTemplateRows: tabRowTemplate } : undefined}
+            >
               {demos.map((demo) => (
                 <div
                   key={demo.id}
@@ -207,15 +236,15 @@ const InteractiveDemosSection = () => {
                       handleSelectDemo(demo.id);
                     }
                   }}
-                  className={`group relative w-full min-h-[92px] lg:min-h-0 text-left rounded-2xl px-5 py-4 md:px-6 md:py-5 flex items-center gap-4 backdrop-blur-sm overflow-hidden transition-[box-shadow,transform] duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-venioGreen/40 ${
+                  className={`group relative w-full min-h-[92px] lg:min-h-0 lg:h-full text-left rounded-2xl px-5 py-4 md:px-6 md:py-5 flex items-center gap-4 backdrop-blur-sm overflow-hidden transition-[box-shadow,transform] duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-venioGreen/40 ${
                     activeDemo === demo.id
-                      ? 'lg:flex-1 lg:min-h-0 bg-white shadow-[0_0_50px_-16px_rgba(61,196,126,0.55),0_0_0_1px_rgba(61,196,126,0.30)] scale-[1.01]'
-                      : 'lg:flex-none bg-white shadow-[0_0_26px_-12px_rgba(15,23,42,0.30)] hover:shadow-[0_0_34px_-12px_rgba(15,23,42,0.34)]'
+                      ? 'bg-white shadow-[0_0_50px_-16px_rgba(61,196,126,0.55),0_0_0_1px_rgba(61,196,126,0.30)] scale-[1.01] lg:scale-100'
+                      : 'bg-white shadow-[0_0_26px_-12px_rgba(15,23,42,0.30)] hover:shadow-[0_0_34px_-12px_rgba(15,23,42,0.34)]'
                   }`}
                 >
                   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(61,196,126,0.06),transparent_60%),radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.04),transparent_60%)] opacity-70 pointer-events-none" />
                   <div className="absolute inset-0 bg-gradient-to-r from-white/18 via-white/0 to-white/18 pointer-events-none" />
-                  <div className={`relative flex gap-4 w-full transition-all duration-300 ${activeDemo === demo.id ? 'items-start' : 'items-center'}`}>
+                  <div className={`relative flex gap-4 w-full transition-all duration-300 ${activeDemo === demo.id ? 'items-start pt-2 lg:pt-3' : 'items-center'}`}>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3">
                         {activeDemo === demo.id && (
@@ -231,10 +260,12 @@ const InteractiveDemosSection = () => {
                       </div>
                       <div
                         className={`overflow-hidden transition-[max-height,opacity,transform,margin] duration-300 ${
-                          activeDemo === demo.id ? 'mt-1 pl-[18px] max-h-40 opacity-100 translate-y-0' : 'max-h-0 opacity-0 -translate-y-1'
+                          activeDemo === demo.id
+                            ? 'mt-2 pl-[18px] pr-3 lg:pr-4 pb-2 max-h-44 lg:max-h-52 opacity-100 translate-y-0'
+                            : 'max-h-0 opacity-0 -translate-y-1'
                         }`}
                       >
-                        <p className="text-sm text-slate-500 leading-relaxed">
+                        <p className="text-sm text-slate-500 leading-relaxed overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:4]">
                           {demo.description}
                         </p>
                         <div className="mt-3">
