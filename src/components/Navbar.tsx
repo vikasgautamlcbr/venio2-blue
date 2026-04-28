@@ -534,7 +534,7 @@ const Navbar = () => {
                               <div className={`grid ${activeSolution==='industry' ? 'grid-cols-2' : 'grid-cols-2'} gap-4`}>
                                 {(() => {
                                   const cols = activeSolution === 'industry' ? 2 : 2;
-                                  const rows = activeSolution === 'use-case' ? 2 : activeSolution === 'industry' ? 3 : 3;
+                                  const rows = activeSolution === 'use-case' ? 2 : activeSolution === 'industry' ? 4 : 3;
                                   const desired = cols * rows;
                                   const items = t.items;
                                   return Array.from({ length: desired }).map((_, i) => {
