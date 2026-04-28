@@ -91,7 +91,13 @@ const ForFinancialServices = () => {
     { name: "Insider Trading Investigations", Icon: FileSearch },
   ];
   const handleDownloadPageIcons = async () => {
-    const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
+    const importFromUrl = new Function("u", "return import(u)") as (u: string) => Promise<{ default: unknown }>;
+    const { default: JSZip } = (await importFromUrl("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm")) as unknown as {
+      default: new () => {
+        file: (name: string, data: string) => void;
+        generateAsync: (opts: { type: "blob" }) => Promise<Blob>;
+      };
+    };
     const zip = new JSZip();
     pageIcons.forEach(({ name, Icon }) => {
       const hex = palette.accent;

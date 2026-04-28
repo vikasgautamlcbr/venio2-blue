@@ -55,12 +55,10 @@ const InteractiveDemosSection = () => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
     const handleChange = () => setIsDesktop(mediaQuery.matches);
     handleChange();
-    if ("addEventListener" in mediaQuery) mediaQuery.addEventListener("change", handleChange);
-    else mediaQuery.addListener(handleChange);
+    mediaQuery.addEventListener("change", handleChange);
 
     return () => {
-      if ("removeEventListener" in mediaQuery) mediaQuery.removeEventListener("change", handleChange);
-      else mediaQuery.removeListener(handleChange);
+      mediaQuery.removeEventListener("change", handleChange);
       if (crossfadeTimeoutRef.current) window.clearTimeout(crossfadeTimeoutRef.current);
     };
   }, []);

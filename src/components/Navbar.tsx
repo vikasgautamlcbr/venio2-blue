@@ -820,62 +820,43 @@ const Navbar = () => {
                 )}
                 
                 {/* Mega Menu for Solutions in Mobile */}
-                {item.hasDropdown && item.hasMegaMenu && item.categories && (
+                {item.label === "Solutions" && item.hasDropdown && item.hasMegaMenu && (
                   <div className="ml-2 mt-2 space-y-4">
-                    {item.categories.map((category, idx) => (
-                      <div key={category.title}>
+                    {solutionTabs.map((tab, idx) => (
+                      <div key={tab.id}>
                         {idx > 0 && <div className="border-t border-white/10 my-3"></div>}
                         <div className="text-accent text-xs font-semibold mb-2 uppercase tracking-wider px-2 flex items-center gap-2">
                           <div className="w-1.5 h-1.5 bg-accent rounded-full"></div>
-                          {category.title}
+                          {tab.name}
                         </div>
-                        {category.items.map((subItem) => {
-                          const isActive = isActiveDropdownItem(item.label, subItem);
-                          if (subItem === "Law Firms") {
-                            return (
+                        <div className="space-y-1">
+                          {tab.items.map((s) =>
+                            s.link.startsWith("/") ? (
                               <Link
-                                key={subItem}
-                                to="/law-firm-solutions"
+                                key={s.link}
+                                to={s.link}
                                 className={`flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-all ${
-                                  isActive
-                                    ? 'text-white bg-white/15 font-medium'
-                                    : 'text-white/90 hover:text-accent hover:bg-white/10'
+                                  isActiveRoute(s.link)
+                                    ? "text-white bg-white/15 font-medium"
+                                    : "text-white/90 hover:text-accent hover:bg-white/10"
                                 }`}
                                 onClick={() => setIsMobileMenuOpen(false)}
                               >
                                 <div className="w-1.5 h-1.5 rounded-full bg-accent/60"></div>
-                                {subItem}
+                                {s.label}
                               </Link>
-                            );
-                          }
-                          if (subItem === "For Corporations") {
-                            return (
-                              <Link
-                                key={subItem}
-                                to="/for-corporations"
-                                className={`flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-all ${
-                                  isActive
-                                    ? 'text-white bg-white/15 font-medium'
-                                    : 'text-white/90 hover:text-accent hover:bg-white/10'
-                                }`}
-                                onClick={() => setIsMobileMenuOpen(false)}
+                            ) : (
+                              <a
+                                key={s.link}
+                                href={s.link}
+                                className="flex items-center gap-3 px-4 py-3 text-sm text-white/90 hover:text-accent hover:bg-white/10 rounded-lg transition-colors"
                               >
-                                <div className="w-1.5 h-1.5 rounded-full bg-accent/60"></div>
-                                {subItem}
-                              </Link>
-                            );
-                          }
-                          return (
-                            <a
-                              key={subItem}
-                              href="#"
-                              className="flex items-center gap-3 px-4 py-3 text-sm text-white/90 hover:text-accent hover:bg-white/10 rounded-lg transition-colors"
-                            >
-                              <div className="w-1.5 h-1.5 rounded-full bg-white/40"></div>
-                              {subItem}
-                            </a>
-                          );
-                        })}
+                                <div className="w-1.5 h-1.5 rounded-full bg-white/40"></div>
+                                {s.label}
+                              </a>
+                            )
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>
