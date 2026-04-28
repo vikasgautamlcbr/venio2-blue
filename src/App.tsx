@@ -38,6 +38,7 @@ const DeploymentOverview = lazy(() => import("./pages/DeploymentOverview"));
 const CompareVendor = lazy(() => import("./pages/CompareVendor"));
 const DeploymentType = lazy(() => import("./pages/DeploymentType"));
 const ForCorporations = lazy(() => import("./pages/ForCorporations"));
+const ForFinancialServices = lazy(() => import("./pages/ForFinancialServices"));
 const ForServiceProviders = lazy(() => import("./pages/ForServiceProviders"));
 const ForGovernment = lazy(() => import("./pages/ForGovernment"));
 const ForLitigationSupport = lazy(() => import("./pages/ForLitigationSupport"));
@@ -84,6 +85,7 @@ const App = () => (
           <Route path="/deployment-options" element={<DeploymentOverview />} />
           <Route path="/deployment/:type" element={<DeploymentType />} />
           <Route path="/for-corporations" element={<ForCorporations />} />
+          <Route path="/for-financial-services" element={<ForFinancialServices />} />
           <Route path="/for-service-providers" element={<ForServiceProviders />} />
           <Route path="/for-government" element={<ForGovernment />} />
           <Route path="/for-litigation-support" element={<ForLitigationSupport />} />

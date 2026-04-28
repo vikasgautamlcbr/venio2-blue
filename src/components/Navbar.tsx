@@ -126,6 +126,7 @@ const Navbar = () => {
       items: [
         { label: "For Law Firms", link: "/law-firm-solutions", icon: Briefcase, desc: "End-to-end eDiscovery for legal practices" },
         { label: "For Corporations", link: "/for-corporations", icon: Building, desc: "In-house legal hold and discovery management" },
+        { label: "For Financial Services", link: "/for-financial-services", icon: BarChart3, desc: "Regulatory-ready discovery for finance teams" },
         { label: "For Service Providers", link: "/for-service-providers", icon: Users, desc: "Scalable platform for hosting partners" },
         { label: "For Government & Public Sector", link: "/for-government", icon: Landmark, desc: "Secure solutions for government agencies" },
         { label: "For Litigation Support Teams", link: "/for-litigation-support", icon: Shield, desc: "Tools for complex litigation needs" },
