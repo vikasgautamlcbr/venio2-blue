@@ -55,17 +55,6 @@ const HeroSection = () => {
   };
 
   useEffect(() => {
-    if (videoRef.current) {
-      setVideoReady(false);
-      videoRef.current.load();
-      const playPromise = videoRef.current.play();
-      if (playPromise && typeof playPromise.then === "function") {
-        playPromise.catch(() => {});
-      }
-    }
-  }, [activeTab]);
-
-  useEffect(() => {
     if (!videoRef.current) return;
 
     const updateProgress = () => {
@@ -201,7 +190,7 @@ const HeroSection = () => {
                     src={tabs[activeTab].videoUrl}
                     className={`block w-full h-full object-cover transition-opacity duration-500 ${videoReady ? "opacity-100" : "opacity-0"}`}
                     onEnded={handleVideoEnd}
-                    preload="auto"
+                    preload="metadata"
                     playsInline
                     muted
                     autoPlay
