@@ -56,33 +56,34 @@ const HeroSection = () => {
 
   useEffect(() => {
     if (!videoRef.current) return;
+    const video = videoRef.current;
 
     const updateProgress = () => {
-      if (videoRef.current) {
-        const now = performance.now();
-        if (now - lastProgressUpdateRef.current < 200) return;
-        lastProgressUpdateRef.current = now;
-        const duration = videoRef.current.duration;
-        if (!Number.isFinite(duration) || duration <= 0) return;
-        const percent = (videoRef.current.currentTime / duration) * 100;
-        setVideoProgress(prev => {
-          const updated = [...prev];
-          updated[activeTab] = percent;
-          return updated;
-        });
-      }
+      const now = performance.now();
+      if (now - lastProgressUpdateRef.current < 200) return;
+      lastProgressUpdateRef.current = now;
+      const duration = video.duration;
+      if (!Number.isFinite(duration) || duration <= 0) return;
+      const percent = (video.currentTime / duration) * 100;
+      setVideoProgress((prev) => {
+        const updated = [...prev];
+        updated[activeTab] = percent;
+        return updated;
+      });
     };
 
-    const video = videoRef.current;
     video.addEventListener('timeupdate', updateProgress);
     const markReady = () => setVideoReady(true);
     video.addEventListener('loadeddata', markReady);
     video.addEventListener('canplay', markReady);
+    const markError = () => setVideoReady(true);
+    video.addEventListener("error", markError);
 
     return () => {
       video.removeEventListener('timeupdate', updateProgress);
       video.removeEventListener('loadeddata', markReady);
       video.removeEventListener('canplay', markReady);
+      video.removeEventListener("error", markError);
     };
   }, [activeTab]);
 
