@@ -232,61 +232,103 @@ const SolutionsHub = () => {
     return Array(repeats).fill(list).flat();
   };
 
-  const getTheme = (category: "role" | "industry" | "use-case") => {
-    switch (category) {
-      case "use-case":
+  const getCardTheme = (cardIndex: number) => {
+    // Generate a sub-index for alternating colors across 9 premium hues
+    const sub = cardIndex % 9;
+
+    switch (sub) {
+      case 0:
         return {
           glow: "from-[#10b981]/20 to-[#10b981]/2",
           badge: "bg-[#10b981]/10 text-[#10b981] border-[#10b981]/20",
           hoverBorder: "hover:border-[#10b981]/40",
           iconColor: "text-[#10b981]",
           iconBg: "bg-[#10b981]/5 border-[#10b981]/15",
-          arrowColor: "text-[#10b981]",
-          dotColor: "bg-[#10b981]",
-          textColor: "group-hover:text-[#10b981]",
-          btnBg: "bg-[#10b981] hover:bg-[#0da170]",
-          expandedBorder: "border-[#10b981]/20",
-          accentColor: "#10b981"
+          arrowColor: "text-[#10b981]"
         };
-      case "industry":
+      case 1:
         return {
           glow: "from-[#00a2ff]/20 to-[#00a2ff]/2",
           badge: "bg-[#00a2ff]/10 text-[#00a2ff] border-[#00a2ff]/20",
           hoverBorder: "hover:border-[#00a2ff]/40",
           iconColor: "text-[#00a2ff]",
           iconBg: "bg-[#00a2ff]/5 border-[#00a2ff]/15",
-          arrowColor: "text-[#00a2ff]",
-          dotColor: "bg-[#00a2ff]",
-          textColor: "group-hover:text-[#00a2ff]",
-          btnBg: "bg-[#00a2ff] hover:bg-[#008ce0]",
-          expandedBorder: "border-[#00a2ff]/20",
-          accentColor: "#00a2ff"
+          arrowColor: "text-[#00a2ff]"
         };
-      case "role":
+      case 2:
         return {
           glow: "from-[#8b5cf6]/20 to-[#8b5cf6]/2",
           badge: "bg-[#8b5cf6]/10 text-[#8b5cf6] border-[#8b5cf6]/20",
           hoverBorder: "hover:border-[#8b5cf6]/40",
           iconColor: "text-[#8b5cf6]",
           iconBg: "bg-[#8b5cf6]/5 border-[#8b5cf6]/15",
-          arrowColor: "text-[#8b5cf6]",
-          dotColor: "bg-[#8b5cf6]",
-          textColor: "group-hover:text-[#8b5cf6]",
-          btnBg: "bg-[#8b5cf6] hover:bg-[#7c4df2]",
-          expandedBorder: "border-[#8b5cf6]/20",
-          accentColor: "#8b5cf6"
+          arrowColor: "text-[#8b5cf6]"
+        };
+      case 3:
+        return {
+          glow: "from-[#0d9488]/20 to-[#0d9488]/2",
+          badge: "bg-[#0d9488]/10 text-[#0d9488] border-[#0d9488]/20",
+          hoverBorder: "hover:border-[#0d9488]/40",
+          iconColor: "text-[#0d9488]",
+          iconBg: "bg-[#0d9488]/5 border-[#0d9488]/15",
+          arrowColor: "text-[#0d9488]"
+        };
+      case 4:
+        return {
+          glow: "from-[#6366f1]/20 to-[#6366f1]/2",
+          badge: "bg-[#6366f1]/10 text-[#6366f1] border-[#6366f1]/20",
+          hoverBorder: "hover:border-[#6366f1]/40",
+          iconColor: "text-[#6366f1]",
+          iconBg: "bg-[#6366f1]/5 border-[#6366f1]/15",
+          arrowColor: "text-[#6366f1]"
+        };
+      case 5:
+        return {
+          glow: "from-[#d946ef]/20 to-[#d946ef]/2",
+          badge: "bg-[#d946ef]/10 text-[#d946ef] border-[#d946ef]/20",
+          hoverBorder: "hover:border-[#d946ef]/40",
+          iconColor: "text-[#d946ef]",
+          iconBg: "bg-[#d946ef]/5 border-[#d946ef]/15",
+          arrowColor: "text-[#d946ef]"
+        };
+      case 6:
+        return {
+          glow: "from-[#34d399]/20 to-[#34d399]/2",
+          badge: "bg-[#34d399]/10 text-[#34d399] border-[#34d399]/20",
+          hoverBorder: "hover:border-[#34d399]/40",
+          iconColor: "text-[#34d399]",
+          iconBg: "bg-[#34d399]/5 border-[#34d399]/15",
+          arrowColor: "text-[#34d399]"
+        };
+      case 7:
+        return {
+          glow: "from-[#06b6d4]/20 to-[#06b6d4]/2",
+          badge: "bg-[#06b6d4]/10 text-[#06b6d4] border-[#06b6d4]/20",
+          hoverBorder: "hover:border-[#06b6d4]/40",
+          iconColor: "text-[#06b6d4]",
+          iconBg: "bg-[#06b6d4]/5 border-[#06b6d4]/15",
+          arrowColor: "text-[#06b6d4]"
+        };
+      default:
+        return {
+          glow: "from-[#a855f7]/20 to-[#a855f7]/2",
+          badge: "bg-[#a855f7]/10 text-[#a855f7] border-[#a855f7]/20",
+          hoverBorder: "hover:border-[#a855f7]/40",
+          iconColor: "text-[#a855f7]",
+          iconBg: "bg-[#a855f7]/5 border-[#a855f7]/15",
+          arrowColor: "text-[#a855f7]"
         };
     }
   };
 
   // SolutionCard helper sub-component
-  const SolutionCard = ({ sol, theme }: { sol: SolutionItem; theme: any }) => {
+  const SolutionCard = ({ sol, cardIndex }: { sol: SolutionItem; cardIndex: number }) => {
     const Icon = sol.icon;
-    return (
-      <Link
-        to={sol.link}
-        className={`group relative bg-gradient-to-br from-[#0c2149]/40 to-white/5 rounded-2xl p-6 overflow-hidden hover:scale-[1.02] ${theme.hoverBorder} border border-white/5 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-md flex flex-col justify-between w-[280px] md:w-[320px] h-[300px] shrink-0 mx-3`}
-      >
+    const isAbsolute = sol.link.startsWith("http");
+    const theme = getCardTheme(cardIndex);
+
+    const CardContent = () => (
+      <>
         {/* Dynamic Ambient Blur Glow behind card */}
         <div
           className={`absolute -top-20 -right-20 w-64 h-64 rounded-full bg-gradient-to-br ${theme.glow} blur-3xl opacity-40 group-hover:opacity-85 transition-all duration-300 pointer-events-none`}
@@ -318,17 +360,33 @@ const SolutionsHub = () => {
             {sol.chips.slice(0, 3).map((chip) => (
               <span
                 key={chip}
-                className="text-[8px] font-medium tracking-wider uppercase px-2 py-0.5 rounded bg-white/5 border border-white/5 text-white/40"
+                className="text-[9px] font-medium tracking-wider uppercase px-2 py-0.5 rounded bg-white/5 border border-white/5 text-white/40"
               >
                 {chip}
               </span>
             ))}
           </div>
           <span className={`inline-flex items-center gap-1 text-xs font-semibold ${theme.arrowColor} group-hover:gap-2 transition-all`}>
-            Explore Solution
+            Explore
             <ArrowRight className="w-3.5 h-3.5" />
           </span>
         </div>
+      </>
+    );
+
+    const cardClass = `group relative bg-gradient-to-br from-[#0c2149]/40 to-white/5 rounded-2xl p-6 overflow-hidden hover:scale-[1.02] ${theme.hoverBorder} border border-white/5 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-md flex flex-col justify-between w-[280px] md:w-[320px] h-[300px] shrink-0 mx-3`;
+
+    if (isAbsolute) {
+      return (
+        <a href={sol.link} target="_blank" rel="noopener noreferrer" className={cardClass}>
+          <CardContent />
+        </a>
+      );
+    }
+
+    return (
+      <Link to={sol.link} className={cardClass}>
+        <CardContent />
       </Link>
     );
   };
@@ -339,13 +397,15 @@ const SolutionsHub = () => {
     title,
     icon: SectionIcon,
     direction = "left",
-    speed = "40s"
+    speed = "40s",
+    colorOffset = 0
   }: {
     category: "role" | "industry" | "use-case";
     title: string;
     icon: React.ComponentType<{ className?: string }>;
     direction?: "left" | "right";
     speed?: string;
+    colorOffset?: number;
   }) => {
     const trackItems = getScrollingItems(category);
     if (trackItems.length === 0) return null;
@@ -382,8 +442,7 @@ const SolutionsHub = () => {
             style={{ "--speed": speed } as React.CSSProperties}
           >
             {trackItems.map((sol, index) => {
-              const theme = getTheme(sol.category);
-              return <SolutionCard key={`${sol.link}-${index}`} sol={sol} theme={theme} />;
+              return <SolutionCard key={`${sol.link}-${index}`} sol={sol} cardIndex={index + colorOffset} />;
             })}
           </div>
         </div>
@@ -511,9 +570,8 @@ const SolutionsHub = () => {
 
               {filteredSolutions.length > 0 ? (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
-                  {filteredSolutions.map((sol) => {
-                    const theme = getTheme(sol.category);
-                    return <SolutionCard key={sol.link} sol={sol} theme={theme} />;
+                  {filteredSolutions.map((sol, index) => {
+                    return <SolutionCard key={sol.link} sol={sol} cardIndex={index} />;
                   })}
                 </div>
               ) : (
@@ -542,6 +600,7 @@ const SolutionsHub = () => {
                   icon={Brain}
                   direction="left"
                   speed="35s"
+                  colorOffset={0}
                 />
               )}
               {(activeTab === "all" || activeTab === "industry") && (
@@ -551,6 +610,7 @@ const SolutionsHub = () => {
                   icon={Building}
                   direction="right"
                   speed="45s"
+                  colorOffset={3}
                 />
               )}
               {(activeTab === "all" || activeTab === "role") && (
@@ -560,6 +620,7 @@ const SolutionsHub = () => {
                   icon={Users}
                   direction="left"
                   speed="40s"
+                  colorOffset={6}
                 />
               )}
             </div>
