@@ -52,6 +52,7 @@ const RoleEDiscoveryAttorneys = lazy(() => import("./pages/RoleEDiscoveryAttorne
 const RoleVPEdiscoveryOps = lazy(() => import("./pages/RoleVPEdiscoveryOps"));
 const RoleCTOEdiscoveryOps = lazy(() => import("./pages/RoleCTOEdiscoveryOps"));
 const Icons = lazy(() => import("./pages/Icons"));
+const SolutionsHub = lazy(() => import("./pages/SolutionsHub"));
 import ChatbotWidget from "./components/ChatbotWidget";
 
 const queryClient = new QueryClient();
@@ -181,6 +182,8 @@ const App = () => {
               <Route path="/resources/press-releases/demo" element={<PressRelease />} />
               <Route path="/resources/how-to-guides/demo" element={<HowToGuide />} />
               <Route path="/resources/infographics/demo" element={<InfographicResource />} />
+              <Route path="/solutions" element={<SolutionsHub />} />
+              <Route path="/solutions-hub" element={<SolutionsHub />} />
               <Route path="/book-a-demo" element={<RequestDemo />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

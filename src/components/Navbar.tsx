@@ -78,6 +78,7 @@ const Navbar = () => {
       label: "Solutions",
       hasDropdown: true,
       hasMegaMenu: true,
+      link: "/solutions",
       categories: [],
     },
     {
@@ -336,7 +337,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-6 xl:gap-8 flex-1 justify-center">
             {navItems.map((item) => (
               <div key={item.label} className={`group flex-shrink-0 ${item.hasMegaMenu ? 'static' : 'relative'} ${isScrolled ? 'py-3' : 'py-4'}`}>
-                {item.link && !item.hasDropdown ? (
+                {item.link ? (
                   <Link 
                     to={item.link}
                     className={`relative transition-colors font-medium text-sm flex items-center gap-1 whitespace-nowrap text-white hover:text-accent ${
@@ -346,6 +347,7 @@ const Navbar = () => {
                     }`}
                   >
                     {item.label}
+                    {item.hasDropdown && <ChevronDown size={16} className="opacity-70" />}
                   </Link>
                 ) : (
                   <button className="text-white hover:text-accent transition-colors font-medium text-sm flex items-center gap-1 whitespace-nowrap">
