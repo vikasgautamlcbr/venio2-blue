@@ -346,10 +346,10 @@ const SolutionsHub = () => {
           </div>
 
           {/* Title & Description */}
-          <h3 className="font-display text-lg md:text-xl font-bold text-white mb-2 tracking-wide group-hover:text-accent transition-colors line-clamp-1">
+          <h3 className="font-display text-lg md:text-xl font-bold text-white mb-2 tracking-wide group-hover:text-accent transition-colors line-clamp-2">
             {sol.label}
           </h3>
-          <p className="text-xs md:text-sm text-white/60 font-light leading-relaxed mb-4 line-clamp-3">
+          <p className="text-xs md:text-sm text-white/60 font-light leading-relaxed mb-4 line-clamp-2">
             {sol.description}
           </p>
         </div>
